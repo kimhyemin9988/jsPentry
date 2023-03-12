@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <link rel="stylesheet" href="css/mainCon.css">
+</head>
+<body>
+    <!--first modal section-->
+    <section class="bg-modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button type="button" class="close">+</button>
+            <form class="food-form">
+                <label for="food-name">상품명</label>
+                <input id="food-name" maxlength="10" autofocus required>
+                <label for="food-price">가격</label>
+                <input id="food-price" type="number" min="0" required>
+                <label for="ex-date">유효기간</label>
+                <input id="ex-date" type="date" placeholder="유통기한을 설정하세요" required>
+                <button class="tab-btn enroll">등록</button>
+                <p class="submit-alarm hidden">등록되었습니다</p>
+            </form>
+        </div>     
+    </section>
+    <header>
+        <div class="homeLogo">
+            <a href="main.html">MyPentry</a>
+        </div>
+    </header>
+    <main>
+        <button class="tab-btn" id="modal-click">클릭해서 상품을 등록하세요!</button>
+        <section class="input-food-box">
+            <p>목록</p>
+            <button class="entire-li-btn">+</button>
+            <ul id="food-list">
+            </ul>
+        </section>
+        <section id="stored-box">
+            <div class="temp-box" id="frozen">
+                <p>냉동</p>
+                <button class="entire-li-btn">+</button>
+            </div>
+            <div class="temp-box" id="refrigerated">
+                <p>냉장</p>
+                <button class="entire-li-btn">+</button>
+            </div>
+            <div class="temp-box" id="RoomTemp">
+                <p>상온</p>
+                <button class="entire-li-btn">+</button>
+            </div>
+        </section>
+    </main>
+    <script src="js/mainlist.js"></script>
+    <script src="js/drag.js"></script>
+    <script src="js/modal.js"></script>
+</body>
+</html>
