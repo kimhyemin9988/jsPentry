@@ -33,10 +33,30 @@ function startDrag(element){
     dragged.classList.add(DRAGGING);
   }); 
 }
+/* local Storage에 frozen, refrigerated, roomTemp로 저장 */
+const saveTempBox = (keyName, tempStoredFood) =>{
+  console.log(tempStoredFood);
+  localStorage.setItem(`${keyName}`, JSON.stringify(tempStoredFood));
+}
 
-function alertKey(dragged){
-  console.log(dragged.id);
-  console.log(dragged.firstChild.textContent);
+/* dragged 움직이는 html 요소 */
+function alertKey(dragged, keyName){
+  const savedFood = JSON.parse(localStorage.getItem('food'));
+  //JSON.parse(dragged.firstChild.id) 지울것 아이디
+  const filterFoodList = savedFood.filter((i)=>i.id !== JSON.parse(dragged.firstChild.id));// 지울것 지우고 나머지 filter
+  localStorage.setItem('food', JSON.stringify(filterFoodList));// update
+
+
+  const tempStoredFood = savedFood.filter((i)=>i.id === JSON.parse(dragged.firstChild.id)); // 다른 key에 저장할 것
+  saveTempBox(keyName, tempStoredFood);
+
+  //console.log(localStorage.getItem(`${keyName}`));
+  //없는것을 가져올 수는 없음. 일단 생성해야함
+  //localStorage.setItem(`${keyName}` , moveFood);
+  //const moveFood = savedFood.filter((i)=>i.id === dragged.firstChild.id)
+  //localStorage.setItem(`${keyName}` , moveFood);
+  //->셋중 뭔데?
+  //console.log(dragged.firstChild.textContent);
 }
 
 function opacReset(){
@@ -55,7 +75,7 @@ function endDrag(element){
         dragged.parentNode.removeChild(dragged);
         event.target.appendChild(dragged);
         opacReset();
-        alertKey(dragged);
+        alertKey(dragged, event.target.id);
     }
     });
 }
@@ -69,7 +89,6 @@ function refresh()
     listBox.forEach((element)=> startDrag(element));
     document.addEventListener("dragend", opacReset);
     targetTempBox.forEach((element)=> endDrag(element));
-
     //4.놓을 타겟에 이벤트 드래그 오버를 실행시키고
     //그 이벤트의 타겟의 기본동작을 막는다 -> 바로 오버시키나봄
       //5.타겟(놓을자리)의 이벤트 drop이 발생하면 그 이벤트의 기본을 막는다

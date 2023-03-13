@@ -2,7 +2,7 @@ const foodForm = document.querySelector(".food-form");
 const foodName = document.querySelector("#food-name");
 const foodPrice = document.querySelector("#food-price");
 const exDate = document.querySelector("#ex-date");
-const foodList = document.querySelector("#food-list");
+const [foodList, frozen, refrigerated, roomTemp] = ["#food-list", "#frozen", "#refrigerated", "#roomTemp"].map((i) => document.querySelector(i));
 const submitAlarm = document.querySelector(".submit-alarm");
 const body = document.querySelector("body");
 let storedFood = [];
@@ -11,26 +11,25 @@ let storedFood = [];
 const entireLiBtn = document.querySelectorAll(".entire-li-btn");
 
 /* 등록시 알림 */
-const alarm = () =>{
+const alarm = () => {
     submitAlarm.classList.remove("hidden");
-    setTimeout(()=>{submitAlarm.classList.add("hidden")}, 800);
+    setTimeout(() => { submitAlarm.classList.add("hidden") }, 800);
 }
 
 /* localstorage 저장 */
-function saveFood(){
-    localStorage.setItem('food' , JSON.stringify(storedFood));
+function saveFood() {
+    localStorage.setItem('food', JSON.stringify(storedFood));
 }
-function inputFood(event)
-{
+function inputFood(event) {
     event.preventDefault();
     const [foodNValue, foodPValue, foodEXValue] = [foodName.value, foodPrice.value, exDate.value];
     [foodName.value, foodPrice.value, exDate.value] = [null, null, null];
     /* 변수설정해서 할당하면 초기화 x */
     const newFoodobj = {
-        id:Date.now(),
-        text:foodNValue,
-        price:foodPValue,
-        exDate:foodEXValue,
+        id: Date.now(),
+        text: foodNValue,
+        price: foodPValue,
+        exDate: foodEXValue,
     };
     storedFood.push(newFoodobj);
     //배열에 넣기
@@ -40,20 +39,20 @@ function inputFood(event)
     alarm();
 }
 
-function removeLi(event){
-        /* (event.target.parentElement).parentElement => 이러면 오류남 */
+function removeLi(event) {
+    /* (event.target.parentElement).parentElement => 이러면 오류남 */
     const removeDiv = event.target.parentElement.parentElement;
     removeDiv.remove();
     storedFood = storedFood.filter(Element =>
         Element.id !== parseInt(removeValue.id));
-        //storedFood전체에서 1개 지우면 => result반환
-        //한번 더 지우면 지워진것이 아닌 원래에서 다시 지워진다
+    //storedFood전체에서 1개 지우면 => result반환
+    //한번 더 지우면 지워진것이 아닌 원래에서 다시 지워진다
     saveFood();
 }
 
 
 /* 브라우저에 그리기 */
-function addList(newFoodobj){
+function addList(newFoodobj) {
     const li = document.createElement("li");
     li.id = newFoodobj.id;
     const div = document.createElement("div");
@@ -70,28 +69,76 @@ function addList(newFoodobj){
     li.appendChild(dateSpan);
     button.innerHTML = `\u2796`;
     span.innerText = `${newFoodobj.text}`;
-    dateSpan.innerText =`${newFoodobj.exDate}`;
-    button.addEventListener("click", removeLi); 
+    dateSpan.innerText = `${newFoodobj.exDate}`;
+    button.addEventListener("click", removeLi);
     div.appendChild(li);
     return paintFood(div);
 }
 
-const paintFood = (div) =>{
-    if(document.querySelector("section").className == 'bg-modal entire')
-    /* click으로 모달이 뜨게되면 */
-    {
+/* 모달 or 목록, 냉동, 냉장, 상온 */
+const paintFood = (div) => {
+    if (document.querySelector("section").className == 'bg-modal entire')
+    /* click으로 모달이 뜨게되면 */ {
         let modalContent = document.querySelector("section").lastChild;
         modalContent.appendChild(div);
     }
-    else{
-        foodList.appendChild(div);
+    else {
+        const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = ['food', 'frozen', 'refrigerated', 'roomTemp'].map((i) => {
+            return JSON.parse(localStorage.getItem(i));
+        });
+        /* html에서 가져온것, localStorage 가져온것 */
+        const localAndDocument = [
+            {
+                query: foodList,
+                local: savedFood,
+            },
+            {
+                query: frozen,
+                local: savedFrozen,
+            },
+            {
+                query: refrigerated,
+                local: savedRefrigerated,
+            },
+            {
+                query: roomTemp,
+                local: savedRoomTemp,
+            }
+        ];
+        localAndDocument.map((i) => {
+            /* 요소가 있는것  */
+            if (i.local !== null) {
+                /*                 console.log(i.local);
+                                console.log (i.local.map((k)=>k.id)); */
+                //console.log (i.local.map((k)=> JSON.stringify(k.id) === div.firstChild.id));
+                i.local.map((k) => {
+                    if (JSON.stringify(k.id) === div.firstChild.id) {
+                        return i.query.appendChild(div);
+                    }
+                });
+                //console.log(typeof div.firstChild.id);
+            }
+            //i.local.map((k)=>k.id);
+            //console.log (i.local.map((k)=>k.id));
+        })
+        /*
+                    if (i.local.id === div.firstChild.id) {
+                console.log("같다");
+
+            }
+        */
+        //로컬스토리에서 가져온 각각의 배열의 요소의 아이디와 그려진것의 아이디가 같다면 거기다 그린다
+        //객체 만들기
+        //console.log(div.firstChild.id);
+        //        [foodList, frozen, refrigerated, roomTemp];
+        //const [foodList, frozen, refrigerated, roomTemp] = ["#food-list", "#frozen", "#refrigerated", "#roomTemp"].map((i) => document.querySelector(i));
+        //foodList.appendChild(div);
     }
 }
 
 const paint3 = (array) => {
     array.forEach(element => {
-        if(array.lastIndexOf(element)<3)
-        {
+        if (array.lastIndexOf(element) < 3) {
             addList(element);
         }
     });
@@ -99,35 +146,38 @@ const paint3 = (array) => {
 
 const paint7 = (array) => {
     array.forEach(element => {
-        if(array.lastIndexOf(element)<7)
-        {
+        if (array.lastIndexOf(element) < 7) {
             addList(element);
         }
     });
 }
 
-const refreshDocument = () =>{ 
-    const savedFood = localStorage.getItem('food');
-    //로컬스토리지에서 'food'가져오기
-        if(savedFood !== null)
-    {
-        const parsedToDos = JSON.parse(savedFood);   
-        storedFood = parsedToDos.reverse();
-        //최신순으로 브라우저에 출력하기 위해 reverse, 빈 배열에 저장
 
-        window.innerWidth < 481 ? paint3(storedFood) : paint7(storedFood);
-        /* 모바일 3개, 대화면 7개 */
-    
-    }
+/*  frozen, refrigerated, roomTemp  */
+const refreshDocument = () => {
+    const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = ['food', 'frozen', 'refrigerated', 'roomTemp'].map((i) => localStorage.getItem(i));
+    /*     const savedFood = localStorage.getItem('food');
+        const savedFrozen = localStorage.getItem('frozen');
+        const savedRefrigerated = localStorage.getItem('refrigerated');
+        const savedRoomTemp = localStorage.getItem('roomTemp');
+        //로컬스토리지에서 'food'가져오기 */
+    [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].map((i) => {
+        if (i !== null) {
+            const parsedToDos = JSON.parse(i);
+            storedFood = parsedToDos.reverse();
+            //최신순으로 브라우저에 출력하기 위해 reverse, 빈 배열에 저장
+
+            window.innerWidth < 481 ? paint3(storedFood) : paint7(storedFood);
+            /* 모바일 3개, 대화면 7개 */
+        }
+    })
 }
-
 
 /* 가격 입력 자리수 8로 제한 함수
     event.target.value let 변수로 묶으면 오류..왜지?
 */
 const maxlengthFx = (event) => {
-    if(event.target.value.length > 8)
-    {
+    if (event.target.value.length > 8) {
         event.target.value = event.target.value.slice(0, 8);
     }
 }
@@ -144,12 +194,11 @@ foodPrice.addEventListener("input", maxlengthFx);
 
 /* 모달 창 위에 food list 그리기 */
 /* 입력 'food' 이동시 로컬 스토리지에 냉동,냉장,상온으로 저장 변경*/
-const paintModal = () =>{
+const paintModal = () => {
     const savedFood = localStorage.getItem('food');
     //로컬스토리지에서 'food'가져오기
-        if(savedFood !== null)
-    {
-        const parsedToDos = JSON.parse(savedFood);   
+    if (savedFood !== null) {
+        const parsedToDos = JSON.parse(savedFood);
         storedFood = parsedToDos.reverse();
         //최신순으로 브라우저에 출력하기 위해 reverse, 빈 배열에 저장
         storedFood.forEach(element => addList(element));
@@ -160,32 +209,39 @@ const paintModal = () =>{
 
 /* 전체 목록 modal body의 firstChild로 그리기 */
 
-const openEntList = () =>{
+const openEntList = () => {
     //overflow: hidden 해주기
     body.classList.add("modal-open-body");
-	const sectionEntire = document.createElement("section");
-	sectionEntire.className = "bg-modal";
-	sectionEntire.classList.add("entire");
-	const divEntireOverlay = document.createElement("div");
-	divEntireOverlay.className = "modal-overlay";
+    const sectionEntire = document.createElement("section");
+    sectionEntire.className = "bg-modal";
+    sectionEntire.classList.add("entire");
+    const divEntireOverlay = document.createElement("div");
+    divEntireOverlay.className = "modal-overlay";
     /* content margin주기 */
-	const divEntireContent = document.createElement("div");
-	divEntireContent.className = "modal-content";
+    const divEntireContent = document.createElement("div");
+    divEntireContent.className = "modal-content";
     divEntireContent.setAttribute("style", "margin:300px 0px 50px 0");
     const button = document.createElement("button");
     button.innerHTML = `+`;
     divEntireContent.appendChild(button);
     /* 오버레이 다음에 content가 오버레이의 동생으로 와야함 */
-	sectionEntire.appendChild(divEntireOverlay);
-	sectionEntire.appendChild(divEntireContent);
-	body.prepend(sectionEntire);
+    sectionEntire.appendChild(divEntireOverlay);
+    sectionEntire.appendChild(divEntireContent);
+    body.prepend(sectionEntire);
     paintModal();
-    button.addEventListener("click", (event)=>{
+    button.addEventListener("click", (event) => {
         event.target.parentElement.parentElement.remove()
         body.classList.remove("modal-open-body");
-    }); 
+    });
 }
 
-entireLiBtn.forEach((element)=>element.addEventListener("click", openEntList));
+entireLiBtn.forEach((element) => element.addEventListener("click", openEntList));
 
 
+/*
+    옮기면 localStorage에 새로 저장
+    냉장,냉동,상온 전부 클릭하면 큰 모달창만 보임
+    목록에 현재 저장된 개수 보이게
+    삭제 안됨
+    모달 창을 닫으면 새로고침 -> 지운게 업데이트가 안됨
+*/
