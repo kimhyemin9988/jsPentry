@@ -61,8 +61,11 @@ function alertKey(dragged, keyName) {
 
 
   const tempStoredFood = savedFood.filter((i)=>i.id === JSON.parse(dragged.firstChild.id)); // 다른 key에 저장할 것
-  saveTempBox(keyName, tempStoredFood);
 
+  if(tempStoredFood.length !== 0)
+  {
+    return saveTempBox(keyName, tempStoredFood);
+  }
 }
 
 
