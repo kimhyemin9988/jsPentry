@@ -32,6 +32,7 @@ function inputFood(event) {
         price: foodPValue,
         exDate: foodEXValue,
     };
+    localStorage.getItem('food') !== null ? storedFood =  JSON.parse(localStorage.getItem('food')) : storedFood = [];
     storedFood.push(newFoodobj);
     //배열에 넣기
     saveFood();
@@ -46,8 +47,6 @@ function removeLi(event) {
     removeDiv.remove();
     storedFood = storedFood.filter(Element =>
         Element.id !== parseInt(removeValue.id));
-    //storedFood전체에서 1개 지우면 => result반환
-    //한번 더 지우면 지워진것이 아닌 원래에서 다시 지워진다
     saveFood();
 }
 
@@ -109,30 +108,13 @@ const paintFood = (div) => {
         localAndDocument.map((i) => {
             /* 요소가 있는것  */
             if (i.local !== null) {
-                /*                 console.log(i.local);
-                                console.log (i.local.map((k)=>k.id)); */
-                //console.log (i.local.map((k)=> JSON.stringify(k.id) === div.firstChild.id));
                 i.local.map((k) => {
                     if (JSON.stringify(k.id) === div.firstChild.id) {
                         i.query.appendChild(div);
                     }
                 });
-                //console.log(typeof div.firstChild.id);
-            }   //i.local.map((k)=>k.id);
-            //console.log (i.local.map((k)=>k.id));
+            } 
         })
-        /*
-                    if (i.local.id === div.firstChild.id) {
-                console.log("같다");
-
-            }
-        */
-        //로컬스토리에서 가져온 각각의 배열의 요소의 아이디와 그려진것의 아이디가 같다면 거기다 그린다
-        //객체 만들기
-        //console.log(div.firstChild.id);
-        //        [foodList, frozen, refrigerated, roomTemp];
-        //const [foodList, frozen, refrigerated, roomTemp] = ["#food-list", "#frozen", "#refrigerated", "#roomTemp"].map((i) => document.querySelector(i));
-        //foodList.appendChild(div);
     }
 }
 
@@ -156,11 +138,7 @@ const paint7 = (array) => {
 /*  frozen, refrigerated, roomTemp  */
 const refreshDocument = () => {
     const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = ['food', 'frozen', 'refrigerated', 'roomTemp'].map((i) => localStorage.getItem(i));
-    /*     const savedFood = localStorage.getItem('food');
-        const savedFrozen = localStorage.getItem('frozen');
-        const savedRefrigerated = localStorage.getItem('refrigerated');
-        const savedRoomTemp = localStorage.getItem('roomTemp');
-        //로컬스토리지에서 'food'가져오기 */
+
     [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].map((i) => {
         if (i !== null) {
             const parsedToDos = JSON.parse(i);
@@ -173,9 +151,6 @@ const refreshDocument = () => {
     })
 }
 
-/* 가격 입력 자리수 8로 제한 함수
-    event.target.value let 변수로 묶으면 오류..왜지?
-*/
 const maxlengthFx = (event) => {
     if (event.target.value.length > 8) {
         event.target.value = event.target.value.slice(0, 8);
@@ -236,12 +211,3 @@ const openEntList = () => {
 }
 
 entireLiBtn.forEach((element) => element.addEventListener("click", openEntList));
-
-
-/*
-    옮기면 localStorage에 새로 저장
-    냉장,냉동,상온 전부 클릭하면 큰 모달창만 보임
-    목록에 현재 저장된 개수 보이게
-    삭제 안됨
-    모달 창을 닫으면 새로고침 -> 지운게 업데이트가 안됨
-*/
