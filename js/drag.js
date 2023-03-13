@@ -1,8 +1,3 @@
-//1.새로 그려진것을 드래그하려고 하면 오류남
-//2.이미 그려진것을 놓은뒤 새로 그려진것을 드래그 하면
-//새로그려진것을 놓은 자리에 첫번째 것이 그려짐 
-/* 드래그 한 순간에 main list 새로 그리기 */
-
 let dragged = null;
 let foodDrag = document.getElementById("food-list");
 //감시대상 node
@@ -61,15 +56,13 @@ let emptyArray = [];
 function alertKey(dragged, keyName) {
   const savedFood = JSON.parse(localStorage.getItem('food'));
   //JSON.parse(dragged.firstChild.id) 지울것 아이디
-  emptyArray = savedFood.filter((i) => i.id !== JSON.parse(dragged.firstChild.id));// 지울것 지우고 나머지 filter
+  emptyArray = savedFood.filter((i)=> i.id !== JSON.parse(dragged.firstChild.id));// 지울것 지우고 나머지 filter
   localStorage.setItem('food', JSON.stringify(emptyArray));// update
 
 
-  const tempStoredFood = savedFood.filter((i) => i.id === JSON.parse(dragged.firstChild.id)); // 다른 key에 저장할 것
-  if(tempStoredFood.length !== 0)
-  {
-    return saveTempBox(keyName, tempStoredFood);
-  }
+  const tempStoredFood = savedFood.filter((i)=>i.id === JSON.parse(dragged.firstChild.id)); // 다른 key에 저장할 것
+  saveTempBox(keyName, tempStoredFood);
+
 }
 
 
@@ -97,11 +90,12 @@ function refresh() {
     targetTempBox.forEach((element) => endDrag(element));
     //4.놓을 타겟에 이벤트 드래그 오버를 실행시키고
     //그 이벤트의 타겟의 기본동작을 막는다
-    //5.타겟(놓을자리)의 이벤트 drop이 발생하면 그 이벤트의 기본을 막는다
-    //6.그 이벤트의 클래스네임이 드롭존이라면(놓을 수 있는 자리라면)
-    //7.지금 드래그중인것의 부모의 자식(본인)을 지운다
-    //8.그리고 이벤트의 타겟(본인)의 자리에 자식을 추가한다
+      //5.타겟(놓을자리)의 이벤트 drop이 발생하면 그 이벤트의 기본을 막는다
+      //6.그 이벤트의 클래스네임이 드롭존이라면(놓을 수 있는 자리라면)
+      //7.지금 드래그중인것의 부모의 자식(본인)을 지운다
+      //8.그리고 이벤트의 타겟(본인)의 자리에 자식을 추가한다
   }
 }
 
 refresh();
+
