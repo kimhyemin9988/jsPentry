@@ -20,6 +20,7 @@ const alarm = () => {
 function saveFood() {
     localStorage.setItem('food', JSON.stringify(storedFood));
 }
+
 function inputFood(event) {
     event.preventDefault();
     const [foodNValue, foodPValue, foodEXValue] = [foodName.value, foodPrice.value, exDate.value];
@@ -113,12 +114,11 @@ const paintFood = (div) => {
                 //console.log (i.local.map((k)=> JSON.stringify(k.id) === div.firstChild.id));
                 i.local.map((k) => {
                     if (JSON.stringify(k.id) === div.firstChild.id) {
-                        return i.query.appendChild(div);
+                        i.query.appendChild(div);
                     }
                 });
                 //console.log(typeof div.firstChild.id);
-            }
-            //i.local.map((k)=>k.id);
+            }   //i.local.map((k)=>k.id);
             //console.log (i.local.map((k)=>k.id));
         })
         /*

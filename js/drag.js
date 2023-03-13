@@ -33,18 +33,39 @@ function startDrag(element){
     dragged.classList.add(DRAGGING);
   }); 
 }
-/* local Storage에 frozen, refrigerated, roomTemp로 저장 */
+/* local Storage에 frozen, refrigerated, roomTemp로 저장
+  새로 저장하니 덮어씌워짐...
+*/
 const saveTempBox = (keyName, tempStoredFood) =>{
-  console.log(tempStoredFood);
-  localStorage.setItem(`${keyName}`, JSON.stringify(tempStoredFood));
+  let oldStorage= JSON.parse(localStorage.getItem(`${keyName}`));
+  //console.log(localStorage.getItem(`${keyName}`));
+  /*저장된게 있으면 */
+  if(oldStorage !== null){
+    oldStorage.push(tempStoredFood[0]);
+    localStorage.setItem(`${keyName}`, JSON.stringify(oldStorage));
+  }
+  else{
+    localStorage.setItem(`${keyName}`, JSON.stringify(tempStoredFood));
+  }
 }
+function opacReset(){
+    // 불투명하게 초기화
+    dragged.classList.remove(DRAGGING);
+}
+
+
+
+/* 빈배열을 두지 않으면 null됨 */
+let emptyArray = [];
 
 /* dragged 움직이는 html 요소 */
 function alertKey(dragged, keyName){
   const savedFood = JSON.parse(localStorage.getItem('food'));
+  //console.log(savedFood);
   //JSON.parse(dragged.firstChild.id) 지울것 아이디
-  const filterFoodList = savedFood.filter((i)=>i.id !== JSON.parse(dragged.firstChild.id));// 지울것 지우고 나머지 filter
-  localStorage.setItem('food', JSON.stringify(filterFoodList));// update
+  emptyArray = savedFood.filter((i)=> i.id !== JSON.parse(dragged.firstChild.id));// 지울것 지우고 나머지 filter
+  //console.log(filterFoodList);
+  localStorage.setItem('food', JSON.stringify(emptyArray));// update
 
 
   const tempStoredFood = savedFood.filter((i)=>i.id === JSON.parse(dragged.firstChild.id)); // 다른 key에 저장할 것
@@ -57,11 +78,6 @@ function alertKey(dragged, keyName){
   //localStorage.setItem(`${keyName}` , moveFood);
   //->셋중 뭔데?
   //console.log(dragged.firstChild.textContent);
-}
-
-function opacReset(){
-    // 불투명하게 초기화
-    dragged.classList.remove(DRAGGING);
 }
 
 
@@ -99,3 +115,10 @@ function refresh()
 }
 
 refresh();
+
+
+/*
+  고칠것...
+  새로고침하지 않고 바로 다음 food를 생성하면 이미 옮긴것이 사라지지 않고 로컬스토리에 추가됨
+  그려지는것도 문제있음....
+*/
