@@ -1,9 +1,11 @@
 # My Pentry
 javascript로 작성한 반응형 web 입니다.
 집에 있는 식료품의 이름, 가격, 유통기한을 입력하여 관리할 수 있습니다.
-입력후 냉장, 냉동, 실온으로 분류하여 관리할 수 있으며,
+입력후 drag and drop을 이용해 냉장, 냉동, 실온으로 분류하여 관리할 수 있으며,
 분류된 것을 변경할 수 있습니다.
 모든 data는 local storage에 저장됩니다.
+
+기본적인 CURD 작업에 modal창과 drag and drop을 더했습니다.
 
 # [ PC Layout]
 <img width="947" alt="readme" src="https://user-images.githubusercontent.com/110611596/224895997-441ee209-d1a3-431c-89eb-cbb312974b77.png">
@@ -27,47 +29,32 @@ https://kimhyemin9988.github.io/jsPentry/
 ```jsx
     <!-- modal section-->
     <section class="bg-modal hidden">
+    // 식료품을 입력할 수 있는 모달창입니다
         ...
             <!-- input form--> 
-            <form class="food-form"> // 식료
-            ...
-                <label for="food-name">상품명</label>
-                <input id="food-name" maxlength="10" autofocus required>
-                <label for="food-price">가격</label>
-                <input id="food-price" type="number" min="0" required>
-                <label for="ex-date">유효기간</label>
-                <input id="ex-date" type="date" placeholder="유통기한을 설정하세요" required>
-                <button class="tab-btn enroll">등록</button>
-                <p class="submit-alarm hidden">등록되었습니다</p>
+            <form class="food-form">
+                ...
+                상품명
+                가격
+                유효기간
+                ...
             </form>
-        </div>
-    </section>
-    <header>
-        <div class="homeLogo">
-            <a href="index.html">MyPentry</a>
-        </div>
-    </header>
+     </section>
+                
+
     <main>
         <button class="tab-btn" id="modal-click">클릭해서 상품을 등록하세요!</button>
+         // 모달창을 여는 버튼
         <section class="input-food-box" id="food">
-            <button class="entire-li-btn">+</button>
-            <p>목록</p>
-            <ul id="food-list">
-            </ul>
+        // 입력한 식료품이 랜더링되는 box입니다
         </section>
         <section id="stored-box">
-            <div class="temp-box" id="frozen">
-                <button class="entire-li-btn">+</button>
-                <p>냉동</p>
-            </div>
-            <div class="temp-box" id="refrigerated">
-                <button class="entire-li-btn">+</button>
-                <p>냉장</p>
-            </div>
-            <div class="temp-box" id="roomTemp">
-                <button class="entire-li-btn">+</button>
-                <p>상온</p>
-            </div>
+        // 입력한 식료품을 보관온도에따라 분류하는 box입니다.
+            <div class="temp-box" id="frozen" /> // 냉동
+            <div class="temp-box" id="refrigerated" /> // 냉장
+            <div class="temp-box" id="roomTemp" /> // 실온
         </section>
     </main>
 ```
+
+
