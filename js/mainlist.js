@@ -174,8 +174,8 @@ foodPrice.addEventListener("input", maxlengthFx);
 
 /* 모달 창 위에 food list 그리기 */
 /* 입력 'food' 이동시 로컬 스토리지에 냉동,냉장,상온으로 저장 변경*/
-const paintModal = () => {
-    const savedFood = localStorage.getItem('food');
+const paintModal = (keyName) => {
+    const savedFood = localStorage.getItem(`${keyName}`);
     //로컬스토리지에서 'food'가져오기
     if (savedFood !== null) {
         const parsedToDos = JSON.parse(savedFood);
@@ -189,7 +189,7 @@ const paintModal = () => {
 
 /* 전체 목록 modal body의 firstChild로 그리기 */
 
-const openEntList = () => {
+const openEntList = (element) => {
     //overflow: hidden 해주기
     body.classList.add("modal-open-body");
     const sectionEntire = document.createElement("section");
@@ -208,11 +208,17 @@ const openEntList = () => {
     sectionEntire.appendChild(divEntireOverlay);
     sectionEntire.appendChild(divEntireContent);
     body.prepend(sectionEntire);
-    paintModal();
+    paintModal(element.parentElement.id);
     button.addEventListener("click", (event) => {
-        event.target.parentElement.parentElement.remove()
+        event.target.parentElement.parentElement.remove();
         body.classList.remove("modal-open-body");
     });
 }
 
-entireLiBtn.forEach((element) => element.addEventListener("click", openEntList));
+entireLiBtn.forEach((element) => element.addEventListener("click", ()=>openEntList(element)));
+
+/*
+    localStorage.get
+    localStorage.set 함수로 만들기
+    리팩토링
+*/
