@@ -7,6 +7,7 @@ const submitAlarm = document.querySelector(".submit-alarm");
 const body = document.querySelector("body");
 let storedFood = [];
 
+
 /* 전체,냉장,냉동,상온 */
 const entireLiBtn = document.querySelectorAll(".entire-li-btn");
 
@@ -17,8 +18,8 @@ const alarm = () => {
 }
 
 /* localstorage 저장 */
-function saveFood() {
-    localStorage.setItem('food', JSON.stringify(storedFood));
+function saveFood(storedFood, keyName) {
+    localStorage.setItem(`${keyName}`, JSON.stringify(storedFood));
 }
 
 function inputFood(event) {
@@ -32,10 +33,10 @@ function inputFood(event) {
         price: foodPValue,
         exDate: foodEXValue,
     };
-    localStorage.getItem('food') !== null ? storedFood =  JSON.parse(localStorage.getItem('food')) : storedFood = [];
+    localStorage.getItem('food') !== null ? storedFood = JSON.parse(localStorage.getItem('food')) : storedFood = [];
     storedFood.push(newFoodobj);
     //배열에 넣기
-    saveFood();
+    saveFood(storedFood, 'food');
     addList(newFoodobj);
     //객체로 만든 다음에 그리기
     alarm();
@@ -44,10 +45,14 @@ function inputFood(event) {
 function removeLi(event) {
     /* (event.target.parentElement).parentElement => 이러면 오류남 */
     const removeDiv = event.target.parentElement.parentElement;
-    removeDiv.remove();
+    /* local Storage에 frozen, refrigerated, roomTemp로 저장
+        filterTempStorage(removeDiv, removeDiv.parentElement.id);
+*/  
+    storedFood = JSON.parse(localStorage.getItem(`${removeDiv.parentElement.id}`));
     storedFood = storedFood.filter(Element =>
-        Element.id !== parseInt(removeValue.id));
-    saveFood();
+        Element.id !== parseInt(removeDiv.firstChild.id)); // 빈배열 or 나머지
+    saveFood(storedFood, removeDiv.parentElement.id);
+    removeDiv.remove();
 }
 
 
@@ -113,7 +118,7 @@ const paintFood = (div) => {
                         i.query.appendChild(div);
                     }
                 });
-            } 
+            }
         })
     }
 }
