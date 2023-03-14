@@ -74,7 +74,7 @@ function endDrag(element) {
   });
   element.addEventListener("drop", (event) => {
     event.preventDefault();
-    if (event.target.classList = "temp-box") {
+    if (event.target.className === "temp-box") {
       dragged.parentNode.removeChild(dragged);
       event.target.appendChild(dragged);
       opacReset();
