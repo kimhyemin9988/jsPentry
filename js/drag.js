@@ -85,18 +85,16 @@ function endDrag(element) {
 
 
 function refresh() {
-  if (foodDrag.childElementCount !== 0) {
-    listBox = document.querySelectorAll(".listBox");
-    listBox.forEach((element) => startDrag(element));
-    document.addEventListener("dragend", opacReset);
-    targetTempBox.forEach((element) => endDrag(element));
-    //4.놓을 타겟에 이벤트 드래그 오버를 실행시키고
-    //그 이벤트의 타겟의 기본동작을 막는다
-    //5.타겟(놓을자리)의 이벤트 drop이 발생하면 그 이벤트의 기본을 막는다
-    //6.그 이벤트의 클래스네임이 드롭존이라면(놓을 수 있는 자리라면)
-    //7.지금 드래그중인것의 부모의 자식(본인)을 지운다
-    //8.그리고 이벤트의 타겟(본인)의 자리에 자식을 추가한다
-  }
+  listBox = document.querySelectorAll(".listBox");
+  listBox.forEach((element) => startDrag(element));
+  document.addEventListener("dragend", opacReset);
+  targetTempBox.forEach((element) => endDrag(element));
+  //4.놓을 타겟에 이벤트 드래그 오버를 실행시키고
+  //그 이벤트의 타겟의 기본동작을 막는다
+  //5.타겟(놓을자리)의 이벤트 drop이 발생하면 그 이벤트의 기본을 막는다
+  //6.그 이벤트의 클래스네임이 드롭존이라면(놓을 수 있는 자리라면)
+  //7.지금 드래그중인것의 부모의 자식(본인)을 지운다
+  //8.그리고 이벤트의 타겟(본인)의 자리에 자식을 추가한다
 }
 
 refresh();

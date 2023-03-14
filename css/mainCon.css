@@ -181,6 +181,7 @@ header .mainBtn {
   margin: 2%;
   width: 95%;
   min-height: 20%;
+  position: relative;
 }
 .input-food-box ul#foodList {
   display: flex;
@@ -189,13 +190,17 @@ header .mainBtn {
 
 .temp-box {
   display: flex;
-  justify-content: flex-start;
   background-color: white;
   flex-direction: column;
-  align-items: center;
   border: 1px solid #D4D3E8;
   border-radius: 1rem;
   box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.2);
+  position: relative;
+  flex-direction: row;
+}
+.temp-box p {
+  position: absolute;
+  margin: 0.5rem;
 }
 
 #stored-box {
@@ -213,6 +218,9 @@ header .mainBtn {
 
 .listBox {
   background-color: white;
+  height: 2.5rem;
+  position: relative;
+  align-self: end;
 }
 .listBox li {
   list-style: none;
@@ -233,6 +241,7 @@ header .mainBtn {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  z-index: 1;
 }
 .bg-modal .modal-overlay {
   position: absolute;
@@ -288,6 +297,9 @@ header .mainBtn {
   border-radius: 0.4rem;
   width: 20px;
   cursor: pointer;
+  right: 0;
+  position: absolute;
+  margin: 0.5rem;
 }
 .entire-li-btn:hover {
   color: white;

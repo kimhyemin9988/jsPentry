@@ -139,6 +139,7 @@ header {
     margin: 2%;
     width: 95%;
     min-height: 20%;
+    position: relative;
 
     ul#foodList {
         display: flex;
@@ -148,13 +149,17 @@ header {
 
 .temp-box {
     display: flex;
-    justify-content: flex-start;
     background-color: white;
     flex-direction: column;
-    align-items: center;
     border: 1px solid #D4D3E8;
     border-radius: 1rem;
     box-shadow: 2px 3px 0px rgba(#000, 0.2);
+    position: relative;
+    flex-direction: row;
+    p{
+        position: absolute;
+        margin: 0.5rem;
+    }
 }
 
 #stored-box {
@@ -172,7 +177,9 @@ header {
 
 .listBox {
     background-color: white;
-
+    height: 2.5rem;
+    position: relative;
+    align-self: end;
     li {
         list-style: none;
 
@@ -195,7 +202,7 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
-
+    z-index: 1;
     .modal-overlay {
         position: absolute;
         /*overlay를 한장 더 깔지 않으면 모달창 아래의 link나 button을 클릭할 수 있게 된다*/
@@ -257,7 +264,9 @@ header {
     border-radius: 0.4rem;
     width: 20px;
     cursor: pointer;
-
+    right: 0;
+    position: absolute;
+    margin: 0.5rem;
     &:hover {
         color: white;
         background-color: black;

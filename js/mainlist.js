@@ -162,16 +162,6 @@ const maxlengthFx = (event) => {
     }
 }
 
-/* 등록 */
-foodForm.addEventListener("submit", inputFood);
-
-/* 새로고침 후 화면 */
-refreshDocument();
-
-/* 가격 입력 자리수 8로 제한 */
-foodPrice.addEventListener("input", maxlengthFx);
-
-
 /* 모달 창 위에 food list 그리기 */
 /* 입력 'food' 이동시 로컬 스토리지에 냉동,냉장,상온으로 저장 변경*/
 const paintModal = (keyName) => {
@@ -216,6 +206,15 @@ const openEntList = (element) => {
 }
 
 entireLiBtn.forEach((element) => element.addEventListener("click", ()=>openEntList(element)));
+
+/* 등록 */
+foodForm.addEventListener("submit", inputFood);
+
+/* 새로고침 후 화면 */
+refreshDocument();
+
+/* 가격 입력 자리수 8로 제한 */
+foodPrice.addEventListener("input", maxlengthFx);
 
 /*
     localStorage.get
