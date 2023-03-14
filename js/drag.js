@@ -54,11 +54,8 @@ let emptyArray = [];
 
 /* dragged 움직이는 html 요소 */
 const alertKey = (dragged, prevBoxKeyName, nextBoxKeyName) => {
-  //냉동  ->  냉장
-  //console.log(prevBox.id); 냉동
   const savedFood = JSON.parse(localStorage.getItem(prevBoxKeyName));
   //JSON.parse(dragged.firstChild.id) 지울것 아이디
-  //냉동에서 배열을 가져온다
   emptyArray = savedFood.filter((i) => i.id !== JSON.parse(dragged.firstChild.id));// 지울것 지우고 나머지 filter
   localStorage.setItem(prevBoxKeyName, JSON.stringify(emptyArray));// update
 
