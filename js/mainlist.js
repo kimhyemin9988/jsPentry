@@ -44,15 +44,29 @@ function inputFood(event) {
 
 function removeLi(event) {
     /* (event.target.parentElement).parentElement => 이러면 오류남 */
-    const removeDiv = event.target.parentElement.parentElement;
+    const removeDiv =  event.target.parentElement.parentElement;
+    if(event.target.parentElement.parentElement.parentElement.id === "food-list")
+    {
+        storedFood = JSON.parse(localStorage.getItem(`${removeDiv.parentElement.parentElement.id}`));
+        storedFood = storedFood.filter(Element =>
+            Element.id !== parseInt(removeDiv.firstChild.id)); // 빈배열 or 나머지
+        saveFood(storedFood, removeDiv.parentElement.parentElement.id);
+        removeDiv.remove();
+    }
+    else{
+        storedFood = JSON.parse(localStorage.getItem(`${removeDiv.parentElement.id}`));
+        storedFood = storedFood.filter(Element =>
+            Element.id !== parseInt(removeDiv.firstChild.id)); // 빈배열 or 나머지
+        saveFood(storedFood, removeDiv.parentElement.id);
+        removeDiv.remove();
+    }
+
+    //storedFood = JSON.parse(localStorage.getItem(`${removeDiv.parentElement.id}`));
     /* local Storage에 frozen, refrigerated, roomTemp로 저장
         filterTempStorage(removeDiv, removeDiv.parentElement.id);
-*/  
-    storedFood = JSON.parse(localStorage.getItem(`${removeDiv.parentElement.id}`));
-    storedFood = storedFood.filter(Element =>
-        Element.id !== parseInt(removeDiv.firstChild.id)); // 빈배열 or 나머지
-    saveFood(storedFood, removeDiv.parentElement.id);
-    removeDiv.remove();
+        */
+    //storedFood = JSON.parse(localStorage.getItem(`${removeDiv.parentElement.id}`));
+
 }
 
 
@@ -205,7 +219,7 @@ const openEntList = (element) => {
     });
 }
 
-entireLiBtn.forEach((element) => element.addEventListener("click", ()=>openEntList(element)));
+entireLiBtn.forEach((element) => element.addEventListener("click", () => openEntList(element)));
 
 /* 등록 */
 foodForm.addEventListener("submit", inputFood);
