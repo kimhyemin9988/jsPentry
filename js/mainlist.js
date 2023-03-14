@@ -220,5 +220,4 @@ foodPrice.addEventListener("input", maxlengthFx);
     localStorage.get
     localStorage.set 함수로 만들기
     리팩토링
-    다른 요소안에 drop 안되게
 */

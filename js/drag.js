@@ -30,14 +30,14 @@ function startDrag(element) {
 };
 /* local Storage에 frozen, refrigerated, roomTemp로 저장
 */
-const saveTempBox = (keyName, tempStoredFood) => {
-  let oldStorage = JSON.parse(localStorage.getItem(`${keyName}`));
+const saveTempBox = (nextBoxKeyName, tempStoredFood) => {
+  let oldStorage = JSON.parse(localStorage.getItem(nextBoxKeyName));
   if (oldStorage !== null) {
     oldStorage.push(tempStoredFood[0]);
-    localStorage.setItem(`${keyName}`, JSON.stringify(oldStorage));
+    localStorage.setItem(nextBoxKeyName, JSON.stringify(oldStorage));
   }
   else {
-    localStorage.setItem(`${keyName}`, JSON.stringify(tempStoredFood));
+    localStorage.setItem(nextBoxKeyName, JSON.stringify(tempStoredFood));
   }
 
 };
@@ -53,17 +53,20 @@ function opacReset() {
 let emptyArray = [];
 
 /* dragged 움직이는 html 요소 */
-const alertKey = (dragged, keyName) => {
-  const savedFood = JSON.parse(localStorage.getItem('food'));
+const alertKey = (dragged, prevBoxKeyName, nextBoxKeyName) => {
+  //냉동  ->  냉장
+  //console.log(prevBox.id); 냉동
+  const savedFood = JSON.parse(localStorage.getItem(prevBoxKeyName));
   //JSON.parse(dragged.firstChild.id) 지울것 아이디
+  //냉동에서 배열을 가져온다
   emptyArray = savedFood.filter((i) => i.id !== JSON.parse(dragged.firstChild.id));// 지울것 지우고 나머지 filter
-  localStorage.setItem('food', JSON.stringify(emptyArray));// update
+  localStorage.setItem(prevBoxKeyName, JSON.stringify(emptyArray));// update
 
 
   const tempStoredFood = savedFood.filter((i) => i.id === JSON.parse(dragged.firstChild.id)); // 다른 key에 저장할 것
-
+  console.log(tempStoredFood);
   if (tempStoredFood.length !== 0) {
-    return saveTempBox(keyName, tempStoredFood);
+    return saveTempBox(nextBoxKeyName, tempStoredFood);
   }
 }
 
@@ -75,10 +78,14 @@ function endDrag(element) {
   element.addEventListener("drop", (event) => {
     event.preventDefault();
     if (event.target.className === "temp-box") {
+
+      const prevBox = dragged.parentNode.id === "food-list" ? dragged.parentNode.parentNode : dragged.parentNode;
+      //목록은 dragged.parentNode.parentNode로 해야함
       dragged.parentNode.removeChild(dragged);
       event.target.appendChild(dragged);
+      const nextBox = dragged.parentNode;
       opacReset();
-      alertKey(dragged, event.target.id);
+      alertKey(dragged, prevBox.id, nextBox.id);
     }
   });
 }
