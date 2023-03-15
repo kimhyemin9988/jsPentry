@@ -45,7 +45,7 @@ function inputFood(event) {
 function removeLi(event) {
     const removeContainer = event.currentTarget.closest(".temp-box");
     const removeDiv = event.currentTarget.closest(".listBox");
-
+    console.log(removeDiv.parentElement.className === "modal-content");
     storedFood = JSON.parse(localStorage.getItem(`${removeContainer.id}`));
     storedFood = storedFood.filter(Element =>
         Element.id !== parseInt(event.currentTarget.parentElement.id)); // 빈배열 or 나머지
