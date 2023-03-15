@@ -8,6 +8,7 @@
     <title>main</title>
     <link rel="stylesheet" href="css/mainCon.css">
 </head>
+
 <body>
     <!--first modal section-->
     <section class="bg-modal hidden">
@@ -34,23 +35,31 @@
     <main>
         <button class="tab-btn" id="modal-click">클릭해서 상품을 등록하세요!</button>
         <section class="input-food-box" id="food">
-            <button class="entire-li-btn">+</button>
-            <p>목록</p>
+            <div class="temp-title">
+                <button class="entire-li-btn">+</button>
+                <p>목록</p>
+            </div>
             <ul id="food-list">
             </ul>
         </section>
         <section id="stored-box">
             <div class="temp-box" id="frozen">
-                <button class="entire-li-btn">+</button>
-                <p>냉동</p>
+                <div class="temp-title">
+                    <button class="entire-li-btn">+</button>
+                    <p>냉동</p>
+                </div>
             </div>
             <div class="temp-box" id="refrigerated">
-                <button class="entire-li-btn">+</button>
-                <p>냉장</p>
+                <div class="temp-title">
+                    <button class="entire-li-btn">+</button>
+                    <p>냉장</p>
+                </div>
             </div>
             <div class="temp-box" id="roomTemp">
-                <button class="entire-li-btn">+</button>
-                <p>상온</p>
+                <div class="temp-title">
+                    <button class="entire-li-btn">+</button>
+                    <p>상온</p>
+                </div>
             </div>
         </section>
     </main>

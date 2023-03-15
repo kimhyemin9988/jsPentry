@@ -5,9 +5,10 @@
 @media screen and (max-width: 480px) {
 
     //480이하인 경우 모바일
-    header{
+    header {
         padding: 0.2rem;
     }
+
     .homeLogo {
         font-size: 25px;
     }
@@ -40,9 +41,10 @@
 
 /* large */
 @media screen and (min-width: 481px) {
-    header{
+    header {
         padding: 0.4rem;
     }
+
     .homeLogo {
         font-size: 40px;
     }
@@ -102,6 +104,7 @@ header {
     //중앙을 비우고 양옆에 두기
     box-shadow: 0 4px 30px rgba(#000, 0.2);
     align-items: center;
+
     .homeLogo {
         color: white;
         font-weight: 700;
@@ -180,12 +183,43 @@ header {
     border-radius: 1rem;
     box-shadow: 2px 3px 0px rgba(#000, 0.2);
     position: relative;
-    flex-direction: row;
+    @media screen and (max-width: 480px) {
+        flex-direction: column;
+    }
+    @media screen and (min-width: 481px) {
+        flex-direction: row;
+    }
+}
+
+.temp-title {
+    display: flex;
+    .entire-li-btn {
+        border: 1px solid #D4D3E8;
+        border-radius: 0.4rem;
+        width: 20px;
+        cursor: pointer;
+        right: 0;
+        @media screen and (max-width: 480px) {
+            margin: 0.3rem;
+        }
+        @media screen and (min-width: 481px) {
+            margin: 0.5rem;
+        }
+        &:hover {
+            color: white;
+            background-color: black;
+        }
+    }
 
     p {
-        position: absolute;
-        margin: 0.5rem;
+        @media screen and (max-width: 480px) {
+            margin: 0.3rem;
+        }
+        @media screen and (min-width: 481px) {
+            margin: 0.5rem;
+        }
     }
+
 }
 
 #stored-box {
@@ -193,8 +227,8 @@ header {
     width: 95%;
     display: grid;
     gap: 0.2rem;
-    grid-template-rows: repeat(2,50%);
-    grid-template-columns: repeat(2,50%);
+    grid-template-rows: repeat(2, 50%);
+    grid-template-columns: repeat(2, 50%);
     grid-template-areas:
         "frozen refrigerated"
         "roomTemp roomTemp"
@@ -284,20 +318,6 @@ header {
     color: red;
 }
 
-.entire-li-btn {
-    border: 1px solid #D4D3E8;
-    border-radius: 0.4rem;
-    width: 20px;
-    cursor: pointer;
-    right: 0;
-    position: absolute;
-    margin: 0.5rem;
-
-    &:hover {
-        color: white;
-        background-color: black;
-    }
-}
 
 .entire {
     overflow: scroll;

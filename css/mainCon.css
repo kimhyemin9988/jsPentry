@@ -221,11 +221,51 @@ header .mainBtn {
   border-radius: 1rem;
   box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.2);
   position: relative;
-  flex-direction: row;
 }
-.temp-box p {
-  position: absolute;
-  margin: 0.5rem;
+@media screen and (max-width: 480px) {
+  .temp-box {
+    flex-direction: column;
+  }
+}
+@media screen and (min-width: 481px) {
+  .temp-box {
+    flex-direction: row;
+  }
+}
+
+.temp-title {
+  display: flex;
+}
+.temp-title .entire-li-btn {
+  border: 1px solid #D4D3E8;
+  border-radius: 0.4rem;
+  width: 20px;
+  cursor: pointer;
+  right: 0;
+}
+@media screen and (max-width: 480px) {
+  .temp-title .entire-li-btn {
+    margin: 0.3rem;
+  }
+}
+@media screen and (min-width: 481px) {
+  .temp-title .entire-li-btn {
+    margin: 0.5rem;
+  }
+}
+.temp-title .entire-li-btn:hover {
+  color: white;
+  background-color: black;
+}
+@media screen and (max-width: 480px) {
+  .temp-title p {
+    margin: 0.3rem;
+  }
+}
+@media screen and (min-width: 481px) {
+  .temp-title p {
+    margin: 0.5rem;
+  }
 }
 
 #stored-box {
@@ -311,20 +351,6 @@ header .mainBtn {
 
 .submit-alarm {
   color: red;
-}
-
-.entire-li-btn {
-  border: 1px solid #D4D3E8;
-  border-radius: 0.4rem;
-  width: 20px;
-  cursor: pointer;
-  right: 0;
-  position: absolute;
-  margin: 0.5rem;
-}
-.entire-li-btn:hover {
-  color: white;
-  background-color: black;
 }
 
 .entire {
