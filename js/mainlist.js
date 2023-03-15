@@ -148,9 +148,9 @@ const paint3 = (array) => {
     });
 }
 
-const paint7 = (array) => {
+const paint6 = (array) => {
     array.forEach(element => {
-        if (array.lastIndexOf(element) < 7) {
+        if (array.lastIndexOf(element) < 6) {
             addList(element);
         }
     });
@@ -168,7 +168,7 @@ const refreshDocument = () => {
             storedFood = parsedToDos.reverse();
             //최신순으로 브라우저에 출력하기 위해 reverse, 빈 배열에 저장
 
-            window.innerWidth < 481 ? paint3(storedFood) : paint7(storedFood);
+            window.innerWidth < 481 ? paint3(storedFood) : paint6(storedFood);
             /* 모바일 3개, 대화면 7개 */
         }
     })
