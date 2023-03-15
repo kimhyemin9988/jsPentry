@@ -94,7 +94,7 @@ a {
     height: 40%;
   }
   #foodNDateSp {
-    font-size: 0.01rem;
+    font-size: 0.1rem;
   }
 }
 /* large */
@@ -229,7 +229,6 @@ header .mainBtn {
 }
 
 #stored-box {
-  background-color: rgb(247, 247, 247);
   border-radius: 10px;
   width: 95%;
   display: grid;

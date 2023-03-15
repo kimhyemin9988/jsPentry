@@ -164,6 +164,7 @@ const paint7 = (array) => {
     });
 }
 
+/* 추가될때마다 새로 그리기 */
 
 /*  frozen, refrigerated, roomTemp  */
 const refreshDocument = () => {
@@ -215,7 +216,6 @@ const openEntList = (element) => {
     /* content margin주기 */
     const divEntireContent = document.createElement("div");
     divEntireContent.className = "modal-content";
-    divEntireContent.setAttribute("style", "margin:300px 0px 50px 0");
     const button = document.createElement("button");
     button.innerHTML = `+`;
     divEntireContent.appendChild(button);
