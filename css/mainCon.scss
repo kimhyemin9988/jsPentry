@@ -13,10 +13,6 @@
         font-size: 25px;
     }
 
-    #stored-box {
-        min-height: 55%;
-    }
-
     .listBox li span {
         font-size: 0.3rem;
     }
@@ -33,17 +29,13 @@
 
 /* large */
 @media screen and (min-width: 481px) {
+
     header {
         padding: 0.4rem;
     }
 
     .homeLogo {
         font-size: 40px;
-    }
-
-    #stored-box {
-        justify-content: space-evenly;
-        min-height: 60%;
     }
 
     #foodNSp {
@@ -104,13 +96,6 @@ header {
     }
 }
 
-#food-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    justify-content: flex-start;
-    padding: 1rem 1rem 0 1rem;
-}
 
 /*  Nested 시 이동하면 속성 사라짐*/
 .listBox {
@@ -169,11 +154,11 @@ header {
 
 
 #food {
-    margin: 2%;
-    width: 95%;
     min-height: 20%;
     flex-direction: column;
     justify-content: flex-end;
+    padding-top: 2rem;
+    grid-area: food;
 }
 
 .temp-box {
@@ -186,6 +171,7 @@ header {
     border-radius: 1rem;
     box-shadow: 2px 3px 0px rgba(#000, 0.2);
     position: relative;
+    justify-content: center;
 
     @media screen and (max-width: 480px) {
         flex-direction: column;
@@ -235,16 +221,25 @@ header {
 }
 
 #stored-box {
+    margin-top: 0.5rem;
     border-radius: 10px;
     width: 95%;
     display: grid;
-    gap: 0.2rem;
-    grid-template-rows: 60% 40%;
+    min-height: 80%;
+    grid-template-rows: 30% 40% 30%;
     grid-template-columns: repeat(2, 50%);
     grid-template-areas:
+        "food food"
         "frozen refrigerated"
-        "roomTemp roomTemp"
-        //    margin: 0 0 5% 0;
+        "roomTemp roomTemp";
+
+    @media screen and (max-width: 480px) {
+        gap: 0.2rem;
+    }
+
+    @media screen and (min-width: 481px) {
+        gap: 1rem;
+    }
 }
 
 #frozen {
@@ -257,8 +252,7 @@ header {
 
 #roomTemp {
     grid-area: roomTemp;
-    justify-content: flex-end;
-    padding: 1rem 1rem 0 1rem;
+    padding: 1rem 2rem 0 2rem;
 }
 
 .dragging {
@@ -325,6 +319,10 @@ header {
     &:hover {
         background-color: #18bfef;
         color: #ffffff;
+    }
+
+    @media screen and (min-width: 481px) {
+        padding: 0.5rem;
     }
 }
 

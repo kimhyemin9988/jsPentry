@@ -1,5 +1,5 @@
 let dragged = null;
-let foodDrag = document.getElementById("food-list");
+let foodDrag = document.getElementById("food");
 //감시대상 node
 let listBox = [];
 const targetTempBox = document.querySelectorAll(".temp-box")

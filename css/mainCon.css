@@ -76,9 +76,6 @@ a {
   .homeLogo {
     font-size: 25px;
   }
-  #stored-box {
-    min-height: 55%;
-  }
   .listBox li span {
     font-size: 0.3rem;
   }
@@ -97,10 +94,6 @@ a {
   }
   .homeLogo {
     font-size: 40px;
-  }
-  #stored-box {
-    justify-content: space-evenly;
-    min-height: 60%;
   }
   #foodNSp {
     font-size: 3%;
@@ -146,14 +139,6 @@ header .mainBtn {
   display: flex;
   flex-direction: row;
   align-items: center;
-}
-
-#food-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  justify-content: flex-start;
-  padding: 1rem 1rem 0 1rem;
 }
 
 /*  Nested 시 이동하면 속성 사라짐*/
@@ -207,11 +192,11 @@ header .mainBtn {
 }
 
 #food {
-  margin: 2%;
-  width: 95%;
   min-height: 20%;
   flex-direction: column;
   justify-content: flex-end;
+  padding-top: 2rem;
+  grid-area: food;
 }
 
 .temp-box {
@@ -224,6 +209,7 @@ header .mainBtn {
   border-radius: 1rem;
   box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.2);
   position: relative;
+  justify-content: center;
 }
 @media screen and (max-width: 480px) {
   .temp-box {
@@ -274,13 +260,24 @@ header .mainBtn {
 }
 
 #stored-box {
+  margin-top: 0.5rem;
   border-radius: 10px;
   width: 95%;
   display: grid;
-  gap: 0.2rem;
-  grid-template-rows: 60% 40%;
+  min-height: 80%;
+  grid-template-rows: 30% 40% 30%;
   grid-template-columns: repeat(2, 50%);
-  grid-template-areas: "frozen refrigerated" "roomTemp roomTemp";
+  grid-template-areas: "food food" "frozen refrigerated" "roomTemp roomTemp";
+}
+@media screen and (max-width: 480px) {
+  #stored-box {
+    gap: 0.2rem;
+  }
+}
+@media screen and (min-width: 481px) {
+  #stored-box {
+    gap: 1rem;
+  }
 }
 
 #frozen {
@@ -293,8 +290,7 @@ header .mainBtn {
 
 #roomTemp {
   grid-area: roomTemp;
-  justify-content: flex-end;
-  padding: 1rem 1rem 0 1rem;
+  padding: 1rem 2rem 0 2rem;
 }
 
 .dragging {
@@ -354,6 +350,11 @@ header .mainBtn {
 .tab-btn:hover {
   background-color: #18bfef;
   color: #ffffff;
+}
+@media screen and (min-width: 481px) {
+  .tab-btn {
+    padding: 0.5rem;
+  }
 }
 
 .submit-alarm {

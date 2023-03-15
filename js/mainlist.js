@@ -2,7 +2,7 @@ const foodForm = document.querySelector(".food-form");
 const foodName = document.querySelector("#food-name");
 const foodPrice = document.querySelector("#food-price");
 const exDate = document.querySelector("#ex-date");
-const [foodList, frozen, refrigerated, roomTemp] = ["#food-list", "#frozen", "#refrigerated", "#roomTemp"].map((i) => document.querySelector(i));
+const [foodList, frozen, refrigerated, roomTemp] = ["#food", "#frozen", "#refrigerated", "#roomTemp"].map((i) => document.querySelector(i));
 const submitAlarm = document.querySelector(".submit-alarm");
 const body = document.querySelector("body");
 let storedFood = [];
