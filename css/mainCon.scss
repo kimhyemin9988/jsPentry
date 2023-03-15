@@ -107,6 +107,7 @@ header {
 #food-list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 /*  Nested 시 이동하면 속성 사라짐*/
@@ -181,14 +182,15 @@ header {
 }
 
 .temp-box {
-    align-items: center;
     display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     background-color: white;
     border: 1px solid #D4D3E8;
     border-radius: 1rem;
     box-shadow: 2px 3px 0px rgba(#000, 0.2);
     position: relative;
-
     @media screen and (max-width: 480px) {
         flex-direction: column;
     }
@@ -239,7 +241,7 @@ header {
     width: 95%;
     display: grid;
     gap: 0.2rem;
-    grid-template-rows: repeat(2, 50%);
+    grid-template-rows: 60% 40%;
     grid-template-columns: repeat(2, 50%);
     grid-template-areas:
         "frozen refrigerated"
