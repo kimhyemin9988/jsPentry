@@ -169,7 +169,6 @@ header {
     width: 95%;
     min-height: 20%;
     position: relative;
-
     ul#foodList {
         display: flex;
         flex-wrap: wrap;
@@ -177,6 +176,7 @@ header {
 }
 
 .temp-box {
+    align-items: center;
     display: flex;
     background-color: white;
     border: 1px solid #D4D3E8;

@@ -223,7 +223,7 @@ const openEntList = (element) => {
     sectionEntire.appendChild(divEntireOverlay);
     sectionEntire.appendChild(divEntireContent);
     body.prepend(sectionEntire);
-    paintModal(element.parentElement.id);
+    paintModal(element.parentElement.parentElement.id);
     button.addEventListener("click", (event) => {
         event.target.parentElement.parentElement.remove();
         body.classList.remove("modal-open-body");
