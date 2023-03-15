@@ -83,6 +83,7 @@ function CreateSVG(button) {
 /* 브라우저에 그리기 */
 function addList(newFoodobj) {
     const li = document.createElement("li");
+    li.setAttribute("class", "list-grid");
     li.id = newFoodobj.id;
     const div = document.createElement("div");
     div.setAttribute("draggable", "true");

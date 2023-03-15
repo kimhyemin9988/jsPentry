@@ -5,26 +5,34 @@
 @media screen and (max-width: 480px) {
 
     //480이하인 경우 모바일
+    header{
+        padding: 0.2rem;
+    }
     .homeLogo {
         font-size: 25px;
     }
 
     #stored-box {
-        min-height: 50%;
+        min-height: 55%;
     }
-    .listBox{
-        height: 1.5rem;
-        width: 1.5rem;
+
+    .listBox {
+        height: 1.4rem;
+        width: 5rem;
         margin: 0.3rem;
+        box-shadow: 0.2rem 0.2rem 0px rgba(#000, 0.2);
+        padding: 0.2rem;
     }
+
     .listBox li span {
-        font-size:  0.3rem;
+        font-size: 0.3rem;
     }
 
     #RoomTemp {
         width: 95%;
         height: 40%;
     }
+
     #foodNDateSp {
         font-size: 0.01rem;
     }
@@ -32,6 +40,9 @@
 
 /* large */
 @media screen and (min-width: 481px) {
+    header{
+        padding: 0.4rem;
+    }
     .homeLogo {
         font-size: 40px;
     }
@@ -53,10 +64,13 @@
     #foodNDateSp {
         font-size: 2%;
     }
-    .listBox{
+
+    .listBox {
         height: 2.5rem;
         width: 2.5rem;
         margin: 0.5rem;
+        box-shadow: 5px 3px 0px rgba(#000, 0.2);
+        padding: 0.4rem;
     }
 }
 
@@ -80,7 +94,6 @@ body {
 
 header {
     background-color: #46b2f0;
-    padding: 10px;
     top: 0;
     display: flex;
     flex-direction: row;
@@ -89,7 +102,6 @@ header {
     //중앙을 비우고 양옆에 두기
     box-shadow: 0 4px 30px rgba(#000, 0.2);
     align-items: center;
-
     .homeLogo {
         color: white;
         font-weight: 700;
@@ -111,27 +123,36 @@ header {
 .listBox {
     border-radius: 0.4rem;
     border: 1px solid #D4D3E8;
-    box-shadow: 5px 3px 0px rgba(#000, 0.2);
-    padding: 0.4rem;
     background-color: white;
     position: relative;
     align-self: end;
-    li {
-        list-style: none;
-        button {
-            margin: 0;
-            padding: 0;
-            border: 0;
-        }
-        .foodNSp {
-            font-size: 0.3em;
-        }
+}
 
-        .foodNDateSp {
-            font-family: -apple-system;
-            display: flex;
-            color: red;
-        }
+.list-grid {
+    display: grid;
+    grid-template-columns: 1fr 0.7rem;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas:
+        "foodNSp deleteBtn"
+        "foodNDateSp foodNDateSp";
+
+    .deleteBtn {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        grid-area: deleteBtn;
+    }
+
+    .foodNSp {
+        font-size: 0.3em;
+        grid-area: foodNSp;
+    }
+
+    .foodNDateSp {
+        font-family: -apple-system;
+        color: red;
+        font-weight: 600;
+        grid-area: foodNDateSp;
     }
 }
 
@@ -160,7 +181,8 @@ header {
     box-shadow: 2px 3px 0px rgba(#000, 0.2);
     position: relative;
     flex-direction: row;
-    p{
+
+    p {
         position: absolute;
         margin: 0.5rem;
     }
@@ -175,18 +197,20 @@ header {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     grid-template-areas:
-    "frozen refrigerated"
-    "roomTemp roomTemp"
-    //    margin: 0 0 5% 0;
+        "frozen refrigerated"
+        "roomTemp roomTemp"
+        //    margin: 0 0 5% 0;
 }
 
-#frozen{
+#frozen {
     grid-area: frozen;
 }
-#refrigerated{
+
+#refrigerated {
     grid-area: refrigerated;
 }
-#roomTemp{
+
+#roomTemp {
     grid-area: roomTemp;
 }
 
@@ -204,6 +228,7 @@ header {
     justify-content: space-around;
     align-items: center;
     z-index: 1;
+
     .modal-overlay {
         position: absolute;
         /*overlay를 한장 더 깔지 않으면 모달창 아래의 link나 button을 클릭할 수 있게 된다*/
@@ -268,6 +293,7 @@ header {
     right: 0;
     position: absolute;
     margin: 0.5rem;
+
     &:hover {
         color: white;
         background-color: black;
