@@ -17,14 +17,6 @@
         min-height: 55%;
     }
 
-    .listBox {
-        height: 1.4rem;
-        width: 5rem;
-        margin: 0.3rem;
-        box-shadow: 0.2rem 0.2rem 0px rgba(#000, 0.2);
-        padding: 0.2rem;
-    }
-
     .listBox li span {
         font-size: 0.3rem;
     }
@@ -67,13 +59,7 @@
         font-size: 2%;
     }
 
-    .listBox {
-        height: 2.5rem;
-        width: 2.5rem;
-        margin: 0.5rem;
-        box-shadow: 5px 3px 0px rgba(#000, 0.2);
-        padding: 0.4rem;
-    }
+
 }
 
 /*basic*/
@@ -120,6 +106,7 @@ header {
 
 #food-list {
     display: flex;
+    flex-wrap: wrap;
 }
 
 /*  Nested 시 이동하면 속성 사라짐*/
@@ -129,7 +116,24 @@ header {
     background-color: white;
     position: relative;
     align-self: end;
+    @media screen and (min-width: 481px) {
+        height: 2.5rem;
+        width: 2.5rem;
+        margin: 0.5rem;
+        box-shadow: 5px 3px 0px rgba(#000, 0.2);
+        padding: 0.4rem;
+    }
+
+    @media screen and (max-width: 480px) {
+        height: 1.4rem;
+        margin: 0.3rem;
+        box-shadow: 0.2rem 0.2rem 0px rgba(#000, 0.2);
+        padding: 0.2rem;
+        width: 100px;
+
+    }
 }
+
 
 .list-grid {
     display: grid;
@@ -169,6 +173,7 @@ header {
     width: 95%;
     min-height: 20%;
     position: relative;
+
     ul#foodList {
         display: flex;
         flex-wrap: wrap;
@@ -183,9 +188,11 @@ header {
     border-radius: 1rem;
     box-shadow: 2px 3px 0px rgba(#000, 0.2);
     position: relative;
+
     @media screen and (max-width: 480px) {
         flex-direction: column;
     }
+
     @media screen and (min-width: 481px) {
         flex-direction: row;
     }
@@ -193,18 +200,22 @@ header {
 
 .temp-title {
     display: flex;
+
     .entire-li-btn {
         border: 1px solid #D4D3E8;
         border-radius: 0.4rem;
         width: 20px;
         cursor: pointer;
         right: 0;
+
         @media screen and (max-width: 480px) {
             margin: 0.3rem;
         }
+
         @media screen and (min-width: 481px) {
             margin: 0.5rem;
         }
+
         &:hover {
             color: white;
             background-color: black;
@@ -215,6 +226,7 @@ header {
         @media screen and (max-width: 480px) {
             margin: 0.3rem;
         }
+
         @media screen and (min-width: 481px) {
             margin: 0.5rem;
         }
