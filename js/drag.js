@@ -83,18 +83,16 @@ function endDrag(element) {
       alertKey(dragged, prevBox.id, nextBox.id);
     }
   });
-}
+};
 
 function refresh() {
   listBox = document.querySelectorAll(".listBox");
-  /* mobile touch */
+  /* mobile touch 
   listBox.forEach((element) => {
-    element.addEventListener("touchstart", handleStart)
-    element.addEventListener("touchend", handleEnd);
-    element.addEventListener("touchcancel", handleCancel);
-    element.addEventListener("touchmove", handleMove);
+    element.addEventListener("touchstart", () => handleStart(element));
+    element.addEventListener("touchend", () => handleEnd(element));
     log("Initialized.");
-  });
+  });*/
   /* web touch */
   listBox.forEach((element) => startDrag(element));
   document.addEventListener("dragend", opacReset);
@@ -106,11 +104,11 @@ function refresh() {
   //7.지금 드래그중인것의 부모의 자식(본인)을 지운다
   //8.그리고 이벤트의 타겟(본인)의 자리에 자식을 추가한다
 }
-/* 진행 중인 터치를 추적 */
+/* 진행 중인 터치를 추적 
 const ongoingTouches = [];
 document.addEventListener("DOMContentLoaded", refresh);
 
-
+*/
 refresh();
 
 
