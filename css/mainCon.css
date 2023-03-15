@@ -83,14 +83,14 @@ a {
     min-height: 50%;
   }
   .listBox li span {
-    font-size: 0.1rem;
-  }
-  #foodNDateSp {
-    font-size: 0.1rem;
+    font-size: 0.3rem;
   }
   #RoomTemp {
     width: 95%;
     height: 40%;
+  }
+  #foodNDateSp {
+    font-size: 0.01rem;
   }
 }
 /* large */
@@ -229,6 +229,7 @@ header .mainBtn {
   font-size: 0.3em;
 }
 .listBox li .foodNDateSp {
+  font-family: -apple-system;
   display: flex;
   color: red;
 }

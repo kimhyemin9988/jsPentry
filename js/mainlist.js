@@ -43,32 +43,42 @@ function inputFood(event) {
 }
 
 function removeLi(event) {
-    /* (event.target.parentElement).parentElement => 이러면 오류남 */
-    const removeDiv =  event.target.parentElement.parentElement;
-    if(event.target.parentElement.parentElement.parentElement.id === "food-list")
-    {
+    const removeDiv = event.target.parentElement.parentElement.parentElement.parentElement;
+
+    if (event.target.parentElement.parentElement.parentElement.id === "food-list") {
         storedFood = JSON.parse(localStorage.getItem(`${removeDiv.parentElement.parentElement.id}`));
         storedFood = storedFood.filter(Element =>
             Element.id !== parseInt(removeDiv.firstChild.id)); // 빈배열 or 나머지
         saveFood(storedFood, removeDiv.parentElement.parentElement.id);
         removeDiv.remove();
     }
-    else{
+    else {
         storedFood = JSON.parse(localStorage.getItem(`${removeDiv.parentElement.id}`));
         storedFood = storedFood.filter(Element =>
             Element.id !== parseInt(removeDiv.firstChild.id)); // 빈배열 or 나머지
         saveFood(storedFood, removeDiv.parentElement.id);
         removeDiv.remove();
     }
-
-    //storedFood = JSON.parse(localStorage.getItem(`${removeDiv.parentElement.id}`));
-    /* local Storage에 frozen, refrigerated, roomTemp로 저장
-        filterTempStorage(removeDiv, removeDiv.parentElement.id);
-        */
-    //storedFood = JSON.parse(localStorage.getItem(`${removeDiv.parentElement.id}`));
-
 }
 
+/* svg delete 만들기 */
+function CreateSVG(button) {
+    var xmlns = "http://www.w3.org/2000/svg";
+    var boxWidth = 448;
+    var boxHeight = 512;
+    var realWidth = "0.6rem";
+    var realHeight = "0.6rem";
+    var svgElem = document.createElementNS(xmlns, "svg");
+    svgElem.setAttributeNS(null, "viewBox", "0 0 " + boxWidth + " " + boxHeight);
+    svgElem.setAttributeNS(null, "width", realWidth);
+    svgElem.setAttributeNS(null, "height", realHeight);
+    svgElem.style.display = "block"
+    var coords = "M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z";
+    var path = document.createElementNS(xmlns, "path");
+    path.setAttributeNS(null, 'd', coords);
+    svgElem.appendChild(path);
+    button.appendChild(svgElem);
+};
 
 /* 브라우저에 그리기 */
 function addList(newFoodobj) {
@@ -83,10 +93,10 @@ function addList(newFoodobj) {
     dateSpan.className = "foodNDateSp";
     const button = document.createElement("button");
     button.className = "deleteBtn";
+    CreateSVG(button);
     li.appendChild(span);
     li.appendChild(button);
     li.appendChild(dateSpan);
-    button.innerHTML = `\u2796`;
     span.innerText = `${newFoodobj.text}`;
     dateSpan.innerText = `${newFoodobj.exDate}`;
     button.addEventListener("click", removeLi);
