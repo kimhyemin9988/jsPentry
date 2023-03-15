@@ -41,15 +41,23 @@ function inputFood(event) {
     //객체로 만든 다음에 그리기
     alarm();
 }
-
+/* 모달창 열렸을 때 삭제 + main에서 삭제 */
 function removeLi(event) {
+    const modalContentId = event.currentTarget.closest(".modal-content");
     const removeContainer = event.currentTarget.closest(".temp-box");
     const removeDiv = event.currentTarget.closest(".listBox");
-    console.log(removeDiv.parentElement.className === "modal-content");
-    storedFood = JSON.parse(localStorage.getItem(`${removeContainer.id}`));
-    storedFood = storedFood.filter(Element =>
-        Element.id !== parseInt(event.currentTarget.parentElement.id)); // 빈배열 or 나머지
-    saveFood(storedFood, removeContainer.id);
+    if (removeContainer) {
+        storedFood = JSON.parse(localStorage.getItem(removeContainer.id));
+        storedFood = storedFood.filter(Element =>
+            Element.id !== parseInt(event.currentTarget.parentElement.id));
+        saveFood(storedFood, removeContainer.id);
+    }
+    else {
+        storedFood = JSON.parse(localStorage.getItem(modalContentId.classList[1]))
+        storedFood = storedFood.filter(Element =>
+            Element.id !== parseInt(event.currentTarget.parentElement.id));
+        saveFood(storedFood, modalContentId.classList[1]);
+    }
     removeDiv.remove();
 }
 
@@ -197,7 +205,8 @@ const paintModal = (keyName) => {
 
 /* 전체 목록 modal body의 firstChild로 그리기 */
 
-const openEntList = (element) => {
+const openEntList = (event) => {
+    const modalId = event.target.closest(".temp-box").id;
     //overflow: hidden 해주기
     body.classList.add("modal-open-body");
     const sectionEntire = document.createElement("section");
@@ -208,6 +217,9 @@ const openEntList = (element) => {
     /* content margin주기 */
     const divEntireContent = document.createElement("div");
     divEntireContent.className = "modal-content";
+    /* 모달 열릴때 class로 id(food, frozen...ect) 더해주기 */
+    divEntireContent.classList.add(modalId);
+    /* modal-content에 class로 frozen 주기, 근처의 class가 modalId과 같으면 해당하는 local storage 불러오기*/
     const button = document.createElement("button");
     button.innerHTML = `+`;
     divEntireContent.appendChild(button);
@@ -215,17 +227,15 @@ const openEntList = (element) => {
     sectionEntire.appendChild(divEntireOverlay);
     sectionEntire.appendChild(divEntireContent);
     body.prepend(sectionEntire);
-    paintModal(element.parentElement.parentElement.id);
+    paintModal(modalId);
     button.addEventListener("click", (event) => {
         event.target.parentElement.parentElement.remove();
         body.classList.remove("modal-open-body");
     });
 }
 
-entireLiBtn.forEach((element) => element.addEventListener("click", () => openEntList(element)));
-
+entireLiBtn.forEach((element) => element.addEventListener("click", openEntList));
 /* 등록 */
-foodForm.addEventListener("submit", inputFood);
 
 /* 새로고침 후 화면 */
 refreshDocument();
