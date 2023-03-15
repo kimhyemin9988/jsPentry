@@ -43,22 +43,14 @@ function inputFood(event) {
 }
 
 function removeLi(event) {
-    const removeDiv = event.target.parentElement.parentElement.parentElement.parentElement;
-    if (event.target.parentElement.parentElement.parentElement.id === "food-list") {
-    storedFood = JSON.parse(localStorage.getItem(`${removeDiv.parentElement.parentElement.id}`));
-    storedFood = storedFood.filter(Element =>
-        Element.id !== parseInt(removeDiv.firstChild.id)); // 빈배열 or 나머지
-    saveFood(storedFood, removeDiv.parentElement.parentElement.id);
-    removeDiv.remove();
+    const removeContainer = event.currentTarget.closest(".temp-box");
+    const removeDiv = event.currentTarget.closest(".listBox");
 
-}
-else {
-    storedFood = JSON.parse(localStorage.getItem(`${removeDiv.parentElement.id}`));
+    storedFood = JSON.parse(localStorage.getItem(`${removeContainer.id}`));
     storedFood = storedFood.filter(Element =>
-        Element.id !== parseInt(removeDiv.firstChild.id)); // 빈배열 or 나머지
-    saveFood(storedFood, removeDiv.parentElement.id);
+        Element.id !== parseInt(event.currentTarget.parentElement.id)); // 빈배열 or 나머지
+    saveFood(storedFood, removeContainer.id);
     removeDiv.remove();
-}
 }
 
 /* svg delete 만들기 */

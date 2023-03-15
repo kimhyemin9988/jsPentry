@@ -152,6 +152,8 @@ header .mainBtn {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  justify-content: flex-start;
+  padding: 1rem 1rem 0 1rem;
 }
 
 /*  Nested 시 이동하면 속성 사라짐*/
@@ -204,20 +206,12 @@ header .mainBtn {
   grid-area: foodNDateSp;
 }
 
-.input-food-box {
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 10px;
+#food {
   margin: 2%;
   width: 95%;
   min-height: 20%;
-  position: relative;
-}
-.input-food-box ul#foodList {
-  display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .temp-box {
@@ -244,6 +238,8 @@ header .mainBtn {
 
 .temp-title {
   display: flex;
+  position: absolute;
+  top: 0;
 }
 .temp-title .entire-li-btn {
   border: 1px solid #D4D3E8;
@@ -297,6 +293,8 @@ header .mainBtn {
 
 #roomTemp {
   grid-area: roomTemp;
+  justify-content: flex-end;
+  padding: 1rem 1rem 0 1rem;
 }
 
 .dragging {

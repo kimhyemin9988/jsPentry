@@ -75,9 +75,7 @@ function endDrag(element) {
   element.addEventListener("drop", (event) => {
     event.preventDefault();
     if (event.target.className === "temp-box") {
-      console.log()
-      const prevBox = dragged.parentNode.id === "food-list" ? dragged.parentNode.parentNode : dragged.parentNode;
-      //목록은 dragged.parentNode.parentNode로 해야함
+      const prevBox = dragged.closest(".temp-box");
       dragged.parentNode.removeChild(dragged);
       event.target.appendChild(dragged);
       const nextBox = dragged.parentNode;

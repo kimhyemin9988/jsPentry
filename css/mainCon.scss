@@ -108,6 +108,8 @@ header {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    justify-content: flex-start;
+    padding: 1rem 1rem 0 1rem;
 }
 
 /*  Nested 시 이동하면 속성 사라짐*/
@@ -117,6 +119,7 @@ header {
     background-color: white;
     position: relative;
     align-self: end;
+
     @media screen and (min-width: 481px) {
         height: 2.5rem;
         width: 2.5rem;
@@ -164,21 +167,13 @@ header {
     }
 }
 
-.input-food-box {
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 10px;
+
+#food {
     margin: 2%;
     width: 95%;
     min-height: 20%;
-    position: relative;
-
-    ul#foodList {
-        display: flex;
-        flex-wrap: wrap;
-    }
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .temp-box {
@@ -191,6 +186,7 @@ header {
     border-radius: 1rem;
     box-shadow: 2px 3px 0px rgba(#000, 0.2);
     position: relative;
+
     @media screen and (max-width: 480px) {
         flex-direction: column;
     }
@@ -202,6 +198,8 @@ header {
 
 .temp-title {
     display: flex;
+    position: absolute;
+    top: 0;
 
     .entire-li-btn {
         border: 1px solid #D4D3E8;
@@ -259,6 +257,8 @@ header {
 
 #roomTemp {
     grid-area: roomTemp;
+    justify-content: flex-end;
+    padding: 1rem 1rem 0 1rem;
 }
 
 .dragging {
