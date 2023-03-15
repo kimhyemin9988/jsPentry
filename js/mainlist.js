@@ -236,6 +236,7 @@ const openEntList = (event) => {
 
 entireLiBtn.forEach((element) => element.addEventListener("click", openEntList));
 /* 등록 */
+foodForm.addEventListener("submit", inputFood);
 
 /* 새로고침 후 화면 */
 refreshDocument();
