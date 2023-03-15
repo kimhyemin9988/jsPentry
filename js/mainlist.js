@@ -247,6 +247,4 @@ foodPrice.addEventListener("input", maxlengthFx);
     localStorage.get
     localStorage.set 함수로 만들기
     리팩토링
-    빈 화면에 drop해야 들어감 -> 냉장고 아이콘 또는 네모박스를 넣어 그곳에 드랍하도록
-    모바일시 깨짐
 */

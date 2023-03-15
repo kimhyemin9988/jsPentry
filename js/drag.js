@@ -85,9 +85,17 @@ function endDrag(element) {
   });
 }
 
-
 function refresh() {
   listBox = document.querySelectorAll(".listBox");
+  /* mobile touch */
+  listBox.forEach((element) => {
+    element.addEventListener("touchstart", handleStart)
+    element.addEventListener("touchend", handleEnd);
+    element.addEventListener("touchcancel", handleCancel);
+    element.addEventListener("touchmove", handleMove);
+    log("Initialized.");
+  });
+  /* web touch */
   listBox.forEach((element) => startDrag(element));
   document.addEventListener("dragend", opacReset);
   targetTempBox.forEach((element) => endDrag(element));
@@ -98,6 +106,20 @@ function refresh() {
   //7.지금 드래그중인것의 부모의 자식(본인)을 지운다
   //8.그리고 이벤트의 타겟(본인)의 자리에 자식을 추가한다
 }
+/* 진행 중인 터치를 추적 */
+const ongoingTouches = [];
+document.addEventListener("DOMContentLoaded", refresh);
+
 
 refresh();
 
+
+/*
+    drag and drop 모바일 구현
+    var el = document.getElementById('drag');
+  el.addEventListener("touchstart", handleStart, false);
+  el.addEventListener("touchend", handleEnd, false);
+  el.addEventListener("touchcancel", handleCancel, false);
+  el.addEventListener("touchleave", handleEnd, false);
+  el.addEventListener("touchmove", handleMove, false);
+*/
