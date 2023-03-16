@@ -20,10 +20,13 @@ function touchMove(event) {
     event.preventDefault();
     dragged = event.target.closest(".listBox");
     dragged.classList.add(DRAGGING);
-    dragged.setAttributeNS(null, "position", "absolute");
+    //dragged.setAttributeNS(null, "position", "absolute");
     let touch = event.targetTouches[0];
-    dragged.style.top = `${touch.pageY - (2 * dragged.offsetWidth)}px`;
-    dragged.style.left = `${touch.pageX}px`;
+    dragged.style.top = `${touch.clientY}px`;
+    dragged.style.left = `${touch.clientX}px`;
+    //- (2 * dragged.offsetWidth)+(dragged.offsetWidth/2
+    // - dragged.offsetWidth-dragged.offsetWidth/2
+    // - (2 * dragged.offsetWidth)
     //- (wrapper.offsetLeft)
     //흔들림 왜지?? (dragged.offsetLeft)
     empty.map(item => {
@@ -39,7 +42,6 @@ function touchMove(event) {
 }
 
 function touchEnd(element) {
-    dragged.removeAttributeNS(null, "position", "absolute");
     dragged.style.top = "0";
     dragged.style.left = "0";
     itemAppend.append(draggedList);
