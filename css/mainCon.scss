@@ -104,7 +104,7 @@ header {
     background-color: white;
     position: relative;
     align-self: end;
-
+    z-index: 2;
     @media screen and (min-width: 481px) {
         height: 2.5rem;
         width: 8rem;
@@ -268,7 +268,7 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    z-index: 1;
+    z-index: 5;
 
     .modal-overlay {
         position: absolute;

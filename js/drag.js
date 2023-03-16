@@ -1,8 +1,9 @@
+
 let dragged = null;
 let foodDrag = document.getElementById("food");
 //감시대상 node
 let listBox = [];
-const targetTempBox = document.querySelectorAll(".temp-box")
+const targetTempBox = document.querySelectorAll(".temp-box");
 //드래그할것을 놓을 타겟을 모두
 const DRAGGING = "dragging";
 

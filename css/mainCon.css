@@ -148,6 +148,7 @@ header .mainBtn {
   background-color: white;
   position: relative;
   align-self: end;
+  z-index: 2;
 }
 @media screen and (min-width: 481px) {
   .listBox {
@@ -305,7 +306,7 @@ header .mainBtn {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  z-index: 1;
+  z-index: 5;
 }
 .bg-modal .modal-overlay {
   position: absolute;
