@@ -29,6 +29,7 @@ function startDrag(element) {
     dragged.classList.add(DRAGGING);
   });
 };
+
 /* local Storage에 frozen, refrigerated, roomTemp로 저장
 */
 const saveTempBox = (nextBoxKeyName, tempStoredFood) => {
@@ -54,7 +55,7 @@ function opacReset() {
 let emptyArray = [];
 
 /* dragged 움직이는 html 요소 */
-const alertKey = (dragged, prevBoxKeyName, nextBoxKeyName) => {
+export const alertKey = (dragged, prevBoxKeyName, nextBoxKeyName) => {
   const savedFood = JSON.parse(localStorage.getItem(prevBoxKeyName));
   //JSON.parse(dragged.firstChild.id) 지울것 아이디
   emptyArray = savedFood.filter((i) => i.id !== JSON.parse(dragged.firstChild.id));// 지울것 지우고 나머지 filter
