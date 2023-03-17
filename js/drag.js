@@ -55,11 +55,11 @@ function opacReset() {
 let emptyArray = [];
 
 /* dragged 움직이는 html 요소 */
-export const alertKey = (dragged, prevBoxKeyName, nextBoxKeyName) => {
+function alertKey(dragged, prevBoxKeyName, nextBoxKeyName) {
   const savedFood = JSON.parse(localStorage.getItem(prevBoxKeyName));
   //JSON.parse(dragged.firstChild.id) 지울것 아이디
-  emptyArray = savedFood.filter((i) => i.id !== JSON.parse(dragged.firstChild.id));// 지울것 지우고 나머지 filter
-  localStorage.setItem(prevBoxKeyName, JSON.stringify(emptyArray));// update
+  emptyArray = savedFood.filter((i) => i.id !== JSON.parse(dragged.firstChild.id)); // 지울것 지우고 나머지 filter
+  localStorage.setItem(prevBoxKeyName, JSON.stringify(emptyArray)); // update
 
 
   const tempStoredFood = savedFood.filter((i) => i.id === JSON.parse(dragged.firstChild.id)); // 다른 key에 저장할 것
@@ -67,8 +67,8 @@ export const alertKey = (dragged, prevBoxKeyName, nextBoxKeyName) => {
   if (tempStoredFood.length !== 0) {
     return saveTempBox(nextBoxKeyName, tempStoredFood);
   }
-}
-
+};
+export default { alertKey };
 
 function endDrag(element) {
   element.addEventListener("dragover", (event) => {
@@ -112,7 +112,6 @@ document.addEventListener("DOMContentLoaded", refresh);
 
 */
 refresh();
-
 
 /*
     drag and drop 모바일 구현
