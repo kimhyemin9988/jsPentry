@@ -1,14 +1,21 @@
-const foodForm = document.querySelector(".food-form");
-const foodName = document.querySelector("#food-name");
-const foodPrice = document.querySelector("#food-price");
-const exDate = document.querySelector("#ex-date");
-const [foodList, frozen, refrigerated, roomTemp] = ["#food", "#frozen", "#refrigerated", "#roomTemp"].map((i) => document.querySelector(i));
+/* input form */
+const [foodForm, foodName, foodPrice, exDate] = [".food-form", "#food-name", "#food-price", "#ex-date"].map((i) => document.querySelector(i));
 const submitAlarm = document.querySelector(".submit-alarm");
+
+/* container box */
+const [foodList, frozen, refrigerated, roomTemp] = ["#food", "#frozen", "#refrigerated", "#roomTemp"].map((i) => document.querySelector(i));
+
+
+/* localStorage에서 value를 가져온뒤 parse */
+const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = ['food', 'frozen', 'refrigerated', 'roomTemp'].map((i) => {
+    return JSON.parse(localStorage.getItem(i));
+});
+
 const body = document.querySelector("body");
 let storedFood = [];
 
 
-/* 전체,냉장,냉동,상온 */
+/* modal open btn */
 const entireLiBtn = document.querySelectorAll(".entire-li-btn");
 
 /* 등록시 알림 */
@@ -17,46 +24,46 @@ const alarm = () => {
     setTimeout(() => { submitAlarm.classList.add("hidden") }, 800);
 }
 
-/* localstorage 저장 */
+/* 처음 등록시 localstorage에 key: "food"로 저장 */
 function saveFood(storedFood, keyName) {
-    localStorage.setItem(`${keyName}`, JSON.stringify(storedFood));
+    localStorage.setItem(keyName, JSON.stringify(storedFood));
 }
+
 
 function inputFood(event) {
     event.preventDefault();
     const [foodNValue, foodPValue, foodEXValue] = [foodName.value, foodPrice.value, exDate.value];
     [foodName.value, foodPrice.value, exDate.value] = [null, null, null];
-    /* 변수설정해서 할당하면 초기화 x */
     const newFoodobj = {
         id: Date.now(),
         text: foodNValue,
         price: foodPValue,
         exDate: foodEXValue,
     };
-    localStorage.getItem('food') !== null ? storedFood = JSON.parse(localStorage.getItem('food')) : storedFood = [];
+    storedFood = savedFood ? savedFood : [];
     storedFood.push(newFoodobj);
-    //배열에 넣기
-    saveFood(storedFood, 'food');
+    saveFood(storedFood, 'food'); //localStorage에 저장
     addList(newFoodobj);
     //객체로 만든 다음에 그리기
     alarm();
 }
-/* 모달창 열렸을 때 삭제 + main에서 삭제 */
+
+/*  modal 열렸을 때 삭제 and main에서 삭제 */
 function removeLi(event) {
-    const modalContentId = event.currentTarget.closest(".modal-content");
-    const removeContainer = event.currentTarget.closest(".temp-box");
-    const removeDiv = event.currentTarget.closest(".listBox");
+    const [modalContent, removeContainer, removeDiv] = [".modal-content", ".temp-box", ".listBox"].map((i)=>event.currentTarget.closest(i));
+    /* if modal 열렸다면*/
     if (removeContainer) {
         storedFood = JSON.parse(localStorage.getItem(removeContainer.id));
         storedFood = storedFood.filter(Element =>
             Element.id !== parseInt(event.currentTarget.parentElement.id));
         saveFood(storedFood, removeContainer.id);
     }
+    /* main */
     else {
-        storedFood = JSON.parse(localStorage.getItem(modalContentId.classList[1]))
+        storedFood = JSON.parse(localStorage.getItem(modalContent.classList[1]))
         storedFood = storedFood.filter(Element =>
             Element.id !== parseInt(event.currentTarget.parentElement.id));
-        saveFood(storedFood, modalContentId.classList[1]);
+        saveFood(storedFood, modalContent.classList[1]);
     }
     removeDiv.remove();
 }
@@ -113,9 +120,6 @@ const paintFood = (div) => {
         modalContent.appendChild(div);
     }
     else {
-        const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = ['food', 'frozen', 'refrigerated', 'roomTemp'].map((i) => {
-            return JSON.parse(localStorage.getItem(i));
-        });
         /* html에서 가져온것, localStorage 가져온것 */
         const localAndDocument = [
             {
@@ -168,12 +172,10 @@ const paint6 = (array) => {
 
 /*  frozen, refrigerated, roomTemp  */
 const refreshDocument = () => {
-    const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = ['food', 'frozen', 'refrigerated', 'roomTemp'].map((i) => localStorage.getItem(i));
 
     [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].map((i) => {
         if (i !== null) {
-            const parsedToDos = JSON.parse(i);
-            storedFood = parsedToDos.reverse();
+            storedFood = i.reverse();
             //최신순으로 브라우저에 출력하기 위해 reverse, 빈 배열에 저장
 
             window.innerWidth < 481 ? paint3(storedFood) : paint6(storedFood);
