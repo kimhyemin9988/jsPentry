@@ -68,7 +68,7 @@ function alertKey(dragged, prevBoxKeyName, nextBoxKeyName) {
     return saveTempBox(nextBoxKeyName, tempStoredFood);
   }
 };
-export default { alertKey };
+
 
 function endDrag(element) {
   element.addEventListener("dragover", (event) => {
