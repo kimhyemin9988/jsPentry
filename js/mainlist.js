@@ -5,11 +5,14 @@ const submitAlarm = document.querySelector(".submit-alarm");
 /* container box */
 const [foodList, frozen, refrigerated, roomTemp] = ["#food", "#frozen", "#refrigerated", "#roomTemp"].map((i) => document.querySelector(i));
 
-
 /* localStorage에서 value를 가져온뒤 parse */
 const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = ['food', 'frozen', 'refrigerated', 'roomTemp'].map((i) => {
     return JSON.parse(localStorage.getItem(i));
 });
+
+const getAndParse = (i) => {
+    return JSON.parse(localStorage.getItem(i));
+}
 
 const body = document.querySelector("body");
 let storedFood = [];
@@ -50,21 +53,13 @@ function inputFood(event) {
 
 /*  modal 열렸을 때 삭제 and main에서 삭제 */
 function removeLi(event) {
-    const [modalContent, removeContainer, removeDiv] = [".modal-content", ".temp-box", ".listBox"].map((i)=>event.currentTarget.closest(i));
-    /* if modal 열렸다면*/
-    if (removeContainer) {
-        storedFood = JSON.parse(localStorage.getItem(removeContainer.id));
-        storedFood = storedFood.filter(Element =>
-            Element.id !== parseInt(event.currentTarget.parentElement.id));
-        saveFood(storedFood, removeContainer.id);
-    }
-    /* main */
-    else {
-        storedFood = JSON.parse(localStorage.getItem(modalContent.classList[1]))
-        storedFood = storedFood.filter(Element =>
-            Element.id !== parseInt(event.currentTarget.parentElement.id));
-        saveFood(storedFood, modalContent.classList[1]);
-    }
+    const [modalContent, removeContainer, removeDiv] = [".modal-content", ".temp-box", ".listBox"].map((i) => event.currentTarget.closest(i));
+    /* if modal 열렸다면 or mainBox*/
+    const id = removeContainer ? removeContainer.id : modalContent.classList[1];
+    storedFood = getAndParse(id);
+    storedFood = storedFood.filter(Element =>
+        Element.id !== parseInt(event.currentTarget.parentElement.id));
+    saveFood(storedFood, id);
     removeDiv.remove();
 }
 
