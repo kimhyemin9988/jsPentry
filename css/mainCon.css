@@ -180,6 +180,7 @@ header .mainBtn {
   padding: 0;
   border: 0;
   grid-area: deleteBtn;
+  background-color: white;
 }
 .list-grid .foodNSp {
   font-size: 0.3em;

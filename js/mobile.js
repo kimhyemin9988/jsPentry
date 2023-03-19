@@ -9,6 +9,9 @@ document.getElementById("roomTemp")], {
     moves: function (el, source, handle, sibling) {
         draggedElement = el;
         prevBox = source.id;
+        if(el.className === "temp-title"){
+            return false;
+        }
         return true;
     },
 }).on("drop", function(el) {
