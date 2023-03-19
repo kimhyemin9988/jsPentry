@@ -65,19 +65,16 @@ function removeLi(event) {
 
 /* svg delete 만들기 */
 function CreateSVG(button) {
-    var xmlns = "http://www.w3.org/2000/svg";
-    var boxWidth = 448;
-    var boxHeight = 512;
-    var realWidth = "0.6rem";
-    var realHeight = "0.6rem";
+    var [xmlns, boxWidth, boxHeight, realWidth, realHeight] = ["http://www.w3.org/2000/svg", 448, 512, "0.6rem", "0.6rem"];
     var svgElem = document.createElementNS(xmlns, "svg");
-    svgElem.setAttributeNS(null, "viewBox", "0 0 " + boxWidth + " " + boxHeight);
-    svgElem.setAttributeNS(null, "width", realWidth);
-    svgElem.setAttributeNS(null, "height", realHeight);
+    svgElem.setAttribute("viewBox", "0 0 " + boxWidth + " " + boxHeight);
+    svgElem.setAttribute("width", realWidth);
+    svgElem.setAttribute("height", realHeight);
+    svgElem.setAttribute("xmlns", xmlns);
     svgElem.style.display = "block"
     var coords = "M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z";
-    var path = document.createElementNS(xmlns, "path");
-    path.setAttributeNS(null, 'd', coords);
+    var path = document.createElementNS(xmlns, "path"); //namespace URI 필요
+    path.setAttribute('d', coords);
     svgElem.appendChild(path);
     button.appendChild(svgElem);
 };
@@ -85,7 +82,7 @@ function CreateSVG(button) {
 /* 브라우저에 그리기 */
 function addList(newFoodobj) {
     const li = document.createElement("li");
-    li.setAttribute("class", "list-grid");
+    li.className = "list-grid";
     li.id = newFoodobj.id;
     const div = document.createElement("div");
     div.setAttribute("draggable", "true");
@@ -109,7 +106,7 @@ function addList(newFoodobj) {
 
 /* 모달 or 목록, 냉동, 냉장, 상온 */
 const paintFood = (div) => {
-    if (document.querySelector("section").className == 'bg-modal entire')
+    if (document.querySelector("section").className === 'bg-modal entire')
     /* click으로 모달이 뜨게되면 */ {
         let modalContent = document.querySelector("section").lastChild;
         modalContent.appendChild(div);
@@ -138,7 +135,7 @@ const paintFood = (div) => {
             /* 요소가 있는것  */
             if (i.local !== null) {
                 i.local.map((k) => {
-                    if (JSON.stringify(k.id) === div.firstChild.id) {
+                    if (k.id === parseInt(div.firstChild.id)) {
                         i.query.appendChild(div);
                     }
                 });
@@ -146,35 +143,23 @@ const paintFood = (div) => {
         })
     }
 }
-
-const paint3 = (array) => {
+const paintNumber = (array, number) => {
     array.forEach(element => {
-        if (array.lastIndexOf(element) < 3) {
+        if (array.lastIndexOf(element) < number) {
             addList(element);
         }
     });
-}
-
-const paint6 = (array) => {
-    array.forEach(element => {
-        if (array.lastIndexOf(element) < 6) {
-            addList(element);
-        }
-    });
-}
+};
 
 /* 추가될때마다 새로 그리기 */
 
-/*  frozen, refrigerated, roomTemp  */
+/*  mainBox에 frozen, refrigerated, roomTemp  */
 const refreshDocument = () => {
-
     [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].map((i) => {
         if (i !== null) {
-            storedFood = i.reverse();
-            //최신순으로 브라우저에 출력하기 위해 reverse, 빈 배열에 저장
-
-            window.innerWidth < 481 ? paint3(storedFood) : paint6(storedFood);
-            /* 모바일 3개, 대화면 7개 */
+            storedFood = i.reverse();   //최신순으로 브라우저에 출력
+            /* 대화면 7개, 모바일 3개 */
+            window.innerWidth > 481 ? paintNumber(storedFood, 6) : paintNumber(storedFood, 3);
         }
     })
 }
@@ -186,19 +171,12 @@ const maxlengthFx = (event) => {
 }
 
 /* 모달 창 위에 food list 그리기 */
-/* 입력 'food' 이동시 로컬 스토리지에 냉동,냉장,상온으로 저장 변경*/
 const paintModal = (keyName) => {
-    const savedFood = localStorage.getItem(`${keyName}`);
-    //로컬스토리지에서 'food'가져오기
-    if (savedFood !== null) {
-        const parsedToDos = JSON.parse(savedFood);
-        storedFood = parsedToDos.reverse();
-        //최신순으로 브라우저에 출력하기 위해 reverse, 빈 배열에 저장
-        storedFood.forEach(element => addList(element));
+    if (getAndParse(keyName)) {
+        const parsedToDos = getAndParse(keyName).reverse();
+        parsedToDos.forEach(element => addList(element));
     }
-
 }
-
 
 /* 전체 목록 modal body의 firstChild로 그리기 */
 
@@ -211,12 +189,10 @@ const openEntList = (event) => {
     sectionEntire.classList.add("entire");
     const divEntireOverlay = document.createElement("div");
     divEntireOverlay.className = "modal-overlay";
-    /* content margin주기 */
     const divEntireContent = document.createElement("div");
     divEntireContent.className = "modal-content";
     /* 모달 열릴때 class로 id(food, frozen...ect) 더해주기 */
     divEntireContent.classList.add(modalId);
-    /* modal-content에 class로 frozen 주기, 근처의 class가 modalId과 같으면 해당하는 local storage 불러오기*/
     const button = document.createElement("button");
     button.innerHTML = `+`;
     divEntireContent.appendChild(button);
@@ -241,8 +217,3 @@ refreshDocument();
 /* 가격 입력 자리수 8로 제한 */
 foodPrice.addEventListener("input", maxlengthFx);
 
-/*
-    localStorage.get
-    localStorage.set 함수로 만들기
-    리팩토링
-*/
