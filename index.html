@@ -1,73 +1,81 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>main</title>
-    <link rel="stylesheet" href="css/mainCon.css">
-    <link href='node_modules/dragula/dist/dragula.css' rel='stylesheet' type='text/css' />
-</head>
+    <link rel="stylesheet" href="css/mainCon.css" />
+    <link
+      href="node_modules/dragula/dist/dragula.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
 
-<body>
+  <body>
     <!--first modal section-->
     <section class="bg-modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-content">
-            <button type="button" class="close">+</button>
-            <form class="food-form">
-                <label for="food-name">상품명</label>
-                <input id="food-name" maxlength="9" autofocus required>
-                <label for="food-price">가격</label>
-                <input id="food-price" type="number" min="0" required>
-                <label for="ex-date">유효기간</label>
-                <input id="ex-date" type="date" placeholder="유통기한을 설정하세요" required>
-                <button class="tab-btn enroll">등록</button>
-                <p class="submit-alarm hidden">등록되었습니다</p>
-            </form>
-        </div>
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button type="button" class="close">+</button>
+        <form class="food-form">
+          <label for="food-name">상품명</label>
+          <input id="food-name" maxlength="9" autofocus required />
+          <label for="food-price">가격</label>
+          <input id="food-price" type="number" min="0" required />
+          <label for="ex-date">유효기간</label>
+          <input
+            id="ex-date"
+            type="date"
+            placeholder="유통기한을 설정하세요"
+            required
+          />
+          <button class="tab-btn enroll">등록</button>
+          <p class="submit-alarm hidden">등록되었습니다</p>
+        </form>
+      </div>
     </section>
     <header>
-        <div class="homeLogo">
-            <a href="index.html">MyPentry</a>
-        </div>
+      <div class="homeLogo">
+        <a href="index.html">MyPentry</a>
+      </div>
     </header>
     <main>
-        <button class="tab-btn" id="modal-click">클릭해서 상품을 등록하세요!</button>
-        <section id="stored-box">
-            <div class="temp-box" id="food">
-                <div class="temp-title">
-                    <button class="entire-li-btn">+</button>
-                    <p>목록</p>
-                </div>
-            </div>
-            <div class="temp-box" id="frozen">
-                <div class="temp-title">
-                    <button class="entire-li-btn">+</button>
-                    <p>냉동</p>
-                </div>
-            </div>
-            <div class="temp-box" id="refrigerated">
-                <div class="temp-title">
-                    <button class="entire-li-btn">+</button>
-                    <p>냉장</p>
-                </div>
-            </div>
-            <div class="temp-box" id="roomTemp">
-                <div class="temp-title">
-                    <button class="entire-li-btn">+</button>
-                    <p>상온</p>
-                </div>
-            </div>
-        </section>
-
+      <button class="tab-btn" id="modal-click">
+        클릭해서 상품을 등록하세요!
+      </button>
+      <section id="stored-box">
+        <div class="temp-box" id="food">
+          <div class="temp-title">
+            <button class="entire-li-btn">+</button>
+            <p>목록</p>
+          </div>
+        </div>
+        <div class="temp-box" id="frozen">
+          <div class="temp-title">
+            <button class="entire-li-btn">+</button>
+            <p>냉동</p>
+          </div>
+        </div>
+        <div class="temp-box" id="refrigerated">
+          <div class="temp-title">
+            <button class="entire-li-btn">+</button>
+            <p>냉장</p>
+          </div>
+        </div>
+        <div class="temp-box" id="roomTemp">
+          <div class="temp-title">
+            <button class="entire-li-btn">+</button>
+            <p>상온</p>
+          </div>
+        </div>
+      </section>
     </main>
-    <script src='node_modules/dragula/dist/dragula.js'></script>
+    <script src="node_modules/dragula/dist/dragula.js"></script>
     <script src="js/mobile.js"></script>
     <script src="js/drag.js"></script>
     <script src="js/mainlist.js"></script>
     <script src="js/modal.js"></script>
-</body>
-
+  </body>
 </html>

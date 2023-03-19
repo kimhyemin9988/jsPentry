@@ -5,19 +5,87 @@
   font-weight: 700;
   font-style: normal;
 }
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -27,8 +95,17 @@ time, mark, audio, video {
 }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
   display: block;
 }
 
@@ -36,16 +113,20 @@ body {
   line-height: normal;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
 
-blockquote, q {
+blockquote,
+q {
   quotes: none;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
   content: "";
   content: none;
 }
@@ -144,7 +225,7 @@ header .mainBtn {
 /*  Nested 시 이동하면 속성 사라짐*/
 .listBox {
   border-radius: 0.4rem;
-  border: 1px solid #D4D3E8;
+  border: 1px solid #d4d3e8;
   background-color: white;
   position: relative;
   align-self: end;
@@ -207,7 +288,7 @@ header .mainBtn {
   align-items: center;
   flex-wrap: wrap;
   background-color: white;
-  border: 1px solid #D4D3E8;
+  border: 1px solid #d4d3e8;
   border-radius: 1rem;
   box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.2);
   position: relative;
@@ -230,7 +311,7 @@ header .mainBtn {
   top: 0;
 }
 .temp-title .entire-li-btn {
-  border: 1px solid #D4D3E8;
+  border: 1px solid #d4d3e8;
   border-radius: 0.4rem;
   width: 20px;
   cursor: pointer;
@@ -263,14 +344,14 @@ header .mainBtn {
 
 #stored-box {
   /*
-  error : [Intervention] Unable to preventDefault inside passive event listener due to target being treated as passive. See <URL>
+    error : [Intervention] Unable to preventDefault inside passive event listener due to target being treated as passive. See <URL>
 
-  터치 이벤트 리스너는 종종 심각한 스크롤 성능 문제
-  Chrome은 터치 이벤트 리스너가 수동적(passive)이 되도록 허용
-  preventDefault()리스너 내부에 대한 호출이 무시
-  preventDefault()개입이 활성화된 이벤트를 호출할 때 DevTools가 경고를 기록
-  요소 내에서 모든 브라우저 스크롤 및 확대/축소를 방지하려면 해당 요소 touch-action: none에 적용
-  https://developer.chrome.com/blog/scrolling-intervention/*/
+    터치 이벤트 리스너는 종종 심각한 스크롤 성능 문제
+    Chrome은 터치 이벤트 리스너가 수동적(passive)이 되도록 허용
+    preventDefault()리스너 내부에 대한 호출이 무시
+    preventDefault()개입이 활성화된 이벤트를 호출할 때 DevTools가 경고를 기록
+    요소 내에서 모든 브라우저 스크롤 및 확대/축소를 방지하려면 해당 요소 touch-action: none에 적용
+    https://developer.chrome.com/blog/scrolling-intervention/*/
   touch-action: none;
   margin-top: 0.5rem;
   border-radius: 10px;

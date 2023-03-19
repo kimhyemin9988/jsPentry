@@ -1,15 +1,13 @@
-
 let dragged = null;
 let foodDrag = document.getElementById("food"); //감시대상 node
 let listBox = [];
 const targetTempBox = document.querySelectorAll(".temp-box"); //드래그할것을 놓을 타겟을 모두
 const DRAGGING = "dragging";
 
-
 let observer = new MutationObserver(() => {
   // 노드가 변경 됐을 때의 작업
   refresh(); //노드가 변경되었을때 다시 불러오기
-})
+});
 // html에 그려지는 리스트의 수가 변하면
 let option = {
   childList: true,
@@ -23,27 +21,24 @@ function startDrag(element) {
     dragged = event.target;
     dragged.classList.add(DRAGGING);
   });
-};
+}
 
 /* local Storage에 frozen, refrigerated, roomTemp로 저장
-*/
+ */
 const saveTempBox = (nextBoxKeyName, tempStoredFood) => {
   let oldStorage = getAndParse(nextBoxKeyName);
   if (oldStorage) {
     oldStorage.push(tempStoredFood[0]);
     saveFood(oldStorage, nextBoxKeyName);
-  }
-  else{
+  } else {
     saveFood(tempStoredFood, nextBoxKeyName);
   }
-
 };
 
 function opacReset() {
   // 불투명하게 초기화
   dragged.classList.remove(DRAGGING);
-};
-
+}
 
 /* 빈배열을 두지 않으면 null됨 */
 let emptyArray = [];
@@ -51,15 +46,18 @@ let emptyArray = [];
 /* dragged 움직이는 html 요소 */
 function alertKey(dragged, prevBoxKeyName, nextBoxKeyName) {
   const savedFood = getAndParse(prevBoxKeyName);
-  emptyArray = savedFood.filter((i) => i.id !== parseInt(dragged.firstChild.id)); // 지울것 지우고 나머지 filter
-  saveFood(emptyArray, prevBoxKeyName);// update
-  const tempStoredFood = savedFood.filter((i) => i.id === parseInt(dragged.firstChild.id)); // 다른 key에 저장할 것
+  emptyArray = savedFood.filter(
+    (i) => i.id !== parseInt(dragged.firstChild.id)
+  ); // 지울것 지우고 나머지 filter
+  saveFood(emptyArray, prevBoxKeyName); // update
+  const tempStoredFood = savedFood.filter(
+    (i) => i.id === parseInt(dragged.firstChild.id)
+  ); // 다른 key에 저장할 것
   /*
     if (tempStoredFood.length !== 0) ???
   */
   return saveTempBox(nextBoxKeyName, tempStoredFood);
-};
-
+}
 
 function endDrag(element) {
   element.addEventListener("dragover", (event) => {
@@ -76,7 +74,7 @@ function endDrag(element) {
       alertKey(dragged, prevBox.id, nextBox.id);
     }
   });
-};
+}
 
 function refresh() {
   listBox = document.querySelectorAll(".listBox");
