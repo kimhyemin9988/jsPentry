@@ -28,13 +28,13 @@ function startDrag(element) {
 /* local Storage에 frozen, refrigerated, roomTemp로 저장
 */
 const saveTempBox = (nextBoxKeyName, tempStoredFood) => {
-  let oldStorage = JSON.parse(localStorage.getItem(nextBoxKeyName));
-  if (oldStorage !== null) {
+  let oldStorage = getAndParse(nextBoxKeyName);
+  if (oldStorage) {
     oldStorage.push(tempStoredFood[0]);
-    localStorage.setItem(nextBoxKeyName, JSON.stringify(oldStorage));
+    saveFood(oldStorage, nextBoxKeyName);
   }
-  else {
-    localStorage.setItem(nextBoxKeyName, JSON.stringify(tempStoredFood));
+  else{
+    saveFood(tempStoredFood, nextBoxKeyName);
   }
 
 };
@@ -55,8 +55,7 @@ function alertKey(dragged, prevBoxKeyName, nextBoxKeyName) {
   saveFood(emptyArray, prevBoxKeyName);// update
   const tempStoredFood = savedFood.filter((i) => i.id === parseInt(dragged.firstChild.id)); // 다른 key에 저장할 것
   /*
-    if (tempStoredFood.length !== 0) {}
-  
+    if (tempStoredFood.length !== 0) ???
   */
   return saveTempBox(nextBoxKeyName, tempStoredFood);
 };
