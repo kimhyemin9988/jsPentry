@@ -4,6 +4,7 @@
     format("woff2");
   font-weight: 700;
   font-style: normal;
+  font-display: swap; // 글꼴에 매우 작은 블록 기간과 무한 스왑 기간을 제공
 }
 
 html,
