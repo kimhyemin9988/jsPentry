@@ -40,7 +40,7 @@ const getAndParse = (i) => {
 };
 
 const body = document.querySelector("body");
-let storedFood = [];
+let storedFood= [];
 
 /* modal open btn */
 const entireLiBtn = document.querySelectorAll(".entire-li-btn");
@@ -54,7 +54,9 @@ const alarm = () => {
 };
 
 /* 처음 등록시 localstorage에 key: "food"로 저장 */
-function saveFood(storedFood, keyName) {
+function saveFood(element, keyName) {
+  console.log(element);
+  console.log(localStorage.setItem(keyName, JSON.stringify(element)));
   localStorage.setItem(keyName, JSON.stringify(storedFood));
 }
 
@@ -90,33 +92,33 @@ function removeLi(event) {
   ].map((i) => event.currentTarget.closest(i));
   /* if modal 열렸다면 or mainBox*/
   const id = removeContainer ? removeContainer.id : modalContent.classList[1];
+  console.log(id);
   storedFood = getAndParse(id);
+  console.log(storedFood);
   storedFood = storedFood.filter(
     (Element) => Element.id !== parseInt(event.currentTarget.parentElement.id)
   );
+  console.log(storedFood);
   saveFood(storedFood, id);
   removeDiv.remove();
 }
 
 /* svg delete 만들기 */
 function CreateSVG(button) {
-  var [xmlns, boxWidth, boxHeight, realWidth, realHeight] = [
-    "http://www.w3.org/2000/svg",
-    448,
-    512,
-    "0.6rem",
-    "0.6rem",
-  ];
+  var xmlns = "http://www.w3.org/2000/svg";
+  var boxWidth = 448;
+  var boxHeight = 512;
+  var realWidth = "0.6rem";
+  var realHeight = "0.6rem";
   var svgElem = document.createElementNS(xmlns, "svg");
-  svgElem.setAttribute("viewBox", "0 0 " + boxWidth + " " + boxHeight);
-  svgElem.setAttribute("width", realWidth);
-  svgElem.setAttribute("height", realHeight);
-  svgElem.setAttribute("xmlns", xmlns);
+  svgElem.setAttributeNS(null, "viewBox", "0 0 " + boxWidth + " " + boxHeight);
+  svgElem.setAttributeNS(null, "width", realWidth);
+  svgElem.setAttributeNS(null, "height", realHeight);
   svgElem.style.display = "block";
   var coords =
     "M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z";
-  var path = document.createElementNS(xmlns, "path"); //namespace URI 필요
-  path.setAttribute("d", coords);
+    var path = document.createElementNS(xmlns, "path");
+    path.setAttributeNS(null, 'd', coords);
   svgElem.appendChild(path);
   button.appendChild(svgElem);
 }
@@ -124,7 +126,7 @@ function CreateSVG(button) {
 /* 브라우저에 그리기 */
 function addList(newFoodobj) {
   const li = document.createElement("li");
-  li.className = "list-grid";
+  li.setAttribute("class", "list-grid");
   li.id = newFoodobj.id;
   const div = document.createElement("div");
   div.setAttribute("draggable", "true");

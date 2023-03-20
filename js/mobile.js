@@ -2,30 +2,26 @@ let draggedElement;
 let prevBox;
 let nextBox;
 
-document.addEventListener("touchstart", (e) => {
-  if (e.target.parentElement.className === "list-grid") {
-    dragula(
-      [
-        document.getElementById("food"),
-        document.getElementById("frozen"),
-        document.getElementById("refrigerated"),
-        document.getElementById("roomTemp"),
-      ],
-      {
-        moves: function (el, source) {
-          draggedElement = el;
-          prevBox = source.id;
-          if (el.className === "temp-title") {
-            return false;
-          }
-          return true;
-        },
+dragula(
+  [
+    document.getElementById("food"),
+    document.getElementById("frozen"),
+    document.getElementById("refrigerated"),
+    document.getElementById("roomTemp"),
+  ],
+  {
+    moves: function (el, source) {
+      draggedElement = el;
+      prevBox = source.id;
+      if (el.className === "temp-title") {
+        return false;
       }
-    ).on("drop", function (el) {
-      nextBox = el.closest(".temp-box").id;
-      alertKey(draggedElement, prevBox, nextBox);
-    });
+      return true;
+    },
   }
+).on("drop", function (el) {
+  nextBox = el.closest(".temp-box").id;
+  alertKey(draggedElement, prevBox, nextBox);
 });
 
 
