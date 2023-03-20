@@ -1,5 +1,6 @@
 const fragment = document.createDocumentFragment();
 /*
+https://lsw0150305.gitbook.io/til/javascript/performance-optimize
 DOM 트리를 접근하는 건 상당히 속도가 느립니다.
 따라서, 자바스크립트의 성능을 최적화하기 위해서는 DOM 객체 접근을 최소화하도록 코드를 작성해야 한다.
 만약 DOM에 30개의 태그를 추가해야 한다고 가정하면 30번의 접근이 필요하다.
