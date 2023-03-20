@@ -1,3 +1,11 @@
+const fragment = document.createDocumentFragment();
+/*
+DOM 트리를 접근하는 건 상당히 속도가 느립니다.
+따라서, 자바스크립트의 성능을 최적화하기 위해서는 DOM 객체 접근을 최소화하도록 코드를 작성해야 한다.
+만약 DOM에 30개의 태그를 추가해야 한다고 가정하면 30번의 접근이 필요하다.
+이런경우에 DocumentFragment를 사용해서 추가하면 1번의 접근으로 추가가 가능하다.
+*/
+
 /* input form */
 const [foodForm, foodName, foodPrice, exDate] = [
   ".food-form",
@@ -125,9 +133,10 @@ function addList(newFoodobj) {
   const button = document.createElement("button");
   button.className = "deleteBtn";
   CreateSVG(button);
-  li.appendChild(span);
-  li.appendChild(button);
-  li.appendChild(dateSpan);
+  fragment.appendChild(span);
+  fragment.appendChild(button);
+  fragment.appendChild(dateSpan);
+  li.appendChild(fragment);
   span.innerText = `${newFoodobj.text}`;
   dateSpan.innerText = `${newFoodobj.exDate}`;
   button.addEventListener("click", removeLi);
@@ -166,9 +175,10 @@ const paintFood = (div) => {
       if (i.local !== null) {
         i.local.map((k) => {
           if (k.id === parseInt(div.firstChild.id)) {
-            i.query.appendChild(div);
+            fragment.appendChild(div);
           }
         });
+        i.query.appendChild(fragment);
       }
     });
   }
@@ -229,8 +239,9 @@ const openEntList = (event) => {
   button.innerHTML = `+`;
   divEntireContent.appendChild(button);
   /* 오버레이 다음에 content가 오버레이의 동생으로 와야함 */
-  sectionEntire.appendChild(divEntireOverlay);
-  sectionEntire.appendChild(divEntireContent);
+  fragment.appendChild(divEntireOverlay);
+  fragment.appendChild(divEntireContent);
+  sectionEntire.appendChild(fragment);
   body.prepend(sectionEntire);
   paintModal(modalId);
   button.addEventListener("click", (event) => {
