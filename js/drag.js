@@ -46,7 +46,6 @@ let emptyArray = [];
 /* dragged 움직이는 html 요소 */
 function alertKey(dragged, prevBoxKeyName, nextBoxKeyName) {
   const savedFood = getAndParse(prevBoxKeyName);
-  console.log(dragged.firstChild.id);
   emptyArray = savedFood.filter(
     (i) => i.id !== parseInt(dragged.firstChild.id)
   ); // 지울것 지우고 나머지 filter

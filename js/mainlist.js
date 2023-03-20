@@ -76,7 +76,6 @@ function inputFood(event) {
     localStorage.getItem("food") !== null
       ? JSON.parse(localStorage.getItem("food"))
       : [];
-  console.log(storedFood);
   storedFood.push(newFoodobj);
   saveFood(storedFood, "food"); //localStorage에 저장
   addList(newFoodobj);
@@ -94,13 +93,10 @@ function removeLi(event) {
   ].map((i) => event.currentTarget.closest(i));
   /* if modal 열렸다면 or mainBox*/
   const id = removeContainer ? removeContainer.id : modalContent.classList[1];
-  console.log(id);
   storedFood = getAndParse(id);
-  console.log(storedFood);
   storedFood = storedFood.filter(
     (Element) => Element.id !== parseInt(event.currentTarget.parentElement.id)
   );
-  console.log(storedFood);
   saveFood(storedFood, id);
   removeDiv.remove();
 }
@@ -194,7 +190,6 @@ function addList(newFoodobj) {
   dateSpan.innerText = `${newFoodobj.exDate}`;
   button.addEventListener("click", removeLi);
   div.appendChild(li);
-  console.log(div);
   return paintFood(div);
 }
 
