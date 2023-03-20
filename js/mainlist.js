@@ -72,7 +72,10 @@ function inputFood(event) {
     price: foodPValue,
     exDate: foodEXValue,
   };
-  storedFood = localStorage.getItem('food') !== null ? JSON.parse(localStorage.getItem('food')) : [];
+  storedFood =
+    localStorage.getItem("food") !== null
+      ? JSON.parse(localStorage.getItem("food"))
+      : [];
   console.log(storedFood);
   storedFood.push(newFoodobj);
   saveFood(storedFood, "food"); //localStorage에 저장
@@ -117,7 +120,7 @@ function CreateSVG(button) {
   var coords =
     "M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z";
   var path = document.createElementNS(xmlns, "path");
-  path.setAttributeNS(null, 'd', coords);
+  path.setAttributeNS(null, "d", coords);
   svgElem.appendChild(path);
   button.appendChild(svgElem);
 }
@@ -129,7 +132,12 @@ const paintFood = (div) => {
       document.querySelector("section").lastChild;
     modalContent.appendChild(div);
   } else {
-    const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = ['food', 'frozen', 'refrigerated', 'roomTemp'].map((i) => {
+    const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = [
+      "food",
+      "frozen",
+      "refrigerated",
+      "roomTemp",
+    ].map((i) => {
       return getAndParse(i);
     });
     /* html에서 가져온것, localStorage 가져온것 */
@@ -298,4 +306,3 @@ refreshDocument();
 
 /* 가격 입력 자리수 8로 제한 */
 foodPrice.addEventListener("input", maxlengthFx);
-

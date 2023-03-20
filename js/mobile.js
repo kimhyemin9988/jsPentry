@@ -24,7 +24,6 @@ dragula(
   alertKey(draggedElement, prevBox, nextBox);
 });
 
-
 /* 몇개 넣었는지 +
 -두번째로 drag and drop 하면 null이 들어감....
 -알수 없는 이유로 같은것이 2개 그려짐
