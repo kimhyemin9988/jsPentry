@@ -211,7 +211,10 @@ header {
   }
   .count {
     color: #5661f2;
-    font-size: 1rem;
+    font-size: 0.5rem;
+  }
+  .exDateAlarmSp{
+    color: #f25656;
   }
 }
 
@@ -231,7 +234,7 @@ header {
   width: 95%;
   display: grid;
   min-height: 80%;
-  grid-template-rows: 30% 40% 30%;
+  grid-template-rows: 25% 35% 25%;
   grid-template-columns: repeat(2, 50%);
   grid-template-areas:
     "food food"

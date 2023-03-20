@@ -1,13 +1,3 @@
-/*
-https://lsw0150305.gitbook.io/til/javascript/performance-optimize
-DOM 트리를 접근하는 건 상당히 속도가 느립니다.
-따라서, 자바스크립트의 성능을 최적화하기 위해서는 DOM 객체 접근을 최소화하도록 코드를 작성해야 한다.
-만약 DOM에 30개의 태그를 추가해야 한다고 가정하면 30번의 접근이 필요하다.
-이런경우에 DocumentFragment를 사용해서 추가하면 1번의 접근으로 추가가 가능하다.
-*/
-
-const count = document.querySelectorAll(".count");
-
 /* input form */
 const [foodForm, foodName, foodPrice, exDate] = [
   ".food-form",
@@ -56,6 +46,7 @@ const alarm = () => {
 /* 처음 등록시 localstorage에 key: "food"로 저장 */
 function saveFood(element, keyName) {
   localStorage.setItem(keyName, JSON.stringify(element));
+  foodCount(); // 변경 시 마다 count 변경
 }
 
 function inputFood(event) {
@@ -81,7 +72,6 @@ function inputFood(event) {
   addList(newFoodobj);
   //객체로 만든 다음에 그리기
   alarm();
-  //foodCount();
 }
 
 /*  modal 열렸을 때 삭제 and main에서 삭제 */
@@ -103,19 +93,19 @@ function removeLi(event) {
 
 /* svg delete 만들기 */
 function CreateSVG(button) {
-  var xmlns = "http://www.w3.org/2000/svg";
-  var boxWidth = 448;
-  var boxHeight = 512;
-  var realWidth = "0.6rem";
-  var realHeight = "0.6rem";
-  var svgElem = document.createElementNS(xmlns, "svg");
+  const xmlns = "http://www.w3.org/2000/svg";
+  const boxWidth = 448;
+  const boxHeight = 512;
+  const realWidth = "0.6rem";
+  const realHeight = "0.6rem";
+  const svgElem = document.createElementNS(xmlns, "svg");
   svgElem.setAttributeNS(null, "viewBox", "0 0 " + boxWidth + " " + boxHeight);
   svgElem.setAttributeNS(null, "width", realWidth);
   svgElem.setAttributeNS(null, "height", realHeight);
   svgElem.style.display = "block";
-  var coords =
+  const coords =
     "M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z";
-  var path = document.createElementNS(xmlns, "path");
+  const path = document.createElementNS(xmlns, "path");
   path.setAttributeNS(null, "d", coords);
   svgElem.appendChild(path);
   button.appendChild(svgElem);
@@ -159,7 +149,7 @@ const paintFood = (div) => {
       /* 요소가 있는것  */
       if (i.local !== null) {
         i.local.forEach((k) => {
-          if (JSON.stringify(k.id) === div.firstChild.id) {
+          if (k.id === parseInt(div.firstChild.id)) {
             i.query.appendChild(div);
           }
         });
@@ -168,7 +158,22 @@ const paintFood = (div) => {
   }
 };
 
+
+/* food, frozen, refrigerated, roomTemp 각 항목의 개수 */
+const foodCount = () => {
+  const count = document.querySelectorAll(".count");
+  count.forEach((i) => {
+    const id = i.closest(".temp-box").id;
+    console.log(getAndParse(id));
+    if (getAndParse(id)) {
+      i.innerText = `(${getAndParse(id).length})`
+    }
+  })
+};
+foodCount();
 /* 브라우저에 그리기 */
+let theBigDay = new Date();
+
 function addList(newFoodobj) {
   const li = document.createElement("li");
   li.setAttribute("class", "list-grid");
@@ -188,6 +193,21 @@ function addList(newFoodobj) {
   li.appendChild(dateSpan);
   span.innerText = `${newFoodobj.text}`;
   dateSpan.innerText = `${newFoodobj.exDate}`;
+  /* 유통기한 알림 */
+  const str = newFoodobj.exDate;
+  const words = str.split('-');
+  const exDateAlarm = document.createElement("span");
+  dateSpan.className = "exDateAlarmSp";
+  const Expired = '유통기한이 지났습니다';
+  exDateAlarm.innerText = words[0] < theBigDay.getFullYear() ? Expired :
+    (
+      words[1] < theBigDay.getMonth() + 1 ? Expired :
+        (
+          words[2] < theBigDay.getDate() ? Expired :
+          words[2]-theBigDay.getDate()<7 ? `D-${words[2]-theBigDay.getDate()}` : ' '
+        )
+    )
+  li.appendChild(exDateAlarm);
   button.addEventListener("click", removeLi);
   div.appendChild(li);
   return paintFood(div);
@@ -201,16 +221,6 @@ const paintNumber = (array, number) => {
   });
 };
 
-/* food, frozen, refrigerated, roomTemp 각 항목의 개수 
-const foodCount = () => {
-  count.forEach((i) => {
-    const id = i.closest(".temp-box").id;
-    if(getAndParse(id)){
-      i.innerText = `(${getAndParse(id).length})`
-    }
-  })
-};
-*/
 
 /*  mainBox에 food, frozen, refrigerated, roomTemp  */
 const refreshDocument = () => {
@@ -268,25 +278,6 @@ const openEntList = (event) => {
   });
 };
 
-/* const exDateConfirm = () => {
-  let theBigDay = new Date();
-  [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].forEach((container) => {
-    if (container) {
-      container.forEach((i) => {
-        const str = i.exDate;
-        const words = str.split('-');
-        words[0] < theBigDay.getFullYear() ? console.log("유통기한이 지났습니다") :
-          (
-            words[1] < theBigDay.getMonth() + 1 ? console.log("유통기한이 지났습니다") :
-              (
-                words[2] < theBigDay.getDate() ? console.log("유통기한이 지났습니다") : console.log("기한 남음")
-              )
-          )
-      })
-    }
-  })
-}
-exDateConfirm(); */
 
 /* modal open */
 entireLiBtn.forEach((element) =>
