@@ -255,7 +255,7 @@ header .mainBtn {
   display: grid;
   grid-template-columns: 1fr 0.7rem;
   grid-template-rows: repeat(2, 1fr);
-  grid-template-areas: "foodNSp deleteBtn" "foodNDateSp foodNDateSp";
+  grid-template-areas: "foodNSp foodNSp foodNSp deleteBtn" "foodNDateSp foodNDateSp dDay dDay";
 }
 .list-grid .deleteBtn {
   margin: 0;
@@ -272,6 +272,12 @@ header .mainBtn {
   color: rgb(0, 41, 204);
   font-weight: 600;
   grid-area: foodNDateSp;
+}
+.list-grid .colorRed {
+  color: rgb(227, 42, 42);
+}
+.list-grid .d-day {
+  grid-area: dDay;
 }
 
 #food {
@@ -344,9 +350,6 @@ header .mainBtn {
 .temp-title .count {
   color: #5661f2;
   font-size: 0.5rem;
-}
-.temp-title .exDateAlarmSp {
-  color: #f25656;
 }
 
 #stored-box {

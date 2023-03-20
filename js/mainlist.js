@@ -164,7 +164,6 @@ const foodCount = () => {
   const count = document.querySelectorAll(".count");
   count.forEach((i) => {
     const id = i.closest(".temp-box").id;
-    console.log(getAndParse(id));
     if (getAndParse(id)) {
       i.innerText = `(${getAndParse(id).length})`
     }
@@ -193,18 +192,25 @@ function addList(newFoodobj) {
   li.appendChild(dateSpan);
   span.innerText = `${newFoodobj.text}`;
   dateSpan.innerText = `${newFoodobj.exDate}`;
+
   /* 유통기한 알림 */
   const str = newFoodobj.exDate;
   const words = str.split('-');
   const exDateAlarm = document.createElement("span");
-  dateSpan.className = "exDateAlarmSp";
-  const Expired = '유통기한이 지났습니다';
-  exDateAlarm.innerText = words[0] < theBigDay.getFullYear() ? Expired :
+  exDateAlarm.className="d-day"
+
+  /* 유통기한 지났을때 색 red로 변경*/
+  const Expired = dateSpan.classList.add("class", "colorRed");
+  const dateParse = parseInt(words[2]);
+
+  
+  parseInt(words[0]) > theBigDay.getFullYear() ? Expired :
     (
-      words[1] < theBigDay.getMonth() + 1 ? Expired :
+      parseInt(words[1]) > theBigDay.getMonth() + 1 ? Expired :
         (
-          words[2] < theBigDay.getDate() ? Expired :
-          words[2]-theBigDay.getDate()<7 ? `D-${words[2]-theBigDay.getDate()}` : ' '
+          dateParse > theBigDay.getDate() ? Expired :
+            //유통기한 지나지 않았을 경우, 남은 기한이 7일 이내이면 D-day 표시
+            exDateAlarm.innerText = dateParse - theBigDay.getDate() < 7 ? `D-${dateParse - theBigDay.getDate()}` : ' '
         )
     )
   li.appendChild(exDateAlarm);
