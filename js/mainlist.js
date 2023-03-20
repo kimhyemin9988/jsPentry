@@ -1,4 +1,3 @@
-const fragment = document.createDocumentFragment();
 /*
 https://lsw0150305.gitbook.io/til/javascript/performance-optimize
 DOM 트리를 접근하는 건 상당히 속도가 느립니다.
@@ -137,10 +136,9 @@ function addList(newFoodobj) {
   const button = document.createElement("button");
   button.className = "deleteBtn";
   CreateSVG(button);
-  fragment.appendChild(span);
-  fragment.appendChild(button);
-  fragment.appendChild(dateSpan);
-  li.appendChild(fragment);
+  li.appendChild(span);
+  li.appendChild(button);
+  li.appendChild(dateSpan);
   span.innerText = `${newFoodobj.text}`;
   dateSpan.innerText = `${newFoodobj.exDate}`;
   button.addEventListener("click", removeLi);
@@ -179,10 +177,9 @@ const paintFood = (div) => {
       if (i.local !== null) {
         i.local.forEach((k) => {
           if (k.id === parseInt(div.firstChild.id)) {
-            fragment.appendChild(div);
+            i.query.appendChild(div);
           }
         });
-        i.query.appendChild(fragment);
       }
     });
   }
@@ -199,7 +196,9 @@ const paintNumber = (array, number) => {
 const foodCount = () => {
   count.forEach((i) => {
     const id = i.closest(".temp-box").id;
-    i.innerText = `(${getAndParse(id).length})`
+    if(getAndParse(id)){
+      i.innerText = `(${getAndParse(id).length})`
+    }
   })
 };
 
@@ -250,9 +249,8 @@ const openEntList = (event) => {
   button.innerHTML = `+`;
   divEntireContent.appendChild(button);
   /* 오버레이 다음에 content가 오버레이의 동생으로 와야함 */
-  fragment.appendChild(divEntireOverlay);
-  fragment.appendChild(divEntireContent);
-  sectionEntire.appendChild(fragment);
+  sectionEntire.appendChild(divEntireOverlay);
+  sectionEntire.appendChild(divEntireContent);
   body.prepend(sectionEntire);
   paintModal(modalId);
   button.addEventListener("click", (event) => {
@@ -261,23 +259,25 @@ const openEntList = (event) => {
   });
 };
 
-const exDateConfirm = () => {
+/* const exDateConfirm = () => {
   let theBigDay = new Date();
   [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].forEach((container) => {
-    container.forEach((i) => {
-      const str = i.exDate;
-      const words = str.split('-');
-      words[0] < theBigDay.getFullYear() ? console.log("유통기한이 지났습니다") :
-        (
-          words[1] < theBigDay.getMonth() + 1 ? console.log("유통기한이 지났습니다") :
-            (
-              words[2] < theBigDay.getDate() ? console.log("유통기한이 지났습니다") : console.log("기한 남음")
+    if (container) {
+      container.forEach((i) => {
+        const str = i.exDate;
+        const words = str.split('-');
+        words[0] < theBigDay.getFullYear() ? console.log("유통기한이 지났습니다") :
+          (
+            words[1] < theBigDay.getMonth() + 1 ? console.log("유통기한이 지났습니다") :
+              (
+                words[2] < theBigDay.getDate() ? console.log("유통기한이 지났습니다") : console.log("기한 남음")
               )
           )
-    })
+      })
+    }
   })
 }
-exDateConfirm();
+exDateConfirm(); */
 
 /* modal open */
 entireLiBtn.forEach((element) =>
