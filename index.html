@@ -1,95 +1,79 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="집에 있는 식료품의 이름, 가격, 유통기한을 입력하여 관리할 수 있습니다.
-    입력후 drag and drop을 이용해 냉장, 냉동, 실온으로 분류하여 관리할 수 있으며,
-    분류된 것을 변경할 수 있습니다."
-    />
-    <!--이 요소는 검색 엔진이 검색 결과에 포함하는 페이지 콘텐츠의 요약을 제공. 고품질의 고유한 메타 설명은 페이지의 관련성을 높이고 검색 트래픽을 증가-->
-    <title>main</title>
-    <link rel="stylesheet" href="css/mainCon.css" />
-    <link
-      href="node_modules/dragula/dist/dragula.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      rel="preload"
-      href="assets/LINESeedKR-Bd.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-  </head>
 
-  <body>
-    <!--first modal section-->
-    <section class="bg-modal hidden">
-      <div class="modal-overlay"></div>
-      <div class="modal-content">
-        <button type="button" class="close">+</button>
-        <form class="food-form">
-          <label for="food-name">상품명</label>
-          <input id="food-name" maxlength="9" autofocus required />
-          <label for="food-price">가격</label>
-          <input id="food-price" type="number" min="0" required />
-          <label for="ex-date">유효기간</label>
-          <input
-            id="ex-date"
-            type="date"
-            placeholder="유통기한을 설정하세요"
-            required
-          />
-          <button class="tab-btn enroll">등록</button>
-          <p class="submit-alarm hidden">등록되었습니다</p>
-        </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="집에 있는 식료품의 이름, 가격, 유통기한을 입력하여 관리할 수 있습니다.
+    입력후 drag and drop을 이용해 냉장, 냉동, 실온으로 분류하여 관리할 수 있으며,
+    분류된 것을 변경할 수 있습니다." />
+  <!--이 요소는 검색 엔진이 검색 결과에 포함하는 페이지 콘텐츠의 요약을 제공. 고품질의 고유한 메타 설명은 페이지의 관련성을 높이고 검색 트래픽을 증가-->
+  <title>main</title>
+  <link rel="stylesheet" href="css/mainCon.css" />
+  <link rel="stylesheet" href="node_modules/dragula/dist/dragula.css"/>
+  <link rel="preload" href="assets/LINESeedKR-Bd.woff2" as="font" type="font/woff2" crossorigin />
+</head>
+
+<body>
+  <!--first modal section-->
+  <section class="bg-modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <button type="button" class="close">+</button>
+      <form class="food-form">
+        <label for="food-name">상품명</label>
+        <input id="food-name" maxlength="9" autofocus required />
+        <label for="food-price">가격</label>
+        <input id="food-price" type="number" min="0" required />
+        <label for="ex-date">유효기간</label>
+        <input id="ex-date" type="date" placeholder="유통기한을 설정하세요" required />
+        <button class="tab-btn enroll">등록</button>
+        <p class="submit-alarm hidden">등록되었습니다</p>
+      </form>
+    </div>
+  </section>
+  <header>
+    <div class="homeLogo">
+      <a href="index.html">MyPentry</a>
+    </div>
+  </header>
+  <main>
+    <button class="tab-btn" id="modal-click">
+      클릭해서 상품을 등록하세요!
+    </button>
+    <section id="stored-box">
+      <div class="temp-box" id="food">
+        <div class="temp-title">
+          <button class="entire-li-btn">+</button>
+          <p>목록</p>
+        </div>
+      </div>
+      <div class="temp-box" id="frozen">
+        <div class="temp-title">
+          <button class="entire-li-btn">+</button>
+          <p>냉동</p>
+        </div>
+      </div>
+      <div class="temp-box" id="refrigerated">
+        <div class="temp-title">
+          <button class="entire-li-btn">+</button>
+          <p>냉장</p>
+        </div>
+      </div>
+      <div class="temp-box" id="roomTemp">
+        <div class="temp-title">
+          <button class="entire-li-btn">+</button>
+          <p>상온</p>
+        </div>
       </div>
     </section>
-    <header>
-      <div class="homeLogo">
-        <a href="index.html">MyPentry</a>
-      </div>
-    </header>
-    <main>
-      <button class="tab-btn" id="modal-click">
-        클릭해서 상품을 등록하세요!
-      </button>
-      <section id="stored-box">
-        <div class="temp-box" id="food">
-          <div class="temp-title">
-            <button class="entire-li-btn">+</button>
-            <p>목록</p>
-          </div>
-        </div>
-        <div class="temp-box" id="frozen">
-          <div class="temp-title">
-            <button class="entire-li-btn">+</button>
-            <p>냉동</p>
-          </div>
-        </div>
-        <div class="temp-box" id="refrigerated">
-          <div class="temp-title">
-            <button class="entire-li-btn">+</button>
-            <p>냉장</p>
-          </div>
-        </div>
-        <div class="temp-box" id="roomTemp">
-          <div class="temp-title">
-            <button class="entire-li-btn">+</button>
-            <p>상온</p>
-          </div>
-        </div>
-      </section>
-    </main>
-    <script src="js/drag.js"></script>
-    <script src="js/mainlist.js"></script>
-    <script src="js/modal.js"></script>
-    <script src="node_modules/dragula/dist/dragula.js"></script>
-    <script src="js/mobile.js"></script>
-  </body>
+  </main>
+  <script src="js/drag.js"></script>
+  <script src="js/mainlist.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="node_modules/dragula/dist/dragula.js"></script>
+  <script src="js/mobile.js"></script>
+</body>
+
 </html>
