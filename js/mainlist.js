@@ -55,7 +55,7 @@ const alarm = () => {
 
 /* 처음 등록시 localstorage에 key: "food"로 저장 */
 function saveFood(element, keyName) {
-  localStorage.setItem(keyName, JSON.stringify(storedFood));
+  localStorage.setItem(keyName, JSON.stringify(element));
 }
 
 function inputFood(event) {
