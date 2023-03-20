@@ -23,7 +23,7 @@ https://kimhyemin9988.github.io/jsPentry/
 # 적용기술
 
 - HTML5, SCSS ,javaScript
-
+- 라이브러리 dragula 사용(모바일 drag and drop)
 
 # HTML 구조
 ```jsx
@@ -44,12 +44,10 @@ https://kimhyemin9988.github.io/jsPentry/
 
     <main>
         <button class="tab-btn" id="modal-click">클릭해서 상품을 등록하세요!</button>
-         // 모달창을 여는 버튼
-        <section class="input-food-box" id="food">
-        // 입력한 식료품이 랜더링되는 box입니다
-        </section>
+         // 식료품 입력 모달창을 여는 버튼
         <section id="stored-box">
         // 입력한 식료품을 보관온도에따라 분류하는 box입니다.
+            <div class="temp-box" id="food" /> // 입력한 식료품이 초기에 랜더링되는 box입니다
             <div class="temp-box" id="frozen" /> // 냉동
             <div class="temp-box" id="refrigerated" /> // 냉장
             <div class="temp-box" id="roomTemp" /> // 실온

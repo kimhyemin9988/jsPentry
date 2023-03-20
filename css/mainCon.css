@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @font-face {
   font-family: "LINESeedKR-Bd";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2") format("woff2");
+  src: url("/assets/LINESeedKR-Bd.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -269,7 +269,7 @@ header .mainBtn {
   grid-area: foodNSp;
 }
 .list-grid .foodNDateSp {
-  color: red;
+  color: rgb(0, 41, 204);
   font-weight: 600;
   grid-area: foodNDateSp;
 }
@@ -340,6 +340,10 @@ header .mainBtn {
   .temp-title p {
     margin: 0.5rem;
   }
+}
+.temp-title .count {
+  color: #5661f2;
+  font-size: 1rem;
 }
 
 #stored-box {

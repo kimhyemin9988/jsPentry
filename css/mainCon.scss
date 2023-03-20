@@ -139,7 +139,7 @@ header {
   }
 
   .foodNDateSp {
-    color: red;
+    color: rgb(0, 41, 204);
     font-weight: 600;
     grid-area: foodNDateSp;
   }
@@ -208,6 +208,10 @@ header {
     @media screen and (min-width: 481px) {
       margin: 0.5rem;
     }
+  }
+  .count{
+    color: #5661f2;
+    font-size: 1rem;
   }
 }
 

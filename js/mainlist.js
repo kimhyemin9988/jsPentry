@@ -7,6 +7,8 @@ DOM 트리를 접근하는 건 상당히 속도가 느립니다.
 이런경우에 DocumentFragment를 사용해서 추가하면 1번의 접근으로 추가가 가능하다.
 */
 
+const count = document.querySelectorAll(".count");
+
 /* input form */
 const [foodForm, foodName, foodPrice, exDate] = [
   ".food-form",
@@ -77,6 +79,7 @@ function inputFood(event) {
   addList(newFoodobj);
   //객체로 만든 다음에 그리기
   alarm();
+  foodCount();
 }
 
 /*  modal 열렸을 때 삭제 and main에서 삭제 */
@@ -171,10 +174,10 @@ const paintFood = (div) => {
         local: savedRoomTemp,
       },
     ];
-    localAndDocument.map((i) => {
+    localAndDocument.forEach((i) => {
       /* 요소가 있는것  */
       if (i.local !== null) {
-        i.local.map((k) => {
+        i.local.forEach((k) => {
           if (k.id === parseInt(div.firstChild.id)) {
             fragment.appendChild(div);
           }
@@ -192,11 +195,18 @@ const paintNumber = (array, number) => {
   });
 };
 
-/* 추가될때마다 새로 그리기 */
+/* food, frozen, refrigerated, roomTemp 각 항목의 개수 */
+const foodCount = () => {
+  count.forEach((i) => {
+    const id = i.closest(".temp-box").id;
+    i.innerText = `(${getAndParse(id).length})`
+  })
+};
 
-/*  mainBox에 frozen, refrigerated, roomTemp  */
+/*  mainBox에 food, frozen, refrigerated, roomTemp  */
 const refreshDocument = () => {
-  [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].map((i) => {
+  foodCount();
+  [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].forEach((i) => {
     if (i !== null) {
       storedFood = i.reverse(); //최신순으로 브라우저에 출력
       /* 대화면 7개, 모바일 3개 */
@@ -251,9 +261,29 @@ const openEntList = (event) => {
   });
 };
 
+const exDateConfirm = () => {
+  let theBigDay = new Date();
+  [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].forEach((container) => {
+    container.forEach((i) => {
+      const str = i.exDate;
+      const words = str.split('-');
+      words[0] < theBigDay.getFullYear() ? console.log("유통기한이 지났습니다") :
+        (
+          words[1] < theBigDay.getMonth() + 1 ? console.log("유통기한이 지났습니다") :
+            (
+              words[2] < theBigDay.getDate() ? console.log("유통기한이 지났습니다") : console.log("기한 남음")
+              )
+          )
+    })
+  })
+}
+exDateConfirm();
+
+/* modal open */
 entireLiBtn.forEach((element) =>
   element.addEventListener("click", openEntList)
 );
+
 /* 등록 */
 foodForm.addEventListener("submit", inputFood);
 
@@ -262,3 +292,4 @@ refreshDocument();
 
 /* 가격 입력 자리수 8로 제한 */
 foodPrice.addEventListener("input", maxlengthFx);
+
