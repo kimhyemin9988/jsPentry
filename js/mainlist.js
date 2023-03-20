@@ -78,7 +78,7 @@ function inputFood(event) {
   addList(newFoodobj);
   //객체로 만든 다음에 그리기
   alarm();
-  foodCount();
+  //foodCount();
 }
 
 /*  modal 열렸을 때 삭제 and main에서 삭제 */
@@ -192,7 +192,7 @@ const paintNumber = (array, number) => {
   });
 };
 
-/* food, frozen, refrigerated, roomTemp 각 항목의 개수 */
+/* food, frozen, refrigerated, roomTemp 각 항목의 개수 
 const foodCount = () => {
   count.forEach((i) => {
     const id = i.closest(".temp-box").id;
@@ -201,10 +201,10 @@ const foodCount = () => {
     }
   })
 };
+*/
 
 /*  mainBox에 food, frozen, refrigerated, roomTemp  */
 const refreshDocument = () => {
-  foodCount();
   [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].forEach((i) => {
     if (i !== null) {
       storedFood = i.reverse(); //최신순으로 브라우저에 출력
