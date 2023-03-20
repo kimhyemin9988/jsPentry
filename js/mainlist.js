@@ -55,8 +55,6 @@ const alarm = () => {
 
 /* 처음 등록시 localstorage에 key: "food"로 저장 */
 function saveFood(element, keyName) {
-  console.log(element);
-  console.log(localStorage.setItem(keyName, JSON.stringify(element)));
   localStorage.setItem(keyName, JSON.stringify(storedFood));
 }
 
@@ -123,31 +121,6 @@ function CreateSVG(button) {
   button.appendChild(svgElem);
 }
 
-/* 브라우저에 그리기 */
-function addList(newFoodobj) {
-  const li = document.createElement("li");
-  li.setAttribute("class", "list-grid");
-  li.id = newFoodobj.id;
-  const div = document.createElement("div");
-  div.setAttribute("draggable", "true");
-  div.className = "listBox";
-  const span = document.createElement("span");
-  span.className = "foodNSp";
-  const dateSpan = document.createElement("span");
-  dateSpan.className = "foodNDateSp";
-  const button = document.createElement("button");
-  button.className = "deleteBtn";
-  CreateSVG(button);
-  li.appendChild(span);
-  li.appendChild(button);
-  li.appendChild(dateSpan);
-  span.innerText = `${newFoodobj.text}`;
-  dateSpan.innerText = `${newFoodobj.exDate}`;
-  button.addEventListener("click", removeLi);
-  div.appendChild(li);
-  return paintFood(div);
-}
-
 /* 모달 or 목록, 냉동, 냉장, 상온 */
 const paintFood = (div) => {
   if (document.querySelector("section").className === "bg-modal entire") {
@@ -174,10 +147,10 @@ const paintFood = (div) => {
         local: savedRoomTemp,
       },
     ];
-    localAndDocument.forEach((i) => {
+    localAndDocument.map((i) => {
       /* 요소가 있는것  */
       if (i.local !== null) {
-        i.local.forEach((k) => {
+        i.local.map((k) => {
           if (k.id === parseInt(div.firstChild.id)) {
             i.query.appendChild(div);
           }
@@ -186,8 +159,34 @@ const paintFood = (div) => {
     });
   }
 };
+
+/* 브라우저에 그리기 */
+function addList(newFoodobj) {
+  const li = document.createElement("li");
+  li.setAttribute("class", "list-grid");
+  li.id = newFoodobj.id;
+  const div = document.createElement("div");
+  div.setAttribute("draggable", "true");
+  div.className = "listBox";
+  const span = document.createElement("span");
+  span.className = "foodNSp";
+  const dateSpan = document.createElement("span");
+  dateSpan.className = "foodNDateSp";
+  const button = document.createElement("button");
+  button.className = "deleteBtn";
+  CreateSVG(button);
+  li.appendChild(span);
+  li.appendChild(button);
+  li.appendChild(dateSpan);
+  span.innerText = `${newFoodobj.text}`;
+  dateSpan.innerText = `${newFoodobj.exDate}`;
+  button.addEventListener("click", removeLi);
+  div.appendChild(li);
+  return paintFood(div);
+}
+
 const paintNumber = (array, number) => {
-  array.forEach((element) => {
+  array.map((element) => {
     if (array.lastIndexOf(element) < number) {
       addList(element);
     }
@@ -207,7 +206,7 @@ const foodCount = () => {
 
 /*  mainBox에 food, frozen, refrigerated, roomTemp  */
 const refreshDocument = () => {
-  [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].forEach((i) => {
+  [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].map((i) => {
     if (i !== null) {
       storedFood = i.reverse(); //최신순으로 브라우저에 출력
       /* 대화면 7개, 모바일 3개 */
@@ -228,7 +227,7 @@ const maxlengthFx = (event) => {
 const paintModal = (keyName) => {
   if (getAndParse(keyName)) {
     const parsedToDos = getAndParse(keyName).reverse();
-    parsedToDos.forEach((element) => addList(element));
+    parsedToDos.map((element) => addList(element));
   }
 };
 
