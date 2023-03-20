@@ -72,7 +72,8 @@ function inputFood(event) {
     price: foodPValue,
     exDate: foodEXValue,
   };
-  storedFood = localStorage.getItem('food') !== null ? JSON.parse(localStorage.getItem('food'))  : [];
+  storedFood = localStorage.getItem('food') !== null ? JSON.parse(localStorage.getItem('food')) : [];
+  console.log(storedFood);
   storedFood.push(newFoodobj);
   saveFood(storedFood, "food"); //localStorage에 저장
   addList(newFoodobj);
@@ -128,6 +129,9 @@ const paintFood = (div) => {
       document.querySelector("section").lastChild;
     modalContent.appendChild(div);
   } else {
+    const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = ['food', 'frozen', 'refrigerated', 'roomTemp'].map((i) => {
+      return getAndParse(i);
+    });
     /* html에서 가져온것, localStorage 가져온것 */
     const localAndDocument = [
       {
@@ -147,11 +151,11 @@ const paintFood = (div) => {
         local: savedRoomTemp,
       },
     ];
-    localAndDocument.map((i) => {
+    localAndDocument.forEach((i) => {
       /* 요소가 있는것  */
       if (i.local !== null) {
-        i.local.map((k) => {
-          if (k.id === parseInt(div.firstChild.id)) {
+        i.local.forEach((k) => {
+          if (JSON.stringify(k.id) === div.firstChild.id) {
             i.query.appendChild(div);
           }
         });
@@ -182,6 +186,7 @@ function addList(newFoodobj) {
   dateSpan.innerText = `${newFoodobj.exDate}`;
   button.addEventListener("click", removeLi);
   div.appendChild(li);
+  console.log(div);
   return paintFood(div);
 }
 
@@ -206,7 +211,7 @@ const foodCount = () => {
 
 /*  mainBox에 food, frozen, refrigerated, roomTemp  */
 const refreshDocument = () => {
-  [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].map((i) => {
+  [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].forEach((i) => {
     if (i !== null) {
       storedFood = i.reverse(); //최신순으로 브라우저에 출력
       /* 대화면 7개, 모바일 3개 */
@@ -227,7 +232,7 @@ const maxlengthFx = (event) => {
 const paintModal = (keyName) => {
   if (getAndParse(keyName)) {
     const parsedToDos = getAndParse(keyName).reverse();
-    parsedToDos.map((element) => addList(element));
+    parsedToDos.forEach((element) => addList(element));
   }
 };
 
