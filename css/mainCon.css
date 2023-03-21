@@ -155,9 +155,6 @@ a {
   .homeLogo {
     font-size: 20px;
   }
-  .listBox li span {
-    font-size: 0.3rem;
-  }
   #RoomTemp {
     width: 95%;
     height: 40%;
@@ -222,7 +219,7 @@ header {
 }
 @media screen and (max-width: 480px) {
   header {
-    padding: 0 0.1rem 0 0.1rem;
+    padding: 0.1rem;
   }
 }
 header .homeLogo {
@@ -244,6 +241,7 @@ header .mainBtn {
   position: relative;
   align-self: end;
   z-index: 2;
+  align-self: center;
 }
 @media screen and (min-width: 481px) {
   .listBox {
@@ -269,6 +267,7 @@ header .mainBtn {
   grid-template-columns: repeat(2, 1fr) repeat(2, 0.8rem);
   grid-template-rows: repeat(2, 1fr);
   grid-template-areas: "foodNSp foodNSp  foodNSp deleteBtn" "foodNDateSp foodNDateSp dDay dDay";
+  align-items: end;
 }
 .list-grid .deleteBtn {
   margin: 0;
@@ -278,9 +277,21 @@ header .mainBtn {
   background-color: white;
   align-self: flex-start;
 }
+.list-grid .deleteBtn:hover {
+  background-color: rgb(186, 186, 186);
+}
 .list-grid .foodNSp {
-  font-size: 0.3rem;
   grid-area: foodNSp;
+}
+@media screen and (min-width: 481px) {
+  .list-grid .foodNSp {
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  .list-grid .foodNSp {
+    font-size: 0.3rem;
+  }
 }
 .list-grid .foodNDateSp {
   color: rgb(0, 41, 204);
@@ -386,6 +397,8 @@ header .mainBtn {
   grid-template-columns: repeat(2, 50%);
   grid-template-areas: "food food" "frozen refrigerated" "roomTemp roomTemp";
   grid-template-rows: 30% 35% 30%;
+  justify-content: center;
+  align-content: center;
 }
 @media screen and (max-width: 480px) {
   #stored-box {
@@ -395,6 +408,7 @@ header .mainBtn {
 @media screen and (min-width: 481px) {
   #stored-box {
     gap: 1rem;
+    margin-top: 1rem;
   }
 }
 
@@ -438,6 +452,9 @@ header .mainBtn {
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
   width: 60%;
   padding: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 @media screen and (max-width: 480px) {
   .bg-modal .modal-content {
