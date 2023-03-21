@@ -128,7 +128,7 @@ header {
 
 .list-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr), repeat(2, 0.8rem);
+  grid-template-columns: repeat(2, 1fr) repeat(2, 0.8rem);
   grid-template-rows: repeat(2, 1fr);
   grid-template-areas:
     "foodNSp foodNSp  foodNSp deleteBtn"
