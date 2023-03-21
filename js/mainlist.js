@@ -116,8 +116,8 @@ function CreateExclamation(exDateAlarm) {
   const xmlns = "http://www.w3.org/2000/svg";
   const boxWidth = 448;
   const boxHeight = 512;
-  const realWidth = "0.6rem";
-  const realHeight = "0.8rem";
+  const realWidth = "0.5rem";
+  const realHeight = "0.7rem";
   const svgElem = document.createElementNS(xmlns, "svg");
   svgElem.setAttributeNS(null, "viewBox", "0 0 " + boxWidth + " " + boxHeight);
   svgElem.setAttributeNS(null, "width", realWidth);
