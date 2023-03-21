@@ -21,7 +21,7 @@
     width: 95%;
     height: 40%;
   }
-
+  
   #foodNDateSp {
     font-size: 0.1rem;
   }
@@ -45,7 +45,6 @@
     width: 95%;
     height: 35%;
   }
-
   #foodNDateSp {
     font-size: 2%;
   }
@@ -128,7 +127,7 @@ header {
 
 .list-grid {
   display: grid;
-  grid-template-columns: 1fr 0.7rem;
+  grid-template-columns: repeat(3, 1fr) 0.7rem;
   grid-template-rows: repeat(2, 1fr);
   grid-template-areas:
     "foodNSp foodNSp foodNSp deleteBtn"
@@ -144,7 +143,7 @@ header {
   }
 
   .foodNSp {
-    font-size: 0.3em;
+    font-size: 0.3rem;
     grid-area: foodNSp;
   }
 
@@ -152,11 +151,13 @@ header {
     color: rgb(0, 41, 204);
     font-weight: 600;
     grid-area: foodNDateSp;
+    font-size: 0.3rem;
   }
 
   .d-day {
     grid-area: dDay;
     color: rgb(227, 42, 42);
+    font-size: 0.3rem;
   }
 }
 

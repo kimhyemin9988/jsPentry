@@ -265,7 +265,7 @@ header .mainBtn {
 
 .list-grid {
   display: grid;
-  grid-template-columns: 1fr 0.7rem;
+  grid-template-columns: repeat(3, 1fr) 0.7rem;
   grid-template-rows: repeat(2, 1fr);
   grid-template-areas: "foodNSp foodNSp foodNSp deleteBtn" "foodNDateSp foodNDateSp foodNDateSp dDay";
 }
@@ -278,17 +278,19 @@ header .mainBtn {
   align-self: flex-start;
 }
 .list-grid .foodNSp {
-  font-size: 0.3em;
+  font-size: 0.3rem;
   grid-area: foodNSp;
 }
 .list-grid .foodNDateSp {
   color: rgb(0, 41, 204);
   font-weight: 600;
   grid-area: foodNDateSp;
+  font-size: 0.3rem;
 }
 .list-grid .d-day {
   grid-area: dDay;
   color: rgb(227, 42, 42);
+  font-size: 0.3rem;
 }
 
 #food {
