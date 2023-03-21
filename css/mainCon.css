@@ -288,6 +288,7 @@ header .mainBtn {
   grid-area: dDay;
   color: rgb(227, 42, 42);
   font-size: 0.3rem;
+  justify-self: flex-end;
 }
 
 #food {
