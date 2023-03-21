@@ -5,12 +5,9 @@
 @media screen and (max-width: 480px) {
 
   //480이하인 경우 모바일
-  header {
-    padding: 0.2rem;
-  }
 
   .homeLogo {
-    font-size: 25px;
+    font-size: 20px;
   }
 
   .listBox li span {
@@ -29,9 +26,6 @@
 
 /* large */
 @media screen and (min-width: 481px) {
-  header {
-    padding: 0.4rem;
-  }
 
   .homeLogo {
     font-size: 40px;
@@ -87,10 +81,18 @@ header {
   box-shadow: 0 4px 30px rgba(#000, 0.2);
   align-items: center;
 
+  @media screen and (min-width: 481px) {
+    padding: 0.4rem;
+  }
+
+  @media screen and (max-width: 480px) {
+    padding: 0 0.1rem 0 0.1rem;
+  }
+
   .homeLogo {
     color: white;
     font-weight: 700;
-    margin: 10px;
+    margin: 0.2rem;
   }
 
   .mainBtn {
@@ -255,7 +257,8 @@ header {
     "food food"
     "frozen refrigerated"
     "roomTemp roomTemp";
-    grid-template-rows: 30% 35% 30%;
+  grid-template-rows: 30% 35% 30%;
+
   @media screen and (max-width: 480px) {
     gap: 0.2rem;
   }

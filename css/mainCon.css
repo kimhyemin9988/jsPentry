@@ -152,11 +152,8 @@ a {
 
 /* small */
 @media screen and (max-width: 480px) {
-  header {
-    padding: 0.2rem;
-  }
   .homeLogo {
-    font-size: 25px;
+    font-size: 20px;
   }
   .listBox li span {
     font-size: 0.3rem;
@@ -171,9 +168,6 @@ a {
 }
 /* large */
 @media screen and (min-width: 481px) {
-  header {
-    padding: 0.4rem;
-  }
   .homeLogo {
     font-size: 40px;
   }
@@ -221,10 +215,20 @@ header {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   align-items: center;
 }
+@media screen and (min-width: 481px) {
+  header {
+    padding: 0.4rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  header {
+    padding: 0 0.1rem 0 0.1rem;
+  }
+}
 header .homeLogo {
   color: white;
   font-weight: 700;
-  margin: 10px;
+  margin: 0.2rem;
 }
 header .mainBtn {
   display: flex;
