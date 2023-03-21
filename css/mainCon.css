@@ -195,10 +195,21 @@ html {
 html main {
   padding-top: 3%;
   width: 100%;
-  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+@media screen and (max-width: 480px) {
+  html main {
+    flex-direction: column;
+    height: 100vh;
+  }
+}
+@media screen and (min-width: 481px) {
+  html main {
+    flex-direction: row;
+    height: 80vh;
+  }
 }
 
 body {
