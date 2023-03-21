@@ -305,7 +305,10 @@ header {
     box-shadow: 0 15px 25px rgb(0 0 0 / 40%);
     width: 60%;
     padding: 1%;
-
+    @media screen and (max-width: 480px) {
+      align-self: baseline;
+      margin-top: 4rem;
+    }
     .close {
       align-self: flex-start;
     }

@@ -436,6 +436,12 @@ header .mainBtn {
   width: 60%;
   padding: 1%;
 }
+@media screen and (max-width: 480px) {
+  .bg-modal .modal-content {
+    align-self: baseline;
+    margin-top: 4rem;
+  }
+}
 .bg-modal .modal-content .close {
   align-self: flex-start;
 }
