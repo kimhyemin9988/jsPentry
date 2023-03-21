@@ -381,16 +381,15 @@ header .mainBtn {
   height: 100%;
   grid-template-columns: repeat(2, 50%);
   grid-template-areas: "food food" "frozen refrigerated" "roomTemp roomTemp";
+  grid-template-rows: 30% 35% 30%;
 }
 @media screen and (max-width: 480px) {
   #stored-box {
-    grid-template-rows: 25% 35% 25%;
     gap: 0.2rem;
   }
 }
 @media screen and (min-width: 481px) {
   #stored-box {
-    grid-template-rows: 30% 35% 30%;
     gap: 1rem;
   }
 }
