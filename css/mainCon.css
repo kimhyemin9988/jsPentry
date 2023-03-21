@@ -189,10 +189,13 @@ a {
   }
 }
 /*basic*/
+html {
+  overflow-y: hidden;
+}
 html main {
   padding-top: 3%;
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -263,6 +266,7 @@ header .mainBtn {
   border: 0;
   grid-area: deleteBtn;
   background-color: white;
+  align-self: flex-start;
 }
 .list-grid .foodNSp {
   font-size: 0.3em;

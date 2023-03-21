@@ -3,6 +3,7 @@
 /* small */
 
 @media screen and (max-width: 480px) {
+
   //480이하인 경우 모바일
   header {
     padding: 0.2rem;
@@ -53,10 +54,11 @@
 /*basic*/
 
 html {
+  overflow-y: hidden;
   main {
     padding-top: 3%;
     width: 100%;
-    height: 100vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -100,6 +102,7 @@ header {
   position: relative;
   align-self: end;
   z-index: 2;
+
   @media screen and (min-width: 481px) {
     height: 2.5rem;
     width: 8rem;
@@ -131,6 +134,7 @@ header {
     border: 0;
     grid-area: deleteBtn;
     background-color: white;
+    align-self: flex-start;
   }
 
   .foodNSp {
@@ -143,9 +147,10 @@ header {
     font-weight: 600;
     grid-area: foodNDateSp;
   }
-  .d-day{
+
+  .d-day {
     grid-area: dDay;
-    color:rgb(227, 42, 42);
+    color: rgb(227, 42, 42);
   }
 }
 
@@ -213,6 +218,7 @@ header {
       margin: 0.5rem;
     }
   }
+
   .count {
     color: #5661f2;
     font-size: 0.5rem;
