@@ -21,7 +21,7 @@
     width: 95%;
     height: 40%;
   }
-  
+
   #foodNDateSp {
     font-size: 0.1rem;
   }
@@ -45,6 +45,7 @@
     width: 95%;
     height: 35%;
   }
+
   #foodNDateSp {
     font-size: 2%;
   }
@@ -53,17 +54,17 @@
 /*basic*/
 
 html {
-  overflow-y: hidden;
   main {
     padding-top: 3%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+
     @media screen and (max-width: 480px) {
-      height: 100vh;
+      height: 80vh;
     }
-  
+
     @media screen and (min-width: 481px) {
       height: 80vh;
     }
@@ -127,11 +128,11 @@ header {
 
 .list-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr) 0.9rem;
+  grid-template-columns: repeat(2, 1fr), repeat(2, 0.8rem);
   grid-template-rows: repeat(2, 1fr);
   grid-template-areas:
-    "foodNSp foodNSp foodNSp deleteBtn"
-    "foodNDateSp foodNDateSp foodNDateSp dDay";
+    "foodNSp foodNSp  foodNSp deleteBtn"
+    "foodNDateSp foodNDateSp dDay dDay";
 
   .deleteBtn {
     margin: 0;
@@ -296,7 +297,7 @@ header {
     position: absolute;
     /*overlay를 한장 더 깔지 않으면 모달창 아래의 link나 button을 클릭할 수 있게 된다*/
     width: 100%;
-    height: 80vh;
+    height: 100%;
   }
 
   .modal-content {
@@ -306,10 +307,12 @@ header {
     box-shadow: 0 15px 25px rgb(0 0 0 / 40%);
     width: 60%;
     padding: 1%;
+
     @media screen and (max-width: 480px) {
       align-self: baseline;
       margin-top: 4rem;
     }
+
     .close {
       align-self: flex-start;
     }

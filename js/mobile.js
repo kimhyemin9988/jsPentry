@@ -22,6 +22,19 @@ dragula(
 ).on("drop", function (el) {
   nextBox = el.closest(".temp-box").id;
   alertKey(draggedElement, prevBox, nextBox);
+  /* drop 시 그려져 있는것 이외의 element가 있다면 그려지게 + */
+  if (getAndParse(prevBox)) {
+    const documentChild = Array.from(document.querySelectorAll(`#${prevBox}`)[0].childNodes);
+    const idArray = documentChild.filter((i) => i.className === "listBox").map((i) => parseInt(i.firstChild.id));
+
+    let localData = getAndParse(prevBox);
+    for (let i = 0; i < idArray.length; i++) {
+      localData = localData.filter((k) => k.id !== idArray[i]);
+    }
+    localData[0] !== undefined && addList(localData[0]);
+  }
+  /* drop시 3개의 element가 있다면 가장 처음에 있는 것이 지워지도록 - */
+  /* input시 3개의 element가 있다면 가장 처음에 있는 것이 지워지도록 */
 });
 
 /* 
