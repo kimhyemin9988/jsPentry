@@ -201,13 +201,11 @@ html main {
 }
 @media screen and (max-width: 480px) {
   html main {
-    flex-direction: column;
     height: 100vh;
   }
 }
 @media screen and (min-width: 481px) {
   html main {
-    flex-direction: row;
     height: 80vh;
   }
 }

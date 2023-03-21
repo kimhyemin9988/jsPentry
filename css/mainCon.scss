@@ -62,12 +62,10 @@ html {
     flex-direction: column;
     align-items: center;
     @media screen and (max-width: 480px) {
-      flex-direction: column;
       height: 100vh;
     }
   
     @media screen and (min-width: 481px) {
-      flex-direction: row;
       height: 80vh;
     }
   }
