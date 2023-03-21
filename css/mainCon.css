@@ -255,7 +255,7 @@ header .mainBtn {
   display: grid;
   grid-template-columns: 1fr 0.7rem;
   grid-template-rows: repeat(2, 1fr);
-  grid-template-areas: "foodNSp foodNSp foodNSp deleteBtn" "foodNDateSp foodNDateSp dDay dDay";
+  grid-template-areas: "foodNSp foodNSp foodNSp deleteBtn" "foodNDateSp foodNDateSp foodNDateSp dDay";
 }
 .list-grid .deleteBtn {
   margin: 0;
@@ -273,11 +273,9 @@ header .mainBtn {
   font-weight: 600;
   grid-area: foodNDateSp;
 }
-.list-grid .colorRed {
-  color: rgb(227, 42, 42);
-}
 .list-grid .d-day {
   grid-area: dDay;
+  color: rgb(227, 42, 42);
 }
 
 #food {
@@ -368,17 +366,18 @@ header .mainBtn {
   width: 95%;
   display: grid;
   min-height: 80%;
-  grid-template-rows: 25% 35% 25%;
   grid-template-columns: repeat(2, 50%);
   grid-template-areas: "food food" "frozen refrigerated" "roomTemp roomTemp";
 }
 @media screen and (max-width: 480px) {
   #stored-box {
+    grid-template-rows: 25% 35% 25%;
     gap: 0.2rem;
   }
 }
 @media screen and (min-width: 481px) {
   #stored-box {
+    grid-template-rows: 30% 35% 30%;
     gap: 1rem;
   }
 }

@@ -158,16 +158,15 @@ const paintFood = (div) => {
   }
 };
 
-
 /* food, frozen, refrigerated, roomTemp 각 항목의 개수 */
 const foodCount = () => {
   const count = document.querySelectorAll(".count");
   count.forEach((i) => {
     const id = i.closest(".temp-box").id;
     if (getAndParse(id)) {
-      i.innerText = `(${getAndParse(id).length})`
+      i.innerText = `(${getAndParse(id).length})`;
     }
-  })
+  });
 };
 foodCount();
 /* 브라우저에 그리기 */
@@ -195,24 +194,25 @@ function addList(newFoodobj) {
 
   /* 유통기한 알림 */
   const str = newFoodobj.exDate;
-  const words = str.split('-');
+  const words = str.split("-");
   const exDateAlarm = document.createElement("span");
-  exDateAlarm.className="d-day"
+  exDateAlarm.className = "d-day";
 
-  /* 유통기한 지났을때 색 red로 변경*/
-  const Expired = dateSpan.classList.add("class", "colorRed");
-  const dateParse = parseInt(words[2]);
+  exDateAlarm.innerText =
+    parseInt(words[0]) < theBigDay.getFullYear()
+      ? "유통기한만료"
+      : parseInt(words[1]) < theBigDay.getMonth() + 1
+      ? "유통기한만료"
+      : parseInt(words[2]) < theBigDay.getDate()
+      ? "유통기한만료"
+      : //25(유통기한) < 26(오늘날짜)
+      //유통기한 지나지 않았을 경우, 남은 기한이 7일 이내이면 D-day 표시
+      parseInt(words[0]) === theBigDay.getFullYear() &&
+        parseInt(words[1]) === theBigDay.getMonth() + 1 &&
+        theBigDay.getDate() - parseInt(words[2]) < 7
+      ? `D-${parseInt(words[2]) - theBigDay.getDate()}`
+      : " ";
 
-  
-  parseInt(words[0]) > theBigDay.getFullYear() ? Expired :
-    (
-      parseInt(words[1]) > theBigDay.getMonth() + 1 ? Expired :
-        (
-          dateParse > theBigDay.getDate() ? Expired :
-            //유통기한 지나지 않았을 경우, 남은 기한이 7일 이내이면 D-day 표시
-            exDateAlarm.innerText = dateParse - theBigDay.getDate() < 7 ? `D-${dateParse - theBigDay.getDate()}` : ' '
-        )
-    )
   li.appendChild(exDateAlarm);
   button.addEventListener("click", removeLi);
   div.appendChild(li);
@@ -227,16 +227,14 @@ const paintNumber = (array, number) => {
   });
 };
 
-
 /*  mainBox에 food, frozen, refrigerated, roomTemp  */
 const refreshDocument = () => {
   [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].forEach((i) => {
     if (i !== null) {
-      storedFood = i.reverse(); //최신순으로 브라우저에 출력
       /* 대화면 7개, 모바일 3개 */
       window.innerWidth > 481
-        ? paintNumber(storedFood, 6)
-        : paintNumber(storedFood, 3);
+        ? paintNumber(i, 6)
+        : paintNumber(i, 3);
     }
   });
 };
@@ -250,7 +248,7 @@ const maxlengthFx = (event) => {
 /* 모달 창 위에 food list 그리기 */
 const paintModal = (keyName) => {
   if (getAndParse(keyName)) {
-    const parsedToDos = getAndParse(keyName).reverse();
+    const parsedToDos = getAndParse(keyName);
     parsedToDos.forEach((element) => addList(element));
   }
 };
@@ -283,7 +281,6 @@ const openEntList = (event) => {
     body.classList.remove("modal-open-body");
   });
 };
-
 
 /* modal open */
 entireLiBtn.forEach((element) =>

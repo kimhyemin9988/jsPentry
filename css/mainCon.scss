@@ -143,11 +143,9 @@ header {
     font-weight: 600;
     grid-area: foodNDateSp;
   }
-  .colorRed{
-    color:rgb(227, 42, 42);
-  }
   .d-day{
     grid-area: dDay;
+    color:rgb(227, 42, 42);
   }
 }
 
@@ -237,7 +235,6 @@ header {
   width: 95%;
   display: grid;
   min-height: 80%;
-  grid-template-rows: 25% 35% 25%;
   grid-template-columns: repeat(2, 50%);
   grid-template-areas:
     "food food"
@@ -245,10 +242,12 @@ header {
     "roomTemp roomTemp";
 
   @media screen and (max-width: 480px) {
+    grid-template-rows: 25% 35% 25%;
     gap: 0.2rem;
   }
 
   @media screen and (min-width: 481px) {
+    grid-template-rows: 30% 35% 30%;
     gap: 1rem;
   }
 }
