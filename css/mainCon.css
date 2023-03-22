@@ -390,14 +390,14 @@ header .mainBtn {
 
 #stored-box {
   /*
-  error : [Intervention] Unable to preventDefault inside passive event listener due to target being treated as passive. See <URL>
+    error : [Intervention] Unable to preventDefault inside passive event listener due to target being treated as passive. See <URL>
 
-  터치 이벤트 리스너는 종종 심각한 스크롤 성능 문제
-  Chrome은 터치 이벤트 리스너가 수동적(passive)이 되도록 허용
-  preventDefault()리스너 내부에 대한 호출이 무시
-  preventDefault()개입이 활성화된 이벤트를 호출할 때 DevTools가 경고를 기록
-  요소 내에서 모든 브라우저 스크롤 및 확대/축소를 방지하려면 해당 요소 touch-action: none에 적용
-  https://developer.chrome.com/blog/scrolling-intervention/*/
+    터치 이벤트 리스너는 종종 심각한 스크롤 성능 문제
+    Chrome은 터치 이벤트 리스너가 수동적(passive)이 되도록 허용
+    preventDefault()리스너 내부에 대한 호출이 무시
+    preventDefault()개입이 활성화된 이벤트를 호출할 때 DevTools가 경고를 기록
+    요소 내에서 모든 브라우저 스크롤 및 확대/축소를 방지하려면 해당 요소 touch-action: none에 적용
+    https://developer.chrome.com/blog/scrolling-intervention/*/
   touch-action: none;
   margin-top: 0.5rem;
   border-radius: 10px;
@@ -447,7 +447,6 @@ header .mainBtn {
   height: 100%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
   z-index: 5;
 }
 .bg-modal .modal-overlay {
@@ -466,12 +465,9 @@ header .mainBtn {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-@media screen and (max-width: 480px) {
-  .bg-modal .modal-content {
-    align-self: baseline;
-    margin-top: 4rem;
-  }
+  margin: 3rem;
+  height: fit-content;
+  align-self: baseline;
 }
 .bg-modal .modal-content .close {
   align-self: flex-start;
@@ -520,6 +516,10 @@ header .mainBtn {
 
 .modal-open-body {
   overflow: hidden;
+}
+
+button {
+  text-align: center;
 }
 
 /*# sourceMappingURL=mainCon.css.map */

@@ -51,6 +51,38 @@ function saveFood(element, keyName) {
 
 function inputFood(event) {
   event.preventDefault();
+  /* food칸에 그려져 있는게 6개 이상이면 가장 먼저 그려진게 삭제 */
+  if (getAndParse("food")) {
+    const nextDocumentChild = Array.from(
+      document.querySelectorAll("#food")[0].childNodes
+    );
+    const nextArray = nextDocumentChild.filter(
+      (i) => i.className === "listBox"
+    );
+    const nextIdArray = nextDocumentChild
+      .filter((i) => i.className === "listBox")
+      .map((i) => parseInt(i.firstChild.id)); // 그려진것들의 아이디 -> drag and drop을 하면 local Storage에 있는 순서대로 화면에 그려지지 않는것을 고려
+    if (
+      (window.innerWidth <= 480 && nextIdArray.length > 2) ||
+      (window.innerWidth > 480 && nextIdArray.length > 5)
+    ) {
+      let localData = getAndParse("food"); // 로컬스토리지에서 가져온것
+      let indexArray = [];
+      for (let i = 0; i < nextIdArray.length; i++) {
+        // 제출된것은 로컬스토리지에 저장되기 전
+        let index = localData.findIndex((k) => k.id === nextIdArray[i]);
+        indexArray.push(index);
+      }
+      let deleteIndex = Math.min(...indexArray); // 최소값 찾기
+      const localDeleteId = getAndParse("food")[deleteIndex].id;
+      const deleteDiv = nextArray.filter(
+        (i) => parseInt(i.firstChild.id) === localDeleteId
+      );
+      console.log(deleteDiv[0]);
+      deleteDiv[0].remove();
+    }
+  }
+
   const [foodNValue, foodPValue, foodEXValue] = [
     foodName.value,
     foodPrice.value,
@@ -135,8 +167,8 @@ function CreateExclamation(exDateAlarm) {
 /* 모달 or 목록, 냉동, 냉장, 상온 */
 const paintFood = (div) => {
   if (document.querySelector("section").className === "bg-modal entire") {
-    /* click으로 모달이 뜨게되면 */ let modalContent =
-      document.querySelector("section").lastChild;
+    /* click으로 모달이 뜨게되면 */
+    let modalContent = document.querySelector("section").lastChild;
     modalContent.appendChild(div);
   } else {
     const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = [
@@ -191,7 +223,7 @@ const foodCount = () => {
 };
 foodCount();
 /* 브라우저에 그리기 */
-let theBigDay = new Date();
+let nowDay = new Date();
 
 function addList(newFoodobj) {
   const li = document.createElement("li");
@@ -212,26 +244,16 @@ function addList(newFoodobj) {
   li.appendChild(dateSpan);
   span.innerText = `${newFoodobj.text}`;
   dateSpan.innerText = `${newFoodobj.exDate}`;
-
   /* 유통기한 알림 */
-  const str = newFoodobj.exDate;
-  const words = str.split("-");
+  const exDate = new Date(newFoodobj.exDate);
+  const diff = exDate - nowDay;
+  const diffDay = Math.floor(diff / (1000 * 60 * 60 * 24)); // 남은 유통기한
   const exDateAlarm = document.createElement("div");
   exDateAlarm.className = "d-day";
-  parseInt(words[0]) < theBigDay.getFullYear()
-    ? CreateExclamation(exDateAlarm)
-    : parseInt(words[1]) < theBigDay.getMonth() + 1
-      ? CreateExclamation(exDateAlarm)
-      : parseInt(words[2]) < theBigDay.getDate()
-        ? CreateExclamation(exDateAlarm)
-        : //25(유통기한) < 26(오늘날짜)
-        //유통기한 지나지 않았을 경우, 남은 기한이 7일 이내이면 D-day 표시
-        exDateAlarm.innerText = parseInt(words[0]) === theBigDay.getFullYear() &&
-          parseInt(words[1]) === theBigDay.getMonth() + 1 &&
-          theBigDay.getDate() - parseInt(words[2]) < 7
-          ? `D-${parseInt(words[2]) - theBigDay.getDate()}`
-          : " ";
 
+  diff > 0
+    ? (exDateAlarm.innerText = diffDay < 8 ? `D-${diffDay}` : " ")
+    : CreateExclamation(exDateAlarm);
   dateSpan.appendChild(exDateAlarm);
   button.addEventListener("click", removeLi);
   div.appendChild(li);
@@ -250,10 +272,8 @@ const paintNumber = (array, number) => {
 const refreshDocument = () => {
   [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].forEach((i) => {
     if (i !== null) {
-      /* 대화면 7개, 모바일 3개 */
-      window.innerWidth > 481
-        ? paintNumber(i, 6)
-        : paintNumber(i, 3);
+      /* 대화면 6개, 모바일 3개 */
+      window.innerWidth > 480 ? paintNumber(i, 6) : paintNumber(i, 3);
     }
   });
 };

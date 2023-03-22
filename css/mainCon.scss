@@ -3,7 +3,6 @@
 /* small */
 
 @media screen and (max-width: 480px) {
-
   //480이하인 경우 모바일
 
   .homeLogo {
@@ -22,7 +21,6 @@
 
 /* large */
 @media screen and (min-width: 481px) {
-
   .homeLogo {
     font-size: 40px;
   }
@@ -127,7 +125,7 @@ header {
 
 .list-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr) repeat(2,0.8rem);
+  grid-template-columns: repeat(2, 1fr) repeat(2, 0.8rem);
   grid-template-rows: repeat(2, 1fr);
   grid-template-areas:
     "foodNSp foodNSp  foodNSp deleteBtn"
@@ -165,6 +163,7 @@ header {
     font-weight: 600;
     grid-area: foodNDateSp;
     align-self: self-end;
+
     @media screen and (min-width: 481px) {
       font-size: 0.7rem;
     }
@@ -172,6 +171,7 @@ header {
     @media screen and (max-width: 480px) {
       font-size: 0.3rem;
     }
+
     .d-day {
       margin-left: 0.3rem;
       color: rgb(227, 42, 42);
@@ -180,79 +180,78 @@ header {
   }
 }
 
-  #food {
-    min-height: 20%;
+#food {
+  min-height: 20%;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 2rem;
+  grid-area: food;
+}
+
+.temp-box {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: white;
+  border: 1px solid #d4d3e8;
+  border-radius: 1rem;
+  box-shadow: 2px 3px 0px rgba(#000, 0.2);
+  position: relative;
+  justify-content: center;
+
+  @media screen and (max-width: 480px) {
     flex-direction: column;
-    justify-content: flex-end;
-    padding-top: 2rem;
-    grid-area: food;
   }
 
-  .temp-box {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    background-color: white;
-    border: 1px solid #d4d3e8;
-    border-radius: 1rem;
-    box-shadow: 2px 3px 0px rgba(#000, 0.2);
-    position: relative;
-    justify-content: center;
+  @media screen and (min-width: 481px) {
+    flex-direction: row;
+  }
+}
 
+.temp-title {
+  display: flex;
+  position: absolute;
+  top: 0;
+
+  .entire-li-btn {
+    border: 1px solid #d4d3e8;
+    border-radius: 0.4rem;
+    width: 20px;
+    cursor: pointer;
+    right: 0;
     @media screen and (max-width: 480px) {
-      flex-direction: column;
+      margin: 0.3rem;
     }
 
     @media screen and (min-width: 481px) {
-      flex-direction: row;
+      margin: 0.5rem;
+    }
+
+    &:hover {
+      color: white;
+      background-color: black;
     }
   }
 
-  .temp-title {
-    display: flex;
-    position: absolute;
-    top: 0;
-
-    .entire-li-btn {
-      border: 1px solid #d4d3e8;
-      border-radius: 0.4rem;
-      width: 20px;
-      cursor: pointer;
-      right: 0;
-
-      @media screen and (max-width: 480px) {
-        margin: 0.3rem;
-      }
-
-      @media screen and (min-width: 481px) {
-        margin: 0.5rem;
-      }
-
-      &:hover {
-        color: white;
-        background-color: black;
-      }
+  p {
+    @media screen and (max-width: 480px) {
+      margin: 0.3rem;
     }
 
-    p {
-      @media screen and (max-width: 480px) {
-        margin: 0.3rem;
-      }
-
-      @media screen and (min-width: 481px) {
-        margin: 0.5rem;
-      }
-    }
-
-    .count {
-      color: #5661f2;
-      font-size: 0.5rem;
+    @media screen and (min-width: 481px) {
+      margin: 0.5rem;
     }
   }
 
-  #stored-box {
-    /*
+  .count {
+    color: #5661f2;
+    font-size: 0.5rem;
+  }
+}
+
+#stored-box {
+  /*
     error : [Intervention] Unable to preventDefault inside passive event listener due to target being treated as passive. See <URL>
 
     터치 이벤트 리스너는 종종 심각한 스크롤 성능 문제
@@ -261,132 +260,129 @@ header {
     preventDefault()개입이 활성화된 이벤트를 호출할 때 DevTools가 경고를 기록
     요소 내에서 모든 브라우저 스크롤 및 확대/축소를 방지하려면 해당 요소 touch-action: none에 적용
     https://developer.chrome.com/blog/scrolling-intervention/*/
-    touch-action: none;
-    margin-top: 0.5rem;
-    border-radius: 10px;
-    width: 95%;
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
-    grid-template-areas:
-      "food food"
-      "frozen refrigerated"
-      "roomTemp roomTemp";
-    grid-template-rows: 30% 35% 30%;
-    justify-content: center;
-    align-content: center;
+  touch-action: none;
+  margin-top: 0.5rem;
+  border-radius: 10px;
+  width: 95%;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-areas:
+    "food food"
+    "frozen refrigerated"
+    "roomTemp roomTemp";
+  grid-template-rows: 30% 35% 30%;
+  justify-content: center;
+  align-content: center;
 
-    @media screen and (max-width: 480px) {
-      gap: 0.2rem;
-      height: 100%;
-    }
-
-    @media screen and (min-width: 481px) {
-      gap: 1rem;
-      margin: 1rem 0 1rem 0;
-      height: 90vh;
-    }
+  @media screen and (max-width: 480px) {
+    gap: 0.2rem;
+    height: 100%;
   }
 
-  #frozen {
-    grid-area: frozen;
+  @media screen and (min-width: 481px) {
+    gap: 1rem;
+    margin: 1rem 0 1rem 0;
+    height: 90vh;
   }
+}
 
-  #refrigerated {
-    grid-area: refrigerated;
-  }
+#frozen {
+  grid-area: frozen;
+}
 
-  #roomTemp {
-    grid-area: roomTemp;
-    padding: 1rem 2rem 0 2rem;
-  }
+#refrigerated {
+  grid-area: refrigerated;
+}
 
-  .dragging {
-    opacity: 0.5;
-  }
+#roomTemp {
+  grid-area: roomTemp;
+  padding: 1rem 2rem 0 2rem;
+}
 
-  .bg-modal {
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.6);
+.dragging {
+  opacity: 0.5;
+}
+
+.bg-modal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  z-index: 5;
+  .modal-overlay {
+    position: absolute;
+    /*overlay를 한장 더 깔지 않으면 모달창 아래의 link나 button을 클릭할 수 있게 된다*/
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 5;
+  }
 
-    .modal-overlay {
-      position: absolute;
-      /*overlay를 한장 더 깔지 않으면 모달창 아래의 link나 button을 클릭할 수 있게 된다*/
+  .modal-content {
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 15px 25px rgb(0 0 0 / 40%);
+    width: 60%;
+    padding: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 3rem;
+    height: fit-content;
+    align-self: baseline;
+
+    .close {
+      align-self: flex-start;
+    }
+
+    .food-form {
+      display: flex;
       width: 100%;
       height: 100%;
-    }
-
-    .modal-content {
-      background-color: white;
-      border-radius: 10px;
-      position: relative;
-      box-shadow: 0 15px 25px rgb(0 0 0 / 40%);
-      width: 60%;
-      padding: 1%;
-      display: flex;
       flex-direction: column;
-      align-items: flex-start;
-
-      @media screen and (max-width: 480px) {
-        align-self: baseline;
-        margin-top: 4rem;
-      }
-
-      .close {
-        align-self: flex-start;
-      }
-
-      .food-form {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        flex-direction: column;
-        align-items: center;
-      }
+      align-items: center;
     }
   }
+}
 
-  .hidden {
-    display: none;
-  }
+.hidden {
+  display: none;
+}
 
-  /*hidden 다시 넣지 않으면 bg-modal이 이후 적용되어 사라짐*/
-  .tab-btn {
-    background-color: #212931;
+/*hidden 다시 넣지 않으면 bg-modal이 이후 적용되어 사라짐*/
+.tab-btn {
+  background-color: #212931;
+  color: #ffffff;
+  border-radius: 0.3rem;
+  font-weight: 900;
+  text-align: center;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+
+  &:hover {
+    background-color: #18bfef;
     color: #ffffff;
-    border-radius: 0.3rem;
-    font-weight: 900;
-    text-align: center;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-
-    &:hover {
-      background-color: #18bfef;
-      color: #ffffff;
-    }
-
-    @media screen and (min-width: 481px) {
-      padding: 0.5rem;
-    }
   }
 
-  .submit-alarm {
-    color: red;
+  @media screen and (min-width: 481px) {
+    padding: 0.5rem;
   }
+}
 
-  .entire {
-    overflow: scroll;
-    z-index: 100;
-    position: fixed;
-  }
+.submit-alarm {
+  color: red;
+}
 
-  ;
+.entire {
+  overflow: scroll;
+  z-index: 100;
+  position: fixed;
+}
 
-  .modal-open-body {
-    overflow: hidden;
-  };
+.modal-open-body {
+  overflow: hidden;
+}
+button {
+  text-align: center;
+}
