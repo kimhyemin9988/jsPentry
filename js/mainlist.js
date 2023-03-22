@@ -212,6 +212,19 @@ const paintFood = (div) => {
 };
 
 /* food, frozen, refrigerated, roomTemp 각 항목의 개수 */
+    /* modal에 각 항목 개수 그리기 
+    const modalCount = document.createElement("p");
+    const count = document.querySelectorAll(".count");
+    
+    count.forEach((i) => {
+      const id = i.closest(".temp-box").id;
+      if (modalId === id && getAndParse(id))
+      modalCount.innerText = `(${getAndParse(id).length})`;
+    });
+    divEntireContent.appendChild(modalCount);
+    
+    
+    */
 const foodCount = () => {
   const count = document.querySelectorAll(".count");
   count.forEach((i) => {
@@ -220,7 +233,9 @@ const foodCount = () => {
       i.innerText = `(${getAndParse(id).length})`;
     }
   });
+
 };
+
 foodCount();
 /* 브라우저에 그리기 */
 let nowDay = new Date();
@@ -305,16 +320,14 @@ const openEntList = (event) => {
   divEntireOverlay.className = "modal-overlay";
   const divEntireContent = document.createElement("div");
   divEntireContent.className = "modal-content";
-  /* 모달 열릴때 class로 id(food, frozen...ect) 더해주기 */
   divEntireContent.classList.add(modalId);
-  const button = document.createElement("button");
+  const button = document.createElement("button");//close 버튼
   button.innerHTML = `+`;
   divEntireContent.appendChild(button);
-  /* 오버레이 다음에 content가 오버레이의 동생으로 와야함 */
   sectionEntire.appendChild(divEntireOverlay);
   sectionEntire.appendChild(divEntireContent);
   body.prepend(sectionEntire);
-  paintModal(modalId);
+  paintModal(modalId); // 모달 위에 식료품 그리기
   button.addEventListener("click", (event) => {
     event.target.parentElement.parentElement.remove();
     body.classList.remove("modal-open-body");
