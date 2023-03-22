@@ -181,7 +181,7 @@ a {
 }
 /*basic*/
 html main {
-  padding-top: 1%;
+  padding: 1rem 0 1rem 0;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -194,7 +194,7 @@ html main {
 }
 @media screen and (min-width: 481px) {
   html main {
-    height: 80vh;
+    height: 100vh;
   }
 }
 
@@ -266,8 +266,8 @@ header .mainBtn {
   display: grid;
   grid-template-columns: repeat(2, 1fr) repeat(2, 0.8rem);
   grid-template-rows: repeat(2, 1fr);
-  grid-template-areas: "foodNSp foodNSp  foodNSp deleteBtn" "foodNDateSp foodNDateSp dDay dDay";
-  align-items: end;
+  grid-template-areas: "foodNSp foodNSp  foodNSp deleteBtn" "foodNDateSp foodNDateSp foodNDateSp foodNDateSp";
+  align-items: flex-start;
 }
 .list-grid .deleteBtn {
   margin: 0;
@@ -275,7 +275,7 @@ header .mainBtn {
   border: 0;
   grid-area: deleteBtn;
   background-color: white;
-  align-self: flex-start;
+  justify-self: flex-end;
 }
 .list-grid .deleteBtn:hover {
   background-color: rgb(186, 186, 186);
@@ -285,7 +285,7 @@ header .mainBtn {
 }
 @media screen and (min-width: 481px) {
   .list-grid .foodNSp {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 }
 @media screen and (max-width: 480px) {
@@ -294,16 +294,26 @@ header .mainBtn {
   }
 }
 .list-grid .foodNDateSp {
+  display: flex;
   color: rgb(0, 41, 204);
   font-weight: 600;
   grid-area: foodNDateSp;
-  font-size: 0.3rem;
+  align-self: self-end;
 }
-.list-grid .d-day {
-  grid-area: dDay;
+@media screen and (min-width: 481px) {
+  .list-grid .foodNDateSp {
+    font-size: 0.7rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  .list-grid .foodNDateSp {
+    font-size: 0.3rem;
+  }
+}
+.list-grid .foodNDateSp .d-day {
+  margin-left: 0.3rem;
   color: rgb(227, 42, 42);
   font-size: 0.3rem;
-  justify-self: flex-end;
 }
 
 #food {
@@ -380,20 +390,19 @@ header .mainBtn {
 
 #stored-box {
   /*
-    error : [Intervention] Unable to preventDefault inside passive event listener due to target being treated as passive. See <URL>
+  error : [Intervention] Unable to preventDefault inside passive event listener due to target being treated as passive. See <URL>
 
-    터치 이벤트 리스너는 종종 심각한 스크롤 성능 문제
-    Chrome은 터치 이벤트 리스너가 수동적(passive)이 되도록 허용
-    preventDefault()리스너 내부에 대한 호출이 무시
-    preventDefault()개입이 활성화된 이벤트를 호출할 때 DevTools가 경고를 기록
-    요소 내에서 모든 브라우저 스크롤 및 확대/축소를 방지하려면 해당 요소 touch-action: none에 적용
-    https://developer.chrome.com/blog/scrolling-intervention/*/
+  터치 이벤트 리스너는 종종 심각한 스크롤 성능 문제
+  Chrome은 터치 이벤트 리스너가 수동적(passive)이 되도록 허용
+  preventDefault()리스너 내부에 대한 호출이 무시
+  preventDefault()개입이 활성화된 이벤트를 호출할 때 DevTools가 경고를 기록
+  요소 내에서 모든 브라우저 스크롤 및 확대/축소를 방지하려면 해당 요소 touch-action: none에 적용
+  https://developer.chrome.com/blog/scrolling-intervention/*/
   touch-action: none;
   margin-top: 0.5rem;
   border-radius: 10px;
   width: 95%;
   display: grid;
-  height: 100%;
   grid-template-columns: repeat(2, 50%);
   grid-template-areas: "food food" "frozen refrigerated" "roomTemp roomTemp";
   grid-template-rows: 30% 35% 30%;
@@ -403,12 +412,14 @@ header .mainBtn {
 @media screen and (max-width: 480px) {
   #stored-box {
     gap: 0.2rem;
+    height: 100%;
   }
 }
 @media screen and (min-width: 481px) {
   #stored-box {
     gap: 1rem;
-    margin-top: 1rem;
+    margin: 1rem 0 1rem 0;
+    height: 90vh;
   }
 }
 

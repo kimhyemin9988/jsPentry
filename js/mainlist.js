@@ -232,7 +232,7 @@ function addList(newFoodobj) {
           ? `D-${parseInt(words[2]) - theBigDay.getDate()}`
           : " ";
 
-  li.appendChild(exDateAlarm);
+  dateSpan.appendChild(exDateAlarm);
   button.addEventListener("click", removeLi);
   div.appendChild(li);
   return paintFood(div);
