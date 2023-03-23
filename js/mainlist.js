@@ -274,10 +274,10 @@ const foodCount = () => {
 };
 
 foodCount();
-/* 브라우저에 그리기 */
-let nowDay = new Date();
 
+/* 브라우저에 그리기 */
 const addList = (newFoodobj) => {
+  let nowDay =new Date();
   const li = document.createElement("li");
   li.setAttribute("class", "list-grid");
   li.id = newFoodobj.id;
@@ -299,11 +299,11 @@ const addList = (newFoodobj) => {
   /* 유통기한 알림 */
   const exDate = new Date(newFoodobj.exDate);
   const diff = exDate - nowDay;
-  const diffDay = Math.floor(diff / (1000 * 60 * 60 * 24)); // 남은 유통기한
+  const diffDay = Math.floor(diff / (1000 * 60 * 60 * 24)) +1; // 남은 유통기한
   const exDateAlarm = document.createElement("div");
   exDateAlarm.className = "d-day";
 
-  diff > 0
+  diffDay >= 0
     ? (exDateAlarm.innerText = diffDay < 8 ? `D-${diffDay}` : " ")
     : CreateExclamation(exDateAlarm);
   dateSpan.appendChild(exDateAlarm);
