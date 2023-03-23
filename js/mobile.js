@@ -10,7 +10,7 @@ dragula(
     document.getElementById("roomTemp"),
   ],
   {
-    moves: function (el, source) {
+    moves: (el, source) => {
       draggedElement = el;
       prevBox = source.id;
       if (el.className === "temp-title") {
@@ -19,7 +19,7 @@ dragula(
       return true;
     },
   }
-).on("drop", function (el) {
+).on("drop", (el) => {
   nextBox = el.closest(".temp-box").id;
   alertKey(draggedElement, prevBox, nextBox);
   /* drop 시 그려져 있는것 이외의 element가 있다면 그려지게 + */

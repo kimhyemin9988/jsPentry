@@ -44,12 +44,12 @@ const alarm = () => {
 };
 
 /* 처음 등록시 localstorage에 key: "food"로 저장 */
-function saveFood(element, keyName) {
+const saveFood = (element, keyName) => {
   localStorage.setItem(keyName, JSON.stringify(element));
   foodCount(); // 변경 시 마다 count 변경
-}
+};
 
-function inputFood(event) {
+const inputFood = (event) => {
   event.preventDefault();
   /* food칸에 그려져 있는게 6개 이상이면 가장 먼저 그려진게 삭제 */
   if (getAndParse("food")) {
@@ -78,7 +78,6 @@ function inputFood(event) {
       const deleteDiv = nextArray.filter(
         (i) => parseInt(i.firstChild.id) === localDeleteId
       );
-      console.log(deleteDiv[0]);
       deleteDiv[0].remove();
     }
   }
@@ -89,6 +88,7 @@ function inputFood(event) {
     exDate.value,
   ];
   [foodName.value, foodPrice.value, exDate.value] = [null, null, null];
+
   const newFoodobj = {
     id: Date.now(),
     text: foodNValue,
@@ -104,10 +104,10 @@ function inputFood(event) {
   addList(newFoodobj);
   //객체로 만든 다음에 그리기
   alarm();
-}
+};
 
 /*  modal 열렸을 때 삭제 and main에서 삭제 */
-function removeLi(event) {
+const removeLi = (event) => {
   const [modalContent, removeContainer, removeDiv] = [
     ".modal-content",
     ".temp-box",
@@ -121,10 +121,12 @@ function removeLi(event) {
   );
   saveFood(storedFood, id);
   removeDiv.remove();
-}
+  const modalCountP = document.querySelector(".modal-count");
+  modalCountP.innerText = `(${getAndParse(id).length})`;
+};
 
 /* svg delete 만들기 */
-function CreateSVG(button) {
+const CreateSVG = (button) => {
   const xmlns = "http://www.w3.org/2000/svg";
   const boxWidth = 448;
   const boxHeight = 512;
@@ -140,10 +142,10 @@ function CreateSVG(button) {
   path.setAttributeNS(null, "d", coords);
   svgElem.appendChild(path);
   button.appendChild(svgElem);
-}
+};
 /* 느낌표 */
 
-function CreateExclamation(exDateAlarm) {
+const CreateExclamation = (exDateAlarm) => {
   //<!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
   const xmlns = "http://www.w3.org/2000/svg";
   const boxWidth = 448;
@@ -162,7 +164,7 @@ function CreateExclamation(exDateAlarm) {
   path.setAttributeNS(null, "d", coords);
   svgElem.appendChild(path);
   exDateAlarm.appendChild(svgElem);
-}
+};
 
 /* 모달 or 목록, 냉동, 냉장, 상온 */
 const paintFood = (div) => {
@@ -211,20 +213,6 @@ const paintFood = (div) => {
   }
 };
 
-/* food, frozen, refrigerated, roomTemp 각 항목의 개수 */
-    /* modal에 각 항목 개수 그리기 
-    const modalCount = document.createElement("p");
-    const count = document.querySelectorAll(".count");
-    
-    count.forEach((i) => {
-      const id = i.closest(".temp-box").id;
-      if (modalId === id && getAndParse(id))
-      modalCount.innerText = `(${getAndParse(id).length})`;
-    });
-    divEntireContent.appendChild(modalCount);
-    
-    
-    */
 const foodCount = () => {
   const count = document.querySelectorAll(".count");
   count.forEach((i) => {
@@ -233,14 +221,13 @@ const foodCount = () => {
       i.innerText = `(${getAndParse(id).length})`;
     }
   });
-
 };
 
 foodCount();
 /* 브라우저에 그리기 */
 let nowDay = new Date();
 
-function addList(newFoodobj) {
+const addList = (newFoodobj) => {
   const li = document.createElement("li");
   li.setAttribute("class", "list-grid");
   li.id = newFoodobj.id;
@@ -273,7 +260,7 @@ function addList(newFoodobj) {
   button.addEventListener("click", removeLi);
   div.appendChild(li);
   return paintFood(div);
-}
+};
 
 const paintNumber = (array, number) => {
   array.map((element) => {
@@ -311,6 +298,7 @@ const paintModal = (keyName) => {
 
 const openEntList = (event) => {
   const modalId = event.target.closest(".temp-box").id;
+
   //overflow: hidden 해주기
   body.classList.add("modal-open-body");
   const sectionEntire = document.createElement("section");
@@ -321,9 +309,26 @@ const openEntList = (event) => {
   const divEntireContent = document.createElement("div");
   divEntireContent.className = "modal-content";
   divEntireContent.classList.add(modalId);
-  const button = document.createElement("button");//close 버튼
+
+  const button = document.createElement("button"); //close 버튼
   button.innerHTML = `+`;
   divEntireContent.appendChild(button);
+
+  const modalTitie = document.createElement("div");
+  modalTitie.className = "modal-titie";
+  const childNodesArray = Array.from(
+    event.target.closest(".temp-title").childNodes
+  );
+  const title = childNodesArray.find((i) => i.className === "title");
+  const titleP = document.createElement("p");
+  titleP.innerHTML = title.innerHTML;
+  modalTitie.appendChild(titleP);
+  const modalCountP = document.createElement("p");
+  modalCountP.className = "modal-count";
+  modalCountP.innerText = `(${getAndParse(modalId).length})`;
+
+  modalTitie.appendChild(modalCountP);
+  divEntireContent.appendChild(modalTitie);
   sectionEntire.appendChild(divEntireOverlay);
   sectionEntire.appendChild(divEntireContent);
   body.prepend(sectionEntire);

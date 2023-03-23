@@ -358,6 +358,8 @@ header .mainBtn {
   width: 20px;
   cursor: pointer;
   right: 0;
+  align-self: center;
+  justify-items: center;
 }
 @media screen and (max-width: 480px) {
   .temp-title .entire-li-btn {
@@ -478,6 +480,10 @@ header .mainBtn {
   height: 100%;
   flex-direction: column;
   align-items: center;
+}
+.bg-modal .modal-content .modal-titie {
+  align-self: center;
+  display: flex;
 }
 
 .hidden {

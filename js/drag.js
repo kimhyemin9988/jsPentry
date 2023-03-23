@@ -16,12 +16,12 @@ let option = {
 
 observer.observe(foodDrag, option);
 
-function startDrag(element) {
+const startDrag = (element) => {
   element.addEventListener("dragstart", (event) => {
     dragged = event.target;
     dragged.classList.add(DRAGGING);
   });
-}
+};
 
 /* local Storage에 frozen, refrigerated, roomTemp로 저장
  */
@@ -35,16 +35,16 @@ const saveTempBox = (nextBoxKeyName, tempStoredFood) => {
   }
 };
 
-function opacReset() {
+const opacReset = () => {
   // 불투명하게 초기화
   dragged.classList.remove(DRAGGING);
-}
+};
 
 /* 빈배열을 두지 않으면 null됨 */
 let emptyArray = [];
 
 /* dragged 움직이는 html 요소 */
-function alertKey(dragged, prevBoxKeyName, nextBoxKeyName) {
+const alertKey = (dragged, prevBoxKeyName, nextBoxKeyName) => {
   const savedFood = getAndParse(prevBoxKeyName);
   emptyArray = savedFood.filter(
     (i) => i.id !== parseInt(dragged.firstChild.id)
@@ -55,9 +55,9 @@ function alertKey(dragged, prevBoxKeyName, nextBoxKeyName) {
   ); // 다른 key에 저장할 것
 
   return saveTempBox(nextBoxKeyName, tempStoredFood);
-}
+};
 
-function endDrag(element) {
+const endDrag = (element) => {
   element.addEventListener("dragover", (event) => {
     event.preventDefault();
   });
@@ -72,9 +72,9 @@ function endDrag(element) {
       alertKey(dragged, prevBox.id, nextBox.id);
     }
   });
-}
+};
 
-function refresh() {
+const refresh = () => {
   listBox = document.querySelectorAll(".listBox");
   /* web Drag
   놓을 타겟에 이벤트 드래그 오버
@@ -84,6 +84,6 @@ function refresh() {
   listBox.forEach((element) => startDrag(element));
   document.addEventListener("dragend", opacReset);
   targetTempBox.forEach((element) => endDrag(element));
-}
+};
 
 refresh();

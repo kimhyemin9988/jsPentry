@@ -220,6 +220,9 @@ header {
     width: 20px;
     cursor: pointer;
     right: 0;
+    align-self: center;
+    justify-items: center;
+
     @media screen and (max-width: 480px) {
       margin: 0.3rem;
     }
@@ -311,6 +314,7 @@ header {
   display: flex;
   justify-content: space-around;
   z-index: 5;
+
   .modal-overlay {
     position: absolute;
     /*overlay를 한장 더 깔지 않으면 모달창 아래의 link나 button을 클릭할 수 있게 된다*/
@@ -342,6 +346,11 @@ header {
       height: 100%;
       flex-direction: column;
       align-items: center;
+    }
+
+    .modal-titie {
+      align-self: center;
+      display: flex;
     }
   }
 }
@@ -383,6 +392,7 @@ header {
 .modal-open-body {
   overflow: hidden;
 }
+
 button {
   text-align: center;
 }
