@@ -10,14 +10,18 @@ javascript로 작성한 반응형 web 입니다.
 기본적인 CURD 작업에 modal창과 drag and drop을 더했습니다.
 
 # [ PC Layout]
-<img width="947" alt="readme" src="https://user-images.githubusercontent.com/110611596/224895997-441ee209-d1a3-431c-89eb-cbb312974b77.png">
+<img width="947" alt="12" src="https://user-images.githubusercontent.com/110611596/227181126-236d9d05-0093-4903-9ec1-eb791705cdb3.png">
 
-https://user-images.githubusercontent.com/110611596/224897319-2433bc30-8edd-4496-98eb-ddfd0ab9eded.mp4
+![입력-_online-video-cutter com_](https://user-images.githubusercontent.com/110611596/227182403-5d89b57d-4647-48b1-b539-700c77380692.gif)
+
+![dragModal-_online-video-cutter com_](https://user-images.githubusercontent.com/110611596/227182436-b4343d2a-7644-45f3-a46a-48e31744aa05.gif)
 
 
 # [ Mobile Layout]
 
-![제목 없는 디자인 (3)](https://user-images.githubusercontent.com/110611596/224897058-727fd1be-aebf-4f82-82fe-6c78bccd1155.gif)
+
+
+<img width="242" alt="1" src="https://user-images.githubusercontent.com/110611596/227182285-cfc9e200-0b8d-4a7d-83cd-0bf4e5388e72.png">
 
 # Pages
 https://kimhyemin9988.github.io/jsPentry/
