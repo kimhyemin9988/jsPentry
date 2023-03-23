@@ -166,7 +166,7 @@ const removeLi = (event) => {
     .filter((i) => parseInt(i.firstChild.id) === parseInt(event.currentTarget.parentElement.id));
 
   removeDiv.remove();
-  preIdArray[0].remove();
+  preIdArray && preIdArray[0].remove();
 
   if(!removeContainer)
   {
