@@ -120,6 +120,22 @@ const removeLi = (event) => {
     (Element) => Element.id !== parseInt(event.currentTarget.parentElement.id)
   );
   saveFood(storedFood, id);
+
+  if (getAndParse(id)) {
+    const preDocumentChild = Array.from(
+      document.querySelectorAll(`#${id}`)[0].childNodes
+    );
+    const preIdArray = preDocumentChild
+      .filter((i) => i.className === "listBox")
+      .map((i) => parseInt(i.firstChild.id));
+
+    let localData = getAndParse(id);
+    for (let i = 0; i < preIdArray.length; i++) {
+      localData = localData.filter((k) => k.id !== preIdArray[i]);
+    }
+    localData[0] !== undefined && addList(localData[0]);
+  }
+
   removeDiv.remove();
   const modalCountP = document.querySelector(".modal-count");
   modalCountP.innerText = `(${getAndParse(id).length})`;

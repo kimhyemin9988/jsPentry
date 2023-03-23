@@ -49,9 +49,7 @@ dragula(
     const nextArray = nextDocumentChild.filter(
       (i) => i.className === "listBox"
     );
-    const nextIdArray = nextDocumentChild
-      .filter((i) => i.className === "listBox")
-      .map((i) => parseInt(i.firstChild.id)); // 그려진것들의 아이디 -> drag and drop을 하면 local Storage에 있는 순서대로 화면에 그려지지 않는것을 고려
+    const nextIdArray = nextArray.map((i) => parseInt(i.firstChild.id)); // 그려진것들의 아이디 -> drag and drop을 하면 local Storage에 있는 순서대로 화면에 그려지지 않는것을 고려
     if (
       (window.innerWidth <= 480 && nextIdArray.length > 2) ||
       (window.innerWidth > 480 && nextIdArray.length > 5)
