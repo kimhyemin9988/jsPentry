@@ -15,7 +15,7 @@ const [foodList, frozen, refrigerated, roomTemp] = [
   "#roomTemp",
 ].map((i) => document.querySelector(i));
 
-/* localStorage에서 value를 가져온뒤 parse */
+/* localStorage에서 value를 가져온뒤 parse 
 const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = [
   "food",
   "frozen",
@@ -23,7 +23,7 @@ const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = [
   "roomTemp",
 ].map((i) => {
   return JSON.parse(localStorage.getItem(i));
-});
+});*/
 
 const getAndParse = (i) => {
   return JSON.parse(localStorage.getItem(i));
@@ -49,24 +49,25 @@ const saveFood = (element, keyName) => {
   foodCount(); // 변경 시 마다 count 변경
 };
 
-const inputFood = (event) => {
-  event.preventDefault();
-  /* food칸에 그려져 있는게 6개 이상이면 가장 먼저 그려진게 삭제 */
-  if (getAndParse("food")) {
+
+
+  /* drop or delete시,
+   놓는 곳에
+  => 모바일 : 3개
+  => 태블릿 : 6개, 이상의 element가 있다면 local Storage에서 가장 작은 인덱스를 가진 element가 지워지고 새로 drop되는 것이 그려짐 -> 새로고침 하지 않고 drop을 계속하면 그려져 있는것이 계속 바뀜
+  */
+const deleteOtherElement = (keyName) => {
+  if (getAndParse(keyName)) {
     const nextDocumentChild = Array.from(
-      document.querySelectorAll("#food")[0].childNodes
+      document.querySelectorAll(`#${keyName}`)[0].childNodes
     );
-    const nextArray = nextDocumentChild.filter(
-      (i) => i.className === "listBox"
-    );
-    const nextIdArray = nextDocumentChild
-      .filter((i) => i.className === "listBox")
-      .map((i) => parseInt(i.firstChild.id)); // 그려진것들의 아이디 -> drag and drop을 하면 local Storage에 있는 순서대로 화면에 그려지지 않는것을 고려
+    const nextArray = nextDocumentChild.filter((i) => i.className === "listBox");
+    const nextIdArray = nextArray.map((i) => parseInt(i.firstChild.id)); // 그려진것들의 아이디 -> drag and drop을 하면 local Storage에 있는 순서대로 화면에 그려지지 않는것을 고려
     if (
       (window.innerWidth <= 480 && nextIdArray.length > 2) ||
       (window.innerWidth > 480 && nextIdArray.length > 5)
     ) {
-      let localData = getAndParse("food"); // 로컬스토리지에서 가져온것
+      let localData = getAndParse(keyName); // 로컬스토리지에서 가져온것
       let indexArray = [];
       for (let i = 0; i < nextIdArray.length; i++) {
         // 제출된것은 로컬스토리지에 저장되기 전
@@ -74,14 +75,20 @@ const inputFood = (event) => {
         indexArray.push(index);
       }
       let deleteIndex = Math.min(...indexArray); // 최소값 찾기
-      const localDeleteId = getAndParse("food")[deleteIndex].id;
+      const localDeleteId = getAndParse(keyName)[deleteIndex].id;
       const deleteDiv = nextArray.filter(
         (i) => parseInt(i.firstChild.id) === localDeleteId
       );
       deleteDiv[0].remove();
     }
   }
+}
 
+
+const inputFood = (event) => {
+  event.preventDefault();
+  /* food칸에 그려져 있는게 6개 이상 or drop시 6개 이상 이면 가장 먼저 그려진게 삭제 */
+  deleteOtherElement('food');
   const [foodNValue, foodPValue, foodEXValue] = [
     foodName.value,
     foodPrice.value,
@@ -90,7 +97,7 @@ const inputFood = (event) => {
   [foodName.value, foodPrice.value, exDate.value] = [null, null, null];
 
   const newFoodobj = {
-    id: Date.now(),
+    id:Date.now(),
     text: foodNValue,
     price: foodPValue,
     exDate: foodEXValue,
@@ -106,39 +113,66 @@ const inputFood = (event) => {
   alarm();
 };
 
-/*  modal 열렸을 때 삭제 and main에서 삭제 */
-const removeLi = (event) => {
-  const [modalContent, removeContainer, removeDiv] = [
-    ".modal-content",
-    ".temp-box",
-    ".listBox",
-  ].map((i) => event.currentTarget.closest(i));
-  /* if modal 열렸다면 or mainBox*/
-  const id = removeContainer ? removeContainer.id : modalContent.classList[1];
-  storedFood = getAndParse(id);
-  storedFood = storedFood.filter(
-    (Element) => Element.id !== parseInt(event.currentTarget.parentElement.id)
-  );
-  saveFood(storedFood, id);
-
-  if (getAndParse(id)) {
+/* drop 시 그려져 있는것 이외의 element가 있다면 그려지게 + */
+const paintOtherElement = (keyName) => {
+  if (getAndParse(keyName)) {
     const preDocumentChild = Array.from(
-      document.querySelectorAll(`#${id}`)[0].childNodes
+      document.querySelectorAll(`#${keyName}`)[0].childNodes
     );
     const preIdArray = preDocumentChild
       .filter((i) => i.className === "listBox")
       .map((i) => parseInt(i.firstChild.id));
 
-    let localData = getAndParse(id);
+    let localData = getAndParse(keyName);
     for (let i = 0; i < preIdArray.length; i++) {
       localData = localData.filter((k) => k.id !== preIdArray[i]);
     }
     localData[0] !== undefined && addList(localData[0]);
   }
 
+};
+
+/*  modal 열렸다면 modal과 main에서 동시 삭제
+    main에서만 삭제 */
+const removeLi = (event) => {
+  const [modalContent, removeContainer, removeDiv] = [
+    ".modal-content",
+    ".temp-box",
+    ".listBox",
+  ].map((i) => event.currentTarget.closest(i));
+
+  /*  modal 열렸다면 modal과 main에서 동시 삭제 
+    modal 안열렸을때는 main에서만 삭제 */
+
+  /* if mainBox or modal 열렸다면*/
+  const id = removeContainer ? removeContainer.id : modalContent.classList[1];
+
+  storedFood = getAndParse(id);
+  storedFood = storedFood.filter(
+    (Element) => Element.id !== parseInt(event.currentTarget.parentElement.id)
+  );
+  saveFood(storedFood, id);
+  paintOtherElement(id);
+
+  /* 첫글자가 숫자로 시작하는 같은 id를 가진 2개 이상의 요소를 querySelectorAll로 가져올수 없음
+    modal과 main에서 동시 삭제하기 위해 main에서 id를 사용해 카테고리(목록, 냉장, 실온, 상온)를 선택해 그중 listBox의 id가 같은것을 찾아 삭제
+  */
+
+  const preDocumentChild = Array.from(
+    document.querySelectorAll(`#${id}`)[0].childNodes
+  );
+  const preIdArray = preDocumentChild
+    .filter((i) => i.className === "listBox")
+    .filter((i) => parseInt(i.firstChild.id) === parseInt(event.currentTarget.parentElement.id));
+
   removeDiv.remove();
-  const modalCountP = document.querySelector(".modal-count");
-  modalCountP.innerText = `(${getAndParse(id).length})`;
+  preIdArray[0].remove();
+
+  if(!removeContainer)
+  {
+    const modalCountP = document.querySelector(".modal-count");
+    modalCountP.innerHTML = `(${getAndParse(id).length})`;
+  }
 };
 
 /* svg delete 만들기 */
@@ -288,6 +322,15 @@ const paintNumber = (array, number) => {
 
 /*  mainBox에 food, frozen, refrigerated, roomTemp  */
 const refreshDocument = () => {
+  const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = [
+    "food",
+    "frozen",
+    "refrigerated",
+    "roomTemp",
+  ].map((i) => {
+    return getAndParse(i)
+  });
+
   [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp].forEach((i) => {
     if (i !== null) {
       /* 대화면 6개, 모바일 3개 */
