@@ -7,7 +7,7 @@ javascript로 작성한 반응형 web 입니다.
 분류된 것을 변경할 수 있습니다.
 모든 data는 local storage에 저장됩니다.
 
-기본적인 CURD 작업에 modal창과 drag and drop을 더했습니다.
+기본적인 CRUD 작업에 modal창과 drag and drop을 더했습니다.
 
 # [ PC Layout]
 <img width="947" alt="12" src="https://user-images.githubusercontent.com/110611596/227181126-236d9d05-0093-4903-9ec1-eb791705cdb3.png">
