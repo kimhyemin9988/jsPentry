@@ -20,8 +20,10 @@ javascript로 작성한 반응형 web 입니다.
 # [ Mobile Layout]
 
 
-
 <img width="242" alt="1" src="https://user-images.githubusercontent.com/110611596/227182285-cfc9e200-0b8d-4a7d-83cd-0bf4e5388e72.png">
+
+https://user-images.githubusercontent.com/110611596/230736100-de014b39-eb89-415e-852d-42d7f75003c1.mp4
+
 
 # Pages
 https://kimhyemin9988.github.io/jsPentry/
