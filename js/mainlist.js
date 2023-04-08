@@ -15,15 +15,6 @@ const [foodList, frozen, refrigerated, roomTemp] = [
   "#roomTemp",
 ].map((i) => document.querySelector(i));
 
-/* localStorage에서 value를 가져온뒤 parse 
-const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = [
-  "food",
-  "frozen",
-  "refrigerated",
-  "roomTemp",
-].map((i) => {
-  return JSON.parse(localStorage.getItem(i));
-});*/
 
 const getAndParse = (i) => {
   return JSON.parse(localStorage.getItem(i));
@@ -51,11 +42,11 @@ const saveFood = (element, keyName) => {
 
 
 
-  /* drop or delete시,
-   놓는 곳에
-  => 모바일 : 3개
-  => 태블릿 : 6개, 이상의 element가 있다면 local Storage에서 가장 작은 인덱스를 가진 element가 지워지고 새로 drop되는 것이 그려짐 -> 새로고침 하지 않고 drop을 계속하면 그려져 있는것이 계속 바뀜
-  */
+/* drop or delete시,
+ 놓는 곳에
+=> 모바일 : 3개
+=> 태블릿 : 6개, 이상의 element가 있다면 local Storage에서 가장 작은 인덱스를 가진 element가 지워지고 새로 drop되는 것이 그려짐 -> 새로고침 하지 않고 drop을 계속하면 그려져 있는것이 계속 바뀜
+*/
 const deleteOtherElement = (keyName) => {
   if (getAndParse(keyName)) {
     const nextDocumentChild = Array.from(
@@ -97,7 +88,7 @@ const inputFood = (event) => {
   [foodName.value, foodPrice.value, exDate.value] = [null, null, null];
 
   const newFoodobj = {
-    id:Date.now(),
+    id: Date.now(),
     text: foodNValue,
     price: foodPValue,
     exDate: foodEXValue,
@@ -161,15 +152,14 @@ const removeLi = (event) => {
   const preDocumentChild = Array.from(
     document.querySelectorAll(`#${id}`)[0].childNodes
   );
-  const preIdArray = preDocumentChild
-    .filter((i) => i.className === "listBox")
-    .filter((i) => parseInt(i.firstChild.id) === parseInt(event.currentTarget.parentElement.id));
-
+  
+  const listBoxPreIdArray = preDocumentChild
+    .filter((i) => i.className === "listBox");
+  const preIdArray = listBoxPreIdArray.filter((i) => parseInt(i.firstChild.id) === parseInt(event.currentTarget.parentElement.id));
   removeDiv.remove();
-  preIdArray && preIdArray[0].remove();
+  preIdArray.length !== 0 && preIdArray[0].remove();
 
-  if(!removeContainer)
-  {
+  if (!removeContainer) {
     const modalCountP = document.querySelector(".modal-count");
     modalCountP.innerHTML = `(${getAndParse(id).length})`;
   }
@@ -277,7 +267,7 @@ foodCount();
 
 /* 브라우저에 그리기 */
 const addList = (newFoodobj) => {
-  let nowDay =new Date();
+  let nowDay = new Date();
   const li = document.createElement("li");
   li.setAttribute("class", "list-grid");
   li.id = newFoodobj.id;
@@ -299,7 +289,7 @@ const addList = (newFoodobj) => {
   /* 유통기한 알림 */
   const exDate = new Date(newFoodobj.exDate);
   const diff = exDate - nowDay;
-  const diffDay = Math.floor(diff / (1000 * 60 * 60 * 24)) +1; // 남은 유통기한
+  const diffDay = Math.floor(diff / (1000 * 60 * 60 * 24)) + 1; // 남은 유통기한
   const exDateAlarm = document.createElement("div");
   exDateAlarm.className = "d-day";
 
