@@ -9,7 +9,7 @@ javascript로 작성한 반응형 web 입니다.
 
 기본적인 CRUD 작업에 modal창과 drag and drop을 더했습니다.
 
-# [ PC Layout]
+# [ PC Layout ]
 <img width="947" alt="12" src="https://user-images.githubusercontent.com/110611596/227181126-236d9d05-0093-4903-9ec1-eb791705cdb3.png">
 
 ![입력-_online-video-cutter com_](https://user-images.githubusercontent.com/110611596/227182403-5d89b57d-4647-48b1-b539-700c77380692.gif)
@@ -17,13 +17,15 @@ javascript로 작성한 반응형 web 입니다.
 ![dragModal-_online-video-cutter com_](https://user-images.githubusercontent.com/110611596/227182436-b4343d2a-7644-45f3-a46a-48e31744aa05.gif)
 
 
-# [ Mobile Layout]
-
+# [ Mobile Layout ]
 
 
 <img width="242" alt="1" src="https://user-images.githubusercontent.com/110611596/227182285-cfc9e200-0b8d-4a7d-83cd-0bf4e5388e72.png">
 
-# Pages
+https://user-images.githubusercontent.com/110611596/230736100-de014b39-eb89-415e-852d-42d7f75003c1.mp4
+
+
+# Page
 https://kimhyemin9988.github.io/jsPentry/
 
 # 적용기술
