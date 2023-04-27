@@ -208,9 +208,9 @@ const CreateExclamation = (exDateAlarm) => {
 
 /* 모달 or 목록, 냉동, 냉장, 상온 */
 const paintFood = (div) => {
-  if (document.querySelector("section").className === "bg-modal entire") {
+  if (document.querySelector("div").className === "bg-modal entire") {
     /* click으로 모달이 뜨게되면 */
-    let modalContent = document.querySelector("section").lastChild;
+    let modalContent = document.querySelector(".bg-modal").lastChild;
     modalContent.appendChild(div);
   } else {
     const [savedFood, savedFrozen, savedRefrigerated, savedRoomTemp] = [
@@ -347,12 +347,11 @@ const paintModal = (keyName) => {
 
 const openEntList = (event) => {
   const modalId = event.target.closest(".temp-box").id;
-
   //overflow: hidden 해주기
   body.classList.add("modal-open-body");
-  const sectionEntire = document.createElement("section");
-  sectionEntire.className = "bg-modal";
-  sectionEntire.classList.add("entire");
+  const divEntire = document.createElement("div");
+  divEntire.className = "bg-modal";
+  divEntire.classList.add("entire");
   const divEntireOverlay = document.createElement("div");
   divEntireOverlay.className = "modal-overlay";
   const divEntireContent = document.createElement("div");
@@ -378,9 +377,9 @@ const openEntList = (event) => {
 
   modalTitie.appendChild(modalCountP);
   divEntireContent.appendChild(modalTitie);
-  sectionEntire.appendChild(divEntireOverlay);
-  sectionEntire.appendChild(divEntireContent);
-  body.prepend(sectionEntire);
+  divEntire.appendChild(divEntireOverlay);
+  divEntire.appendChild(divEntireContent);
+  body.prepend(divEntire);
   paintModal(modalId); // 모달 위에 식료품 그리기
   button.addEventListener("click", (event) => {
     event.target.parentElement.parentElement.remove();
