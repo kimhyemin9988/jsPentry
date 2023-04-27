@@ -35,8 +35,8 @@ https://kimhyemin9988.github.io/jsPentry/
 
 # HTML 구조
 ```jsx
-    <!-- modal section-->
-    <section class="bg-modal hidden">
+    <!-- modal div-->
+    <div class="bg-modal hidden">
     // 식료품을 입력할 수 있는 모달창입니다
         ...
             <!-- input form--> 
@@ -47,19 +47,19 @@ https://kimhyemin9988.github.io/jsPentry/
                 유효기간
                 ...
             </form>
-     </section>
+     </div>
                 
 
     <main>
         <button class="tab-btn" id="modal-click">클릭해서 상품을 등록하세요!</button>
          // 식료품 입력 모달창을 여는 버튼
-        <section id="stored-box">
+        <div id="stored-box">
         // 입력한 식료품을 보관온도에따라 분류하는 box입니다.
             <div class="temp-box" id="food" /> // 입력한 식료품이 초기에 랜더링되는 box입니다
             <div class="temp-box" id="frozen" /> // 냉동
             <div class="temp-box" id="refrigerated" /> // 냉장
             <div class="temp-box" id="roomTemp" /> // 실온
-        </section>
+        </div>
     </main>
 ```
 
