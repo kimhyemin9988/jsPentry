@@ -145,7 +145,7 @@ const removeLi = (event) => {
   saveFood(storedFood, id);
   paintOtherElement(id);
 
-  /* 첫글자가 숫자로 시작하는 같은 id를 가진 2개 이상의 요소를 querySelectorAll로 가져올수 없음
+  /* 
     modal과 main에서 동시 삭제하기 위해 main에서 id를 사용해 카테고리(목록, 냉장, 실온, 상온)를 선택해 그중 listBox의 id가 같은것을 찾아 삭제
   */
 
@@ -183,10 +183,10 @@ const CreateSVG = (button) => {
   svgElem.appendChild(path);
   button.appendChild(svgElem);
 };
+
 /* 느낌표 */
 
 const CreateExclamation = (exDateAlarm) => {
-  //<!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
   const xmlns = "http://www.w3.org/2000/svg";
   const boxWidth = 448;
   const boxHeight = 512;
@@ -329,11 +329,6 @@ const refreshDocument = () => {
   });
 };
 
-const maxlengthFx = (event) => {
-  if (event.target.value.length > 8) {
-    event.target.value = event.target.value.slice(0, 8);
-  }
-};
 
 /* 모달 창 위에 food list 그리기 */
 const paintModal = (keyName) => {
@@ -398,5 +393,3 @@ foodForm.addEventListener("submit", inputFood);
 /* 새로고침 후 화면 */
 refreshDocument();
 
-/* 가격 입력 자리수 8로 제한 */
-foodPrice.addEventListener("input", maxlengthFx);
